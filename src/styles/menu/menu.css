@@ -1,0 +1,17 @@
+.menuOffSet {
+  position: relative;
+}
+
+.menuInView {
+  position: -webkit-fixed; /* Safari */
+  position: fixed;
+  top: 0;
+}
+
+.menuOverView {
+  position: relative;
+}
+
+.textDivSize {
+  width: 100vw;
+}

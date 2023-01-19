@@ -1,0 +1,27 @@
+.squaresHeight {
+  height: 30vh;
+}
+
+.blackTagHeader {
+  height: 55vh;
+  width: 100vw;
+}
+
+.imgPersonDiv {
+  height: 85vh;
+  overflow-y: hidden;
+}
+
+.imgPersonDiv img {
+  height: 85vh;
+  object-fit: cover;
+  padding-bottom: 2.2%;
+}
+
+.btnSize {
+  width: 100px;
+}
+
+.headerdiv {
+  height: 100vh;
+}
