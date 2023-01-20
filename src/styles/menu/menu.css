@@ -12,6 +12,21 @@
   position: relative;
 }
 
-.textDivSize {
-  width: 100vw;
+.transition {
+  transition: fill 0.5s ease-in-out;
+}
+
+.fillCircle {
+  fill: #fff;
+  cursor: alias;
+}
+
+.textColor {
+  cursor: pointer;
+  fill: #fff;
+}
+
+.circleColorHover {
+  cursor: pointer;
+  fill: #006918;
 }

@@ -1,18 +1,26 @@
 import React, { useEffect, useRef, useState } from "react";
-import { motion, useMotionValue, useScroll } from "framer-motion";
+import { motion, useMotionValue, useScroll, useTransform } from "framer-motion";
 import $ from "jquery";
-import TextMenu from "./TextMenu";
-import { TextMenuProps } from "@/utilitities/types";
+import { Plus_Jakarta_Sans } from "@next/font/google";
+import { menuContent } from "@/utilitities/datatypes";
 
-const MenuIcon = () => {
+const plus_jakarta_sans = Plus_Jakarta_Sans({
+  weight: "200",
+  subsets: ["latin"],
+});
+
+const MenuIcon = ({ backend, frontend, other, prototype }: menuContent) => {
   const wrapDiv = useRef(null);
   const { scrollYProgress } = useScroll({
     target: wrapDiv,
   });
 
-  const position = useMotionValue<string>("relative");
+  const opacity = useTransform(scrollYProgress, [0.5, 0.6], [0, 1]);
+  const opacity2 = useTransform(scrollYProgress, [0.6, 0.7], [0, 1]);
+  const opacity3 = useTransform(scrollYProgress, [0.7, 0.8], [0, 1]);
+  const opacity4 = useTransform(scrollYProgress, [0.8, 0.9], [0, 1]);
 
-  const [layoutText, setLayoutText] = useState<TextMenuProps | null>(null);
+  const position = useMotionValue<string>("relative");
 
   useEffect(() => {
     const contentDiv = $("#id_menu");
@@ -25,6 +33,15 @@ const MenuIcon = () => {
 
   const definePosition = () => {
     const contentDiv = $("#id_menu");
+    const circlePrototype = $("#id_prototype_circle");
+    const circleFrontend = $("#id_frontend_circle");
+    const circleBackend = $("#id_backend_circle");
+    const circleOthers = $("#id_others_circle");
+
+    const textPrototype = $("#id_text_prototype");
+    const textFrontend = $("#id_text_frontend");
+    const textBackend = $("#id_text_backend");
+    const textOthers = $("#id_text_other");
 
     if (scrollYProgress.get() <= 0) {
       position.set("relative");
@@ -34,47 +51,95 @@ const MenuIcon = () => {
     } else {
       contentDiv.addClass("align-items-end");
       position.set("relative");
+
+      textPrototype.hover(
+        () => {
+          textPrototype.addClass("textColor");
+          circlePrototype.addClass("circleColorHover");
+        },
+        () => {
+          circlePrototype.removeClass("circleColorHover");
+          textPrototype.removeClass("textColor");
+        }
+      );
+      circlePrototype.hover(
+        () => {
+          textPrototype.addClass("textColor");
+          circlePrototype.addClass("circleColorHover");
+        },
+        () => {
+          circlePrototype.removeClass("circleColorHover");
+          textPrototype.removeClass("textColor");
+        }
+      );
+
+      textFrontend.hover(
+        () => {
+          textFrontend.addClass("textColor");
+          circleFrontend.addClass("circleColorHover");
+        },
+        () => {
+          circleFrontend.removeClass("circleColorHover");
+          textFrontend.removeClass("textColor");
+        }
+      );
+      circleFrontend.hover(
+        () => {
+          textFrontend.addClass("textColor");
+          circleFrontend.addClass("circleColorHover");
+        },
+        () => {
+          circleFrontend.removeClass("circleColorHover");
+          textFrontend.removeClass("textColor");
+        }
+      );
+
+      textBackend.hover(
+        () => {
+          textBackend.addClass("textColor");
+          circleBackend.addClass("circleColorHover");
+        },
+        () => {
+          circleBackend.removeClass("circleColorHover");
+          textBackend.removeClass("textColor");
+        }
+      );
+      circleBackend.hover(
+        () => {
+          textBackend.addClass("textColor");
+          circleBackend.addClass("circleColorHover");
+        },
+        () => {
+          circleBackend.removeClass("circleColorHover");
+          textBackend.removeClass("textColor");
+        }
+      );
+
+      textOthers.hover(
+        () => {
+          textOthers.addClass("textColor");
+          circleOthers.addClass("circleColorHover");
+        },
+        () => {
+          circleOthers.removeClass("circleColorHover");
+          textOthers.removeClass("textColor");
+        }
+      );
+      circleOthers.hover(
+        () => {
+          textOthers.addClass("textColor");
+          circleOthers.addClass("circleColorHover");
+        },
+        () => {
+          circleOthers.removeClass("circleColorHover");
+          textOthers.removeClass("textColor");
+        }
+      );
     }
   };
 
   useEffect(() => {
     $(window).on("scroll", () => definePosition());
-
-    const auxDiv = document.getElementById("id_frontend_circle");
-    const prototypeCircle = $("#id_prototype_circle");
-    const frontendCircle = $("#id_frontend_circle");
-    const backendCircle = $("#id_backend_circle");
-    const othersCircle = $("#id_others_circle");
-
-    const windowPos = $(window).height();
-    if (auxDiv && windowPos) {
-      const auxLayout: TextMenuProps = {
-        position,
-        size: {
-          height: auxDiv.getBoundingClientRect().height,
-          width: auxDiv.getBoundingClientRect().width,
-        },
-        prototypeData: {
-          positionLeft: prototypeCircle.position().left,
-          positionTop: prototypeCircle.position().top,
-        },
-        frontendData: {
-          positionLeft: frontendCircle.position().left,
-          positionTop: frontendCircle.position().top,
-        },
-        backendData: {
-          positionLeft: backendCircle.position().left,
-          positionTop: backendCircle.position().top,
-        },
-        othersData: {
-          positionLeft: othersCircle.position().left,
-          positionTop: othersCircle.position().top,
-        },
-        window: windowPos,
-      };
-      //   console.log(prototypeCircle);
-      setLayoutText(auxLayout);
-    }
   }, []);
 
   return (
@@ -93,6 +158,7 @@ const MenuIcon = () => {
           width: "100%",
           height: "100vh",
         }}
+        className="pt-3 pb-3"
       >
         <motion.path
           d="M519.655 471.708v-9.213h-56.728v8.131h12.394c.202-1.612 1.56-2.864 3.225-2.864a3.267 3.267 0 110 6.535 3.255 3.255 0 01-3.225-2.861h-12.394v5.242h9.669v.809h-9.669v11.185h23.644c.034.007 2.34.032 3.864-1.46.913-.895 1.378-2.165 1.378-3.779v-4.824c-1.612-.202-2.865-1.562-2.865-3.227a3.268 3.268 0 016.536 0 3.259 3.259 0 01-2.863 3.227v4.824c0 1.843-.547 3.312-1.623 4.362-1.66 1.618-3.997 1.688-4.384 1.688H462.927v7.075h28.116c.204-1.611 1.562-2.862 3.228-2.862a3.268 3.268 0 010 6.536 3.26 3.26 0 01-3.228-2.864h-28.116v4.745h19.449c.059.002 4.399.206 4.399 5.361v11.75h12.619v-8.686h.812v8.686h4.406v-10.957a3.256 3.256 0 01-2.863-3.226 3.268 3.268 0 016.535 0 3.254 3.254 0 01-2.86 3.226v10.957h4.042v-6.484h.809v6.484h9.38v-38.266h-12.391a3.256 3.256 0 01-3.227 2.861 3.267 3.267 0 110-6.534 3.255 3.255 0 013.227 2.862h12.391v-7.628h-9.082v-.811h9.082z"
@@ -122,6 +188,55 @@ const MenuIcon = () => {
           d="M475.321 470.626c-.018.134-.041.265-.041.404 0 .138.023.271.041.405a3.255 3.255 0 003.225 2.862 3.267 3.267 0 100-6.535c-1.665 0-3.023 1.252-3.225 2.864zM491.043 496.558c-.016.135-.041.268-.041.406s.025.27.041.404a3.26 3.26 0 003.228 2.864 3.268 3.268 0 000-6.536c-1.666 0-3.024 1.251-3.228 2.862zM501.749 505.041a3.256 3.256 0 002.863 3.226c.134.017.268.042.404.042.141 0 .273-.025.408-.042a3.254 3.254 0 002.86-3.226 3.268 3.268 0 00-6.535 0z"
           fill="#fff"
         />
+
+        {/* ********************* Prototype ************** */}
+
+        <motion.path
+          id="id_prototype_circle"
+          d="M1 487.195C1 426.192 50.453 376.74 111.455 376.74c61.003 0 110.455 49.452 110.455 110.455 0 61.002-49.452 110.455-110.455 110.455C50.453 597.65 1 548.197 1 487.195z"
+          stroke="#006918"
+          fill="#fff"
+          className="transition"
+          strokeMiterlimit={10}
+          style={{ pathLength: scrollYProgress }}
+        />
+
+        {/* ********************* Frontend ************** */}
+
+        <motion.path
+          id="id_frontend_circle"
+          d="M597.757 110.447c.686 60.999-48.207 111.005-109.205 111.692-61 .686-111.005-48.207-111.692-109.206-.686-60.996 48.206-111.003 109.206-111.69C547.064.557 597.07 49.451 597.757 110.447z"
+          stroke="#006918"
+          fill="#fff"
+          className="transition"
+          strokeMiterlimit={10}
+          style={{ pathLength: scrollYProgress }}
+        />
+
+        {/* ********************* Backend ************** */}
+
+        <motion.path
+          id="id_backend_circle"
+          d="M754.093 486.891c0-61.003 49.452-110.456 110.455-110.456 61.007 0 110.452 49.453 110.452 110.456 0 61.002-49.445 110.455-110.452 110.455-61.003 0-110.455-49.453-110.455-110.455z"
+          stroke="#006918"
+          fill="#fff"
+          className="transition"
+          strokeMiterlimit={10}
+          style={{ pathLength: scrollYProgress }}
+        />
+
+        {/* ********************* Others ************** */}
+
+        <motion.path
+          id="id_others_circle"
+          d="M377.5 865.235c0-61.002 49.453-110.455 110.455-110.455 61.004 0 110.456 49.453 110.456 110.455 0 61.001-49.452 110.455-110.456 110.455-61.002 0-110.455-49.454-110.455-110.455z"
+          stroke="#006918"
+          fill="#fff"
+          className="transition"
+          strokeMiterlimit={10}
+          style={{ pathLength: scrollYProgress }}
+        />
+
         <motion.path
           d="M468.196 447.547l.009-40.692s.576-7.905-4.371-12.853c-4.948-4.947-12.87-4.68-12.87-4.68l-26.216.033m-7.878.092a4.316 4.316 0 118.631 0 4.316 4.316 0 01-8.631 0z"
           stroke="#006918"
@@ -161,15 +276,6 @@ const MenuIcon = () => {
           d="M491.29 449.5l-.64-227.5"
           stroke="#006918"
           strokeWidth={1.27}
-          strokeMiterlimit={10}
-          style={{ pathLength: scrollYProgress }}
-        />
-        {/* ********************* Frontend ************** */}
-
-        <motion.path
-          id="id_frontend_circle"
-          d="M597.757 110.447c.686 60.999-48.207 111.005-109.205 111.692-61 .686-111.005-48.207-111.692-109.206-.686-60.996 48.206-111.003 109.206-111.69C547.064.557 597.07 49.451 597.757 110.447z"
-          stroke="#006918"
           strokeMiterlimit={10}
           style={{ pathLength: scrollYProgress }}
         />
@@ -217,15 +323,6 @@ const MenuIcon = () => {
           strokeMiterlimit={10}
           style={{ pathLength: scrollYProgress }}
         />
-        {/* ********************* Others ************** */}
-
-        <motion.path
-          id="id_others_circle"
-          d="M377.5 865.235c0-61.002 49.453-110.455 110.455-110.455 61.004 0 110.456 49.453 110.456 110.455 0 61.001-49.452 110.455-110.456 110.455-61.002 0-110.455-49.454-110.455-110.455z"
-          stroke="#006918"
-          strokeMiterlimit={10}
-          style={{ pathLength: scrollYProgress }}
-        />
 
         <motion.path
           d="M448.37 475.444s-42.438.209-43.768.188c-9.324-.157-9.109-9.224-9.109-9.224s-.044-70.469-.051-71.307c-.105-12.472-10.083-12.628-10.083-12.628s-65.684.019-66.407-.01c-8.573.366-8.483 7.781-8.483 7.781s-.038 15.196-.021 15.592c.121 8.261 8.31 8.295 8.31 8.295s52.39.429 53.157.37c9.581.445 9.516 8.138 9.516 8.138s-.045 27.508-.065 27.945c.138 7.556-9.928 7.017-9.928 7.017l-41.761.012m-8.019-.043a4.315 4.315 0 108.63 0 4.315 4.315 0 00-8.63 0z"
@@ -259,16 +356,6 @@ const MenuIcon = () => {
           d="M446.901 490.877L222 490"
           stroke="#006918"
           strokeWidth={1.27}
-          strokeMiterlimit={10}
-          style={{ pathLength: scrollYProgress }}
-        />
-
-        {/* ********************* Prototype ************** */}
-
-        <motion.path
-          id="id_prototype_circle"
-          d="M1 487.195C1 426.192 50.453 376.74 111.455 376.74c61.003 0 110.455 49.452 110.455 110.455 0 61.002-49.452 110.455-110.455 110.455C50.453 597.65 1 548.197 1 487.195z"
-          stroke="#006918"
           strokeMiterlimit={10}
           style={{ pathLength: scrollYProgress }}
         />
@@ -309,19 +396,47 @@ const MenuIcon = () => {
           style={{ pathLength: scrollYProgress }}
         />
 
-        {/* ********************* Backend ************** */}
-
-        <motion.path
-          id="id_backend_circle"
-          d="M754.093 486.891c0-61.003 49.452-110.456 110.455-110.456 61.007 0 110.452 49.453 110.452 110.456 0 61.002-49.445 110.455-110.452 110.455-61.003 0-110.455-49.453-110.455-110.455z"
-          stroke="#006918"
-          strokeMiterlimit={10}
-          style={{ pathLength: scrollYProgress }}
-        />
+        <motion.text xmlSpace="preserve" id="id_text_prototype" fill="#000">
+          <motion.tspan
+            x={10}
+            y={500}
+            style={{ opacity }}
+            className={`${plus_jakarta_sans.className} fs-2 ms-2 transition`}
+          >
+            {prototype}
+          </motion.tspan>
+        </motion.text>
+        <motion.text id="id_text_frontend" xmlSpace="preserve" fill="#000">
+          <motion.tspan
+            x={410}
+            y={120}
+            style={{ opacity: opacity2 }}
+            className={`${plus_jakarta_sans.className} fs-2 ms-2 transition`}
+          >
+            {frontend}
+          </motion.tspan>
+        </motion.text>
+        <motion.text xmlSpace="preserve" id="id_text_backend" fill="#000">
+          <motion.tspan
+            x={790}
+            y={500}
+            style={{ opacity: opacity3 }}
+            className={`${plus_jakarta_sans.className} fs-2 ms-2 transition`}
+          >
+            {backend}
+          </motion.tspan>
+        </motion.text>
+        <motion.text id="id_text_other" xmlSpace="preserve" fill="#000">
+          <motion.tspan
+            x={433}
+            y={880}
+            style={{ opacity: opacity4 }}
+            className={`${plus_jakarta_sans.className} fs-2 ms-2 transition`}
+          >
+            {other}
+          </motion.tspan>
+        </motion.text>
       </motion.svg>
-      <div className="row textDivSize ">
-        {layoutText && <TextMenu {...layoutText} />}
-      </div>
     </div>
   );
 };
