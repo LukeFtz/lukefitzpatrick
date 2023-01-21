@@ -35,14 +35,14 @@ const TextHeader: React.FC<headerContent> = ({
     const path = document.getElementById("id_main_black_tag");
     contentDiv.css("left", p.position().left);
     if (path) {
-      contentDiv.width(path.getBoundingClientRect().width);
+      contentDiv.width(path.getBoundingClientRect().width * 0.98);
       contentDiv.height(path.getBoundingClientRect().height * 0.8);
     }
   }, []);
   return (
     <div
       id="id_black_tag_content"
-      className="position-absolute text-light text-center"
+      className="position-absolute text-light text-center maxWidth overflow-x-hidden"
     >
       <motion.div
         className="row justify-content-center d-flex align-content-around flex-wrap h-100"

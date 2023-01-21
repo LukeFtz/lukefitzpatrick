@@ -79,7 +79,7 @@ const Header: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="blackTagHeader w-100">
+      <div className="blackTagHeader">
         {data && <TextHeader {...data} />}
         <BlackTagHeader />
       </div>

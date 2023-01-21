@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
+import backgroundActions from "./redures/backgroundLineReducer";
 import headerReducer from "./redures/headerReducer";
 
 export const store = configureStore({
   reducer: {
     header: headerReducer,
+    background: backgroundActions,
   },
 });
 
