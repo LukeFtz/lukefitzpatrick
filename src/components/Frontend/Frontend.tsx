@@ -22,10 +22,11 @@ const plus_jakarta_sans = Plus_Jakarta_Sans({
   subsets: ["latin"],
 });
 
-const Prototype: React.FC = () => {
+const Frontend: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const xPrototype = useMotionValue<number>(-500);
+  const top = useMotionValue<number>(0);
+  const xPrototype = useMotionValue<number>(+500);
   const yPrototypeDevices = useMotionValue<number>(-100);
   const opacityText = useMotionValue(0);
   const yPrototypeIcons = useTransform(yPrototypeDevices, [-100, 0], [100, 0]);
@@ -36,17 +37,34 @@ const Prototype: React.FC = () => {
   const isTextInView = useInView(scrollTextRef);
 
   const defineValues = () => {
-    const line = document.getElementById("id_prototype_div");
-    const lineVerticalLine = document.getElementById(
-      "id_vertical_prototype_line"
-    );
-    if (line && lineVerticalLine) {
-      const scaleY =
-        (line.getBoundingClientRect().height +
-          window.screen.availHeight / 1.6) /
-        lineVerticalLine.getBoundingClientRect().height;
-      dispatch(setPrototypeScale(Math.round(scaleY * 100) / 100));
+    // const line = document.getElementById("id_frontend_div");
+    // const lineVerticalLine = document.getElementById(
+    //   "id_vertical_prototype_line"
+    // );
+    // if (line && lineVerticalLine) {
+    //   const scaleY =
+    //     (line.getBoundingClientRect().height +
+    //       window.screen.availHeight / 1.6) /
+    //     lineVerticalLine.getBoundingClientRect().height;
+    //   dispatch(setPrototypeScale(Math.round(scaleY * 100) / 100));
+    // }
+  };
+
+  const defineTop = () => {
+    const topLine = $("#id_frontend_curve").position().top;
+    const topFrontend = $("#id_frontend_div");
+    const aspectRatio =
+      Math.round((window.screen.width / window.screen.height) * 100) / 100;
+
+    let newTop;
+    if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
+      newTop = Math.abs(topFrontend.position().top - topLine);
+    } else if (aspectRatio >= 1.4 && aspectRatio < 1.6) {
+      newTop = Math.abs(topFrontend.position().top - topLine) + 100;
+    } else {
+      newTop = Math.abs(topLine - topFrontend.position().top);
     }
+    topFrontend.css({ "margin-top": newTop + "px" });
   };
 
   const showText = () => {
@@ -80,18 +98,22 @@ const Prototype: React.FC = () => {
   }, [isTextInView]);
 
   useEffect(() => {
+    defineTop();
     defineValues();
   }, []);
 
   return (
-    <div id="id_prototype_div" className="container mt-5">
-      <div className="col-12 col-xl-6 overflowXHidden">
-        <motion.h2
-          className={`${plus_jakarta_sans.className} fs-1 mb-5 `}
-          style={{ x: xPrototype }}
-        >
-          Prototipação
-        </motion.h2>
+    <div id="id_frontend_div" className="container mainFrontendDiv">
+      {/* <motion.div style={{ y: top }}> */}
+      <div className="row justify-content-end text-end">
+        <div className="col-12 col-xl-6 overflowXHidden">
+          <motion.h2
+            className={`${plus_jakarta_sans.className} fs-1 mb-5 `}
+            style={{ x: xPrototype }}
+          >
+            Front-end
+          </motion.h2>
+        </div>
       </div>
 
       <div className="row justify-content-center mt-5" ref={scrollRef}>
@@ -156,8 +178,9 @@ const Prototype: React.FC = () => {
           </div>
         </motion.div>
       </div>
+      {/* </motion.div> */}
     </div>
   );
 };
 
-export default Prototype;
+export default Frontend;

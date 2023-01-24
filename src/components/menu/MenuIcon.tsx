@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useScroll, useTransform } from "framer-motion";
 import $ from "jquery";
-import { Plus_Jakarta_Sans } from "@next/font/google";
+import { M_PLUS_1, Plus_Jakarta_Sans } from "@next/font/google";
 import { menuContent } from "@/utilitities/datatypes";
 import { setTopPosition } from "@/store/redures/backgroundLineReducer";
 import { useAppDispatch } from "@/store/hooks";
@@ -47,12 +47,25 @@ const MenuIcon = ({ backend, frontend, other, prototype }: menuContent) => {
       top.set(windowSize * 0.025);
       bottom.set(windowSize * 0.05);
 
-      const backgroundLineTop =
-        contentDiv.position().top +
-        svgHeight * 1.5 +
-        renderedTitle.getBoundingClientRect().height -
-        windowSize;
-      dispatch(setTopPosition(backgroundLineTop));
+      const aspectRatio =
+        Math.round((window.screen.width / window.screen.height) * 100) / 100;
+
+      // console.log(aspectRatio);
+      if (aspectRatio >= 1.3 && aspectRatio < 1.6) {
+        const backgroundLineTop =
+          contentDiv.position().top +
+          svgHeight * 1.38 +
+          renderedTitle.getBoundingClientRect().height -
+          windowSize;
+        dispatch(setTopPosition(backgroundLineTop));
+      } else if (aspectRatio >= 1.6) {
+        const backgroundLineTop =
+          contentDiv.position().top +
+          svgHeight * 1.5 +
+          renderedTitle.getBoundingClientRect().height -
+          windowSize;
+        dispatch(setTopPosition(backgroundLineTop));
+      }
     }
   }, []);
 

@@ -5,7 +5,7 @@ import { backgroundLineTypes } from "../types";
 // Define the initial state using that type
 const initialState: backgroundLineTypes = {
   topPosition: null,
-  scalePrototype: null,
+  scalePrototype: 1,
 };
 
 export const backgroundActions = createSlice({

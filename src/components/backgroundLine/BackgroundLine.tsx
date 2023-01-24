@@ -121,7 +121,7 @@ const BackgroundLine: React.FC = () => {
           id="id_curver_prototype_bottom"
           style={{
             pathLength: prototypeBottomCurve,
-            y: prototypeY.get() * 13,
+            y: prototypeY.get() * 13.5,
             // translateY: prototypeY.get() * 13,
           }}
 
@@ -132,7 +132,10 @@ const BackgroundLine: React.FC = () => {
           stroke="#00681d"
           strokeWidth={10}
           id="id_prototype_bottom"
-          style={{ pathLength: prototypeBottomLine }}
+          style={{
+            pathLength: prototypeBottomLine,
+            y: prototypeY.get() * 13.5,
+          }}
 
           //   style={{ display: "inline" }}
         />
@@ -141,7 +144,7 @@ const BackgroundLine: React.FC = () => {
           stroke="#00681d"
           strokeWidth={10}
           id="id_frontend_curve"
-          style={{ pathLength: frontendTopCurve }}
+          style={{ pathLength: frontendTopCurve, y: prototypeY.get() * 13.5 }}
 
           //   style={{ display: "inline" }}
         />
@@ -150,7 +153,7 @@ const BackgroundLine: React.FC = () => {
           stroke="#00681d"
           strokeWidth={10}
           id="id_frontend_vertical"
-          style={{ pathLength: frontendVertical }}
+          style={{ pathLength: frontendVertical, y: prototypeY.get() * 13.5 }}
 
           //   style={{ display: "inline" }}
         />

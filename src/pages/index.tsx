@@ -6,6 +6,7 @@ import Header from "@/components/header/Header";
 import Menu from "@/components/menu/Menu";
 import BackgroundLine from "@/components/backgroundLine/BackgroundLine";
 import Prototype from "@/components/prototype/Prototype";
+import Frontend from "@/components/Frontend/Frontend";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,6 +35,9 @@ export default function Home() {
         <div className="mt-5">
           <Prototype />
         </div>
+        {/* <div> */}
+        <Frontend />
+        {/* </div> */}
         <div className="headerdiv "></div>
       </main>
     </>
