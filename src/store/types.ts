@@ -4,4 +4,5 @@ export interface headerTypesRx {
 
 export interface backgroundLineTypes {
   topPosition: number | null;
+  scalePrototype: number | null;
 }

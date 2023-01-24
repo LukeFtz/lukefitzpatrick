@@ -8,13 +8,16 @@ import {
 } from "framer-motion";
 import $ from "jquery";
 import { useAppSelector } from "@/store/hooks";
-import { positionY } from "@/store/redures/backgroundLineReducer";
-
-// import { Container } from './styles';
+import {
+  positionY,
+  scalePrototype,
+} from "@/store/redures/backgroundLineReducer";
 
 const BackgroundLine: React.FC = () => {
   const y = useMotionValue<number>(0);
+  const prototypeY = useMotionValue<number>(0);
   const positionTop = useAppSelector(positionY);
+  const scaleYPrototype = useAppSelector(scalePrototype);
 
   const svgLine = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -46,10 +49,16 @@ const BackgroundLine: React.FC = () => {
 
   useEffect(() => {
     if (positionTop) {
-      console.log("**");
       y.set(positionTop);
     }
   }, [positionTop]);
+
+  useEffect(() => {
+    if (scaleYPrototype) {
+      const auxValue = (50 * (scaleYPrototype - 1)) / 0.5;
+      prototypeY.set(auxValue);
+    }
+  }, [scaleYPrototype]);
 
   return (
     <div ref={svgLine}>
@@ -97,7 +106,7 @@ const BackgroundLine: React.FC = () => {
           stroke="#00681d"
           strokeWidth={10}
           id="id_vertical_prototype_line"
-          transform="matrix(1 0 0 1.5 0 -50)"
+          transform={`matrix(1 0 0 ${scaleYPrototype} 0 -${prototypeY.get()})`}
           style={{
             pathLength: prototypeLine,
           }}
@@ -110,7 +119,11 @@ const BackgroundLine: React.FC = () => {
           stroke="#00681d"
           strokeWidth={10}
           id="id_curver_prototype_bottom"
-          style={{ pathLength: prototypeBottomCurve, translateY: 500 }}
+          style={{
+            pathLength: prototypeBottomCurve,
+            y: prototypeY.get() * 13,
+            // translateY: prototypeY.get() * 13,
+          }}
 
           //   style={{ display: "inline" }}
         />

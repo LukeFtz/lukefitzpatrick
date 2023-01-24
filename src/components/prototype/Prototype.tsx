@@ -6,6 +6,8 @@ import adobe from "../../../public/media/prototype/adobe.svg";
 import figma from "../../../public/media/prototype/figma.svg";
 import photoshop from "../../../public/media/prototype/photoshop.svg";
 import $ from "jquery";
+import { useAppDispatch } from "@/store/hooks";
+import { setPrototypeScale } from "@/store/redures/backgroundLineReducer";
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
   weight: "200",
@@ -13,9 +15,22 @@ const plus_jakarta_sans = Plus_Jakarta_Sans({
 });
 
 const Prototype: React.FC = () => {
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
-    const line = document.getElementById("id_title_menu");
-    console.log(line?.getBoundingClientRect().height);
+    const line = document.getElementById("id_prototype_div");
+    const lineVerticalLine = document.getElementById(
+      "id_vertical_prototype_line"
+    );
+    // console.log(line?.getBoundingClientRect().height);
+    // console.log(lineVerticalLine?.getBoundingClientRect().height);
+    if (line && lineVerticalLine) {
+      const scaleY =
+        (line.getBoundingClientRect().height + window.screen.height / 1.6) /
+        lineVerticalLine.getBoundingClientRect().height;
+      dispatch(setPrototypeScale(Math.round(scaleY * 100) / 100));
+      // console.log(scaleY);
+    }
   }, []);
 
   return (
