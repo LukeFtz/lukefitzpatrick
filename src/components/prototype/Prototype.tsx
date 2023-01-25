@@ -35,19 +35,19 @@ const Prototype: React.FC = () => {
   const scrollTextRef = useRef(null);
   const isTextInView = useInView(scrollTextRef);
 
-  const defineValues = () => {
-    const line = document.getElementById("id_prototype_div");
-    const lineVerticalLine = document.getElementById(
-      "id_vertical_prototype_line"
-    );
-    if (line && lineVerticalLine) {
-      const scaleY =
-        (line.getBoundingClientRect().height +
-          window.screen.availHeight / 1.6) /
-        lineVerticalLine.getBoundingClientRect().height;
-      dispatch(setPrototypeScale(Math.round(scaleY * 100) / 100));
-    }
-  };
+  // const defineValues = () => {
+  //   const line = document.getElementById("id_prototype_div");
+  //   const lineVerticalLine = document.getElementById(
+  //     "id_vertical_prototype_line"
+  //   );
+  //   if (line && lineVerticalLine) {
+  //     const scaleY =
+  //       (line.getBoundingClientRect().height +
+  //         window.screen.availHeight / 1.6) /
+  //       lineVerticalLine.getBoundingClientRect().height;
+  //     dispatch(setPrototypeScale(Math.round(scaleY * 100) / 100));
+  //   }
+  // };
 
   const showText = () => {
     animate(opacityText, 1, {
@@ -79,9 +79,9 @@ const Prototype: React.FC = () => {
     }
   }, [isTextInView]);
 
-  useEffect(() => {
-    defineValues();
-  }, []);
+  // useEffect(() => {
+  //   defineValues();
+  // }, []);
 
   return (
     <div id="id_prototype_div" className="container mt-5">

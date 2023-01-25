@@ -3,3 +3,20 @@
   /* height: 100fr; */
   /* top: var(--radius); */
 }
+
+.marginBottom {
+  margin-bottom: 0.5vh;
+}
+
+.reactRotate {
+  animation: 6s rotate linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

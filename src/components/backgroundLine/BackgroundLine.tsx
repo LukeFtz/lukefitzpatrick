@@ -13,10 +13,20 @@ import {
   scalePrototype,
 } from "@/store/redures/backgroundLineReducer";
 
+let firstTime = true;
+
 const BackgroundLine: React.FC = () => {
   const y = useMotionValue<number>(0);
+  const yPrototypeSize = useMotionValue<number>(1);
+  const marginTopPrototype = useMotionValue<number>(1);
   const prototypeY = useMotionValue<number>(0);
+
+  const yFrontendSize = useMotionValue<number>(1);
+  const marginTopFrontend = useMotionValue<number>(1);
+  const frontendY = useMotionValue<number>(0);
+
   const positionTop = useAppSelector(positionY);
+
   const scaleYPrototype = useAppSelector(scalePrototype);
 
   const svgLine = useRef(null);
@@ -39,13 +49,76 @@ const BackgroundLine: React.FC = () => {
     [0, 1]
   );
 
-  const frontendTopCurve = useTransform(scrollYProgress, [0.48, 0.49], [0, 1]);
-  const frontendVertical = useTransform(scrollYProgress, [0.49, 0.7], [0, 1]);
+  const frontendTopCurve = useTransform(scrollYProgress, [0.48, 0.55], [0, 1]);
+  const frontendVertical = useTransform(scrollYProgress, [0.55, 0.8], [0, 1]);
   const frontendBottomCurve = useTransform(
     scrollYProgress,
     [0.75, 0.8],
     [0, 1]
   );
+
+  const defineValues = () => {
+    const aspectRatio =
+      Math.round((window.screen.width / window.screen.height) * 100) / 100;
+
+    if (firstTime) {
+      const line = document.getElementById("id_prototype_div");
+      const lineVerticalLine = document.getElementById(
+        "id_vertical_prototype_line"
+      );
+      if (line && lineVerticalLine) {
+        const scaleY =
+          (line.getBoundingClientRect().height +
+            window.screen.availHeight / 1.6) /
+          lineVerticalLine.getBoundingClientRect().height;
+        yPrototypeSize.set(Math.round(scaleY * 100) / 100);
+        const auxValue = (50 * (yPrototypeSize.get() - 1)) / 0.5;
+        prototypeY.set(auxValue);
+        marginTopPrototype.set(auxValue * 13.5);
+      }
+
+      const frontendSize = $("#id_frontend_div").height();
+      const frontendLine = $("#id_frontend_path_vertical").height();
+      console.log("div " + frontendSize);
+      console.log("line " + frontendLine);
+      if (frontendSize && frontendLine) {
+        let scaleY2: number;
+
+        let auxValueFront: number;
+
+        if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
+          scaleY2 = frontendSize / (frontendLine - 100);
+          yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
+
+          auxValueFront = auxValueFront =
+            ((50 * (yFrontendSize.get() - 1)) / 0.5) * 6;
+          marginTopFrontend.set(auxValueFront * 55);
+        } else if (aspectRatio >= 1.4 && aspectRatio < 1.6) {
+          scaleY2 = frontendSize / (frontendLine - 550);
+          yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
+          auxValueFront = auxValueFront =
+            ((50 * (yFrontendSize.get() - 1)) / 0.5) * 2.1 - 50;
+          marginTopFrontend.set(auxValueFront * 54);
+        } else {
+          scaleY2 = frontendSize / frontendLine;
+          yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
+
+          auxValueFront = auxValueFront =
+            ((50 * (yFrontendSize.get() - 1)) / 0.5) * 6;
+          marginTopFrontend.set(auxValueFront * 7.2);
+        }
+
+        // console.log(Math.round(frontendLine.getBoundingClientRect().height));
+        frontendY.set(auxValueFront);
+      }
+
+      firstTime = false;
+    }
+  };
+
+  useEffect(() => {
+    defineValues();
+  }, []);
 
   useEffect(() => {
     if (positionTop) {
@@ -53,21 +126,22 @@ const BackgroundLine: React.FC = () => {
     }
   }, [positionTop]);
 
-  useEffect(() => {
-    if (scaleYPrototype) {
-      const auxValue = (50 * (scaleYPrototype - 1)) / 0.5;
-      prototypeY.set(auxValue);
-    }
-  }, [scaleYPrototype]);
+  // useEffect(() => {
+  //   if (scaleYPrototype) {
+  //     const auxValue = (50 * (scaleYPrototype - 1)) / 0.5;
+  //     prototypeY.set(auxValue);
+  //   }
+  // }, [scaleYPrototype]);
 
   return (
     <div ref={svgLine}>
       <motion.svg
         //   width="1550"
         //   height="5412.5"
-        viewBox="0 0 1550 5412.5"
+        // viewBox="0 0 1550 5412.5"
+        viewBox="0 0 1550 6200"
         fill="none"
-        version="1.1"
+        // version="1.1"
         id="svg7431"
         xmlns="http://www.w3.org/2000/svg"
         style={{ y }}
@@ -106,7 +180,8 @@ const BackgroundLine: React.FC = () => {
           stroke="#00681d"
           strokeWidth={10}
           id="id_vertical_prototype_line"
-          transform={`matrix(1 0 0 ${scaleYPrototype} 0 -${prototypeY.get()})`}
+          // transform={`matrix(1 0 0 ${scaleYPrototype} 0 -${prototypeY.get()})`}
+          transform={`matrix(1 0 0 ${yPrototypeSize.get()} 0 -${prototypeY.get()})`}
           style={{
             pathLength: prototypeLine,
           }}
@@ -118,10 +193,11 @@ const BackgroundLine: React.FC = () => {
           d="m 5.0000097,1464.8941 v 18.0559 c 0,0 3e-5,66.16 71.7267903,66.16"
           stroke="#00681d"
           strokeWidth={10}
+          height={799}
           id="id_curver_prototype_bottom"
           style={{
             pathLength: prototypeBottomCurve,
-            y: prototypeY.get() * 13.5,
+            y: marginTopPrototype,
             // translateY: prototypeY.get() * 13,
           }}
 
@@ -134,7 +210,7 @@ const BackgroundLine: React.FC = () => {
           id="id_prototype_bottom"
           style={{
             pathLength: prototypeBottomLine,
-            y: prototypeY.get() * 13.5,
+            y: marginTopPrototype,
           }}
 
           //   style={{ display: "inline" }}
@@ -144,25 +220,32 @@ const BackgroundLine: React.FC = () => {
           stroke="#00681d"
           strokeWidth={10}
           id="id_frontend_curve"
-          style={{ pathLength: frontendTopCurve, y: prototypeY.get() * 13.5 }}
+          style={{ pathLength: frontendTopCurve, y: marginTopPrototype }}
 
           //   style={{ display: "inline" }}
         />
-        <motion.path
-          d="M 1545,1646.32 V 2739 3724"
-          stroke="#00681d"
-          strokeWidth={10}
-          id="id_frontend_vertical"
-          style={{ pathLength: frontendVertical, y: prototypeY.get() * 13.5 }}
+        <motion.g style={{ scaleY: yFrontendSize, y: frontendY }}>
+          <motion.path
+            d="M 1545,1646.32 V 2739 3724"
+            stroke="#00681d"
+            strokeWidth={10}
+            // height={yFrontendDefault.get()}
+            id="id_frontend_path_vertical"
+            style={{
+              pathLength: frontendVertical,
+              y: marginTopPrototype,
+              height: 2003,
+            }}
 
-          //   style={{ display: "inline" }}
-        />
+            //   style={{ display: "inline" }}
+          />
+        </motion.g>
         <motion.path
           d="m 1545,3724 c 0,85.5 -105.5,82.5 -105.5,82.5"
           stroke="#00681d"
           strokeWidth={10}
           id="id_frontend_bottom_curve"
-          style={{ pathLength: frontendBottomCurve }}
+          style={{ pathLength: frontendBottomCurve, y: marginTopFrontend }}
           //   style={{ display: "inline" }}
         />
         <motion.path
@@ -170,7 +253,7 @@ const BackgroundLine: React.FC = () => {
           stroke="#00681d"
           strokeWidth={10}
           id="path8036"
-          style={{ pathLength: scrollYProgress }}
+          style={{ pathLength: scrollYProgress, y: marginTopFrontend }}
 
           //   style={{ display: "inline" }}
         />
@@ -179,7 +262,7 @@ const BackgroundLine: React.FC = () => {
           stroke="#00681d"
           strokeWidth={10}
           id="path8038"
-          style={{ pathLength: scrollYProgress }}
+          style={{ pathLength: scrollYProgress, y: marginTopFrontend }}
 
           //   style={{ display: "inline" }}
         />
@@ -188,7 +271,7 @@ const BackgroundLine: React.FC = () => {
           stroke="#00681d"
           strokeWidth={10}
           id="path8040"
-          style={{ pathLength: scrollYProgress }}
+          style={{ pathLength: scrollYProgress, y: marginTopFrontend }}
 
           //   style={{ display: "inline" }}
         />
@@ -197,7 +280,7 @@ const BackgroundLine: React.FC = () => {
           stroke="#00681d"
           strokeWidth={10}
           id="path8042"
-          style={{ pathLength: scrollYProgress }}
+          style={{ pathLength: scrollYProgress, y: marginTopFrontend }}
 
           //   style={{ display: "inline" }}
         />
@@ -206,7 +289,7 @@ const BackgroundLine: React.FC = () => {
           stroke="#00681d"
           strokeWidth={10}
           id="path8044"
-          style={{ pathLength: scrollYProgress }}
+          style={{ pathLength: scrollYProgress, y: marginTopFrontend }}
 
           //   style={{ display: "inline" }}
         />
