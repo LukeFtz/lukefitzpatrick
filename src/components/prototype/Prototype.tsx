@@ -5,15 +5,12 @@ import devices from "../../../public/media/prototype/devices.svg";
 import adobe from "../../../public/media/prototype/adobe.svg";
 import figma from "../../../public/media/prototype/figma.svg";
 import photoshop from "../../../public/media/prototype/photoshop.svg";
-import $ from "jquery";
-import { useAppDispatch } from "@/store/hooks";
-import { setPrototypeScale } from "@/store/redures/backgroundLineReducer";
+
 import {
   animate,
   motion,
   useInView,
   useMotionValue,
-  useScroll,
   useTransform,
 } from "framer-motion";
 
@@ -23,8 +20,6 @@ const plus_jakarta_sans = Plus_Jakarta_Sans({
 });
 
 const Prototype: React.FC = () => {
-  const dispatch = useAppDispatch();
-
   const xPrototype = useMotionValue<number>(-500);
   const yPrototypeDevices = useMotionValue<number>(-100);
   const opacityText = useMotionValue(0);
@@ -34,20 +29,6 @@ const Prototype: React.FC = () => {
   const isInView = useInView(scrollRef);
   const scrollTextRef = useRef(null);
   const isTextInView = useInView(scrollTextRef);
-
-  // const defineValues = () => {
-  //   const line = document.getElementById("id_prototype_div");
-  //   const lineVerticalLine = document.getElementById(
-  //     "id_vertical_prototype_line"
-  //   );
-  //   if (line && lineVerticalLine) {
-  //     const scaleY =
-  //       (line.getBoundingClientRect().height +
-  //         window.screen.availHeight / 1.6) /
-  //       lineVerticalLine.getBoundingClientRect().height;
-  //     dispatch(setPrototypeScale(Math.round(scaleY * 100) / 100));
-  //   }
-  // };
 
   const showText = () => {
     animate(opacityText, 1, {

@@ -7,8 +7,8 @@ import Menu from "@/components/menu/Menu";
 import BackgroundLine from "@/components/backgroundLine/BackgroundLine";
 import Prototype from "@/components/prototype/Prototype";
 import Frontend from "@/components/Frontend/Frontend";
-
-const inter = Inter({ subsets: ["latin"] });
+import Backend from "@/components/backend/Backend";
+import Iot from "@/components/iot/Iot";
 
 export default function Home() {
   return (
@@ -35,9 +35,17 @@ export default function Home() {
         <div className="mt-5">
           <Prototype />
         </div>
-        {/* <div> */}
-        <Frontend />
-        {/* </div> */}
+        <div>
+          <div id="id_aux_top_frontend"></div>
+          <Frontend />
+        </div>
+        <div className="mt-5">
+          <Backend />
+        </div>
+        <div>
+          <div id="id_aux_top_iot"></div>
+          <Iot />
+        </div>
         <div className="headerdiv "></div>
       </main>
     </>

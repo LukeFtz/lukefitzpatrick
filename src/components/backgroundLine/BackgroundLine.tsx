@@ -12,8 +12,13 @@ import {
   positionY,
   scalePrototype,
 } from "@/store/redures/backgroundLineReducer";
+import { Plus_Jakarta_Sans } from "@next/font/google";
 
 let firstTime = true;
+const plus_jakarta_sans = Plus_Jakarta_Sans({
+  weight: "200",
+  subsets: ["latin"],
+});
 
 const BackgroundLine: React.FC = () => {
   const y = useMotionValue<number>(0);
@@ -79,8 +84,8 @@ const BackgroundLine: React.FC = () => {
 
       const frontendSize = $("#id_frontend_div").height();
       const frontendLine = $("#id_frontend_path_vertical").height();
-      console.log("div " + frontendSize);
-      console.log("line " + frontendLine);
+      // console.log("div " + frontendSize);
+      // console.log("line " + frontendLine);
       if (frontendSize && frontendLine) {
         let scaleY2: number;
 
@@ -293,6 +298,51 @@ const BackgroundLine: React.FC = () => {
 
           //   style={{ display: "inline" }}
         />
+        <motion.g style={{ y: 5 }}>
+          <motion.path
+            id="id_cloud_iot"
+            d="M923.135 5365.21a61.85 61.85 0 00-24.115 4.87c.169-1.6.261-3.22.261-4.87 0-25.46-20.64-46.11-46.105-46.11-8.61 0-16.64 2.4-23.536 6.51-3.813-35.75-34.061-63.61-70.827-63.61-38.316 0-69.477 30.27-71.097 68.19a81.885 81.885 0 00-30.398-5.83c-45.462 0-82.318 36.86-82.318 82.32 0 45.46 36.856 82.32 82.318 82.32h265.817c34.183 0 61.896-27.71 61.896-61.9 0-34.18-27.713-61.89-61.896-61.89z"
+            fill="url(#prefix__paint0_linear_273_13)"
+            style={{
+              pathLength: scrollYProgress,
+              y: marginTopFrontend,
+              height: 227,
+            }}
+          />
+          <motion.path
+            d="M575 5403.5c.5 11.5.5 13 1.5 18.5-3.369.5-6.863.5-11.5.5-17.673 0-32-1.83-32-19.5s14.327-20 32-20c5.346 0 9.836.21 13.5 1-1.5 5.5-3 9-3.5 19.5z"
+            fill="#00681D"
+            style={{ pathLength: scrollYProgress, y: marginTopFrontend }}
+          />
+          <motion.path
+            d="M536 5391.66l-35 5.84v10l35 6.5v-11.17-11.17z"
+            fill="#00681D"
+            style={{ pathLength: scrollYProgress, y: marginTopFrontend }}
+          />
+        </motion.g>
+        <motion.text xmlSpace="preserve" fill="#fff">
+          <motion.tspan
+            x={700}
+            y={6070}
+            // style={{ opacity: opacity4 }}
+            className={`${plus_jakarta_sans.className} fs-1 ms-2`}
+          >
+            Outros
+          </motion.tspan>
+        </motion.text>
+        <defs>
+          <linearGradient
+            id="prefix__paint0_linear_273_13"
+            x1={-588.313}
+            y1={1282.98}
+            x2={1294.82}
+            y2={1344.12}
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stopColor="#4B76C3" />
+            <stop offset={1} stopColor="#8AD9EC" />
+          </linearGradient>
+        </defs>
       </motion.svg>
     </div>
   );
