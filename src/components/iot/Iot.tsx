@@ -1,5 +1,5 @@
 import { Plus_Jakarta_Sans } from "@next/font/google";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import $ from "jquery";
 import {
   AirConditioner,
@@ -24,6 +24,7 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
+import { mobileDevice } from "@/utilitities/types";
 
 // import { Container } from './styles';
 
@@ -33,7 +34,13 @@ const plus_jakarta_sans = Plus_Jakarta_Sans({
 });
 let firstTime = true;
 
+const DELAY = 0;
+
 const Iot: React.FC = () => {
+  const [currentDevice, setCurrentDevice] = useState<mobileDevice>({
+    device: "NONE",
+  });
+
   const soundSystem = useMotionValue<number>(0);
   const microwave = useMotionValue<number>(0);
   const airConditioner = useMotionValue<number>(0);
@@ -91,40 +98,411 @@ const Iot: React.FC = () => {
     }
   };
 
-  const hiddeSoundSystemLine = () => {
-    animate(line_soundSystem, 0, {
+  // #################### DISHWASHER #############################
+  const hiddeDishwasherLine = () => {
+    animate(line_dishwasher, 0, {
       duration: 0.5,
-      // onComplete: () => showSoundSystem(),
+      delay: DELAY,
+      onComplete: () => {
+        opacity_line_dishwasher.set(0);
+        showSoundSystemLine();
+      },
+    });
+    animate(dishwasher, 0, {
+      duration: 0.5,
+      delay: DELAY,
     });
   };
 
-  const animateSoundSystemOpacity = () => {
-    animate(soundSystem, 0, {
-      duration: 2,
-      repeat: 4,
-      repeatType: "mirror",
-      // onComplete: () => animateSoundSystemOpacity(),
+  const showDishwasher = () => {
+    animate(dishwasher, 1, {
+      duration: 0.5,
+      onComplete: () => hiddeDishwasherLine(),
     });
-    animate(opacity_line_soundSystem, 0, {
-      duration: 2,
-      repeat: 3,
-      repeatType: "mirror",
-      onComplete: () => hiddeSoundSystemLine(),
+  };
+
+  const showDishwasherLine = () => {
+    animate(line_dishwasher, 1, {
+      duration: 0.5,
+      onPlay: () => {
+        opacity_line_dishwasher.set(1);
+        setCurrentDevice({ device: "DISHWASHER" });
+      },
+      onComplete: () => showDishwasher(),
+    });
+  };
+
+  // #################### WASHING MACHINE #############################
+  const hiddeWasherMachineLine = () => {
+    animate(line_washermachine, 0, {
+      duration: 0.5,
+      delay: DELAY,
+      onComplete: () => {
+        opacity_line_washermachine.set(0);
+        showDishwasherLine();
+      },
+    });
+    animate(washermachine, 0, {
+      duration: 0.5,
+      delay: DELAY,
+    });
+  };
+
+  const showWasherMachine = () => {
+    animate(washermachine, 1, {
+      duration: 0.5,
+      onComplete: () => hiddeWasherMachineLine(),
+    });
+  };
+
+  const showWasherMachineLine = () => {
+    animate(line_washermachine, 1, {
+      duration: 0.5,
+      onPlay: () => {
+        opacity_line_washermachine.set(1);
+        setCurrentDevice({ device: "WASHING_MACHINE" });
+      },
+      onComplete: () => showWasherMachine(),
+    });
+  };
+
+  // #################### STOVE #############################
+  const hiddeStoveLine = () => {
+    animate(line_stove, 0, {
+      duration: 0.5,
+      delay: DELAY,
+      onComplete: () => {
+        opacity_line_stove.set(0);
+        showWasherMachineLine();
+      },
+    });
+    animate(stove, 0, {
+      duration: 0.5,
+      delay: DELAY,
+    });
+  };
+
+  const showStove = () => {
+    animate(stove, 1, {
+      duration: 0.5,
+      onComplete: () => hiddeStoveLine(),
+    });
+  };
+
+  const showStoveLine = () => {
+    animate(line_stove, 1, {
+      duration: 0.5,
+      onPlay: () => {
+        opacity_line_stove.set(1);
+        setCurrentDevice({ device: "STOVE" });
+      },
+      onComplete: () => showStove(),
+    });
+  };
+
+  // #################### COFFEE #############################
+  const hiddeCoffeeLine = () => {
+    animate(line_coffee, 0, {
+      duration: 0.5,
+      delay: DELAY,
+      onComplete: () => {
+        opacity_line_coffee.set(0);
+        showStoveLine();
+      },
+    });
+    animate(coffee, 0, {
+      duration: 0.5,
+      delay: DELAY,
+    });
+  };
+
+  const showCoffe = () => {
+    animate(coffee, 1, {
+      duration: 0.5,
+      onComplete: () => hiddeCoffeeLine(),
+    });
+  };
+
+  const showCoffeLine = () => {
+    animate(line_coffee, 1, {
+      duration: 0.5,
+      onPlay: () => {
+        opacity_line_coffee.set(1);
+        setCurrentDevice({ device: "COFFEE" });
+      },
+      onComplete: () => showCoffe(),
+    });
+  };
+
+  // #################### AIR CONDITIONER #############################
+  const hiddeAirConditionerLine = () => {
+    animate(line_airConditioner, 0, {
+      duration: 0.5,
+      delay: DELAY,
+      onComplete: () => {
+        opacity_line_airConditioner.set(0);
+        showCoffeLine();
+      },
+    });
+    animate(airConditioner, 0, {
+      duration: 0.5,
+      delay: DELAY,
+    });
+  };
+
+  const showAirConditioner = () => {
+    animate(airConditioner, 1, {
+      duration: 0.5,
+      onComplete: () => hiddeAirConditionerLine(),
+    });
+  };
+
+  const showAirConditionerLine = () => {
+    animate(line_airConditioner, 1, {
+      duration: 0.5,
+      onPlay: () => {
+        opacity_line_airConditioner.set(1);
+        setCurrentDevice({ device: "AIR_CONDITIONER" });
+      },
+      onComplete: () => showAirConditioner(),
+    });
+  };
+
+  // #################### CAR #############################
+  const hiddeCarLine = () => {
+    animate(line_car, 0, {
+      duration: 0.5,
+      delay: DELAY,
+      onComplete: () => {
+        opacity_line_car.set(0);
+        showAirConditionerLine();
+      },
+    });
+    animate(car, 0, {
+      duration: 0.5,
+      delay: DELAY,
+    });
+  };
+
+  const showCar = () => {
+    animate(car, 1, {
+      duration: 0.5,
+      onComplete: () => hiddeCarLine(),
+    });
+  };
+
+  const showCarLine = () => {
+    animate(line_car, 1, {
+      duration: 0.5,
+      onPlay: () => {
+        opacity_line_car.set(1);
+        setCurrentDevice({ device: "CAR" });
+      },
+      onComplete: () => showCar(),
+    });
+  };
+
+  // #################### MICROWAVE #############################
+  const hiddeMicrowaveLine = () => {
+    animate(line_microwave, 0, {
+      duration: 0.5,
+      delay: DELAY,
+      onComplete: () => {
+        opacity_line_microwave.set(0);
+        showCarLine();
+      },
+    });
+    animate(microwave, 0, {
+      duration: 0.5,
+      delay: DELAY,
+    });
+  };
+
+  const showMicrowave = () => {
+    animate(microwave, 1, {
+      duration: 0.5,
+      onComplete: () => hiddeMicrowaveLine(),
+    });
+  };
+
+  const showMicrowaveLine = () => {
+    animate(line_microwave, 1, {
+      duration: 0.5,
+      onPlay: () => {
+        opacity_line_microwave.set(1);
+        setCurrentDevice({ device: "MICROWAVE" });
+      },
+      onComplete: () => showMicrowave(),
+    });
+  };
+
+  // #################### TV #############################
+  const hiddeTVLine = () => {
+    animate(line_tv, 0, {
+      duration: 0.5,
+      delay: DELAY,
+      onComplete: () => {
+        opacity_line_tv.set(0);
+        showMicrowaveLine();
+      },
+    });
+    animate(tv, 0, {
+      duration: 0.5,
+      delay: DELAY,
+    });
+  };
+
+  const showTV = () => {
+    animate(tv, 1, {
+      duration: 0.5,
+      onComplete: () => hiddeTVLine(),
+    });
+  };
+
+  const showTVLine = () => {
+    animate(line_tv, 1, {
+      duration: 0.5,
+      onPlay: () => {
+        opacity_line_tv.set(1);
+        setCurrentDevice({ device: "TV" });
+      },
+      onComplete: () => showTV(),
+    });
+  };
+
+  // #################### FRIDGE #############################
+  const hiddeFridgeLine = () => {
+    animate(line_fridge, 0, {
+      duration: 0.5,
+      delay: DELAY,
+      onComplete: () => {
+        opacity_line_fridge.set(0);
+        showTVLine();
+      },
+    });
+    animate(fridge, 0, {
+      duration: 0.5,
+      delay: DELAY,
+    });
+  };
+
+  const showFridge = () => {
+    animate(fridge, 1, {
+      duration: 0.5,
+      onComplete: () => hiddeFridgeLine(),
+    });
+  };
+
+  const showFridgeLine = () => {
+    animate(line_fridge, 1, {
+      duration: 0.5,
+      onPlay: () => {
+        opacity_line_fridge.set(1);
+        setCurrentDevice({ device: "FRIDGE" });
+      },
+      onComplete: () => showFridge(),
+    });
+  };
+
+  // #################### CAMERA #############################
+  const hiddeCameraLine = () => {
+    animate(line_camera, 0, {
+      duration: 0.5,
+      delay: DELAY,
+      onComplete: () => {
+        opacity_line_camera.set(0);
+        showFridgeLine();
+      },
+    });
+    animate(camera, 0, {
+      duration: 0.5,
+      delay: DELAY,
+    });
+  };
+
+  const showCamera = () => {
+    animate(camera, 1, {
+      duration: 0.5,
+      onComplete: () => hiddeCameraLine(),
+    });
+  };
+
+  const showCameraLine = () => {
+    animate(line_camera, 1, {
+      duration: 0.5,
+      onPlay: () => {
+        opacity_line_camera.set(1);
+        setCurrentDevice({ device: "CAMERA" });
+      },
+      onComplete: () => showCamera(),
+    });
+  };
+
+  // #################### LAMP #############################
+  const hiddeLampLine = () => {
+    animate(line_lamp, 0, {
+      duration: 0.5,
+      delay: DELAY,
+      onComplete: () => {
+        opacity_line_lamp.set(0);
+        showCameraLine();
+      },
+    });
+    animate(lamp, 0, {
+      duration: 0.5,
+      delay: DELAY,
+    });
+  };
+
+  const showLamp = () => {
+    animate(lamp, 1, {
+      duration: 0.5,
+      onComplete: () => hiddeLampLine(),
+    });
+  };
+
+  const showLampLine = () => {
+    animate(line_lamp, 1, {
+      duration: 0.5,
+      onPlay: () => {
+        opacity_line_lamp.set(1);
+        setCurrentDevice({ device: "LAMP" });
+      },
+      onComplete: () => showLamp(),
+    });
+  };
+
+  // #################### SOUND SYSTEM #############################
+
+  const hiddeSoundSystemLine = () => {
+    animate(line_soundSystem, 0, {
+      duration: 0.5,
+      delay: DELAY,
+      onComplete: () => {
+        opacity_line_soundSystem.set(0);
+        showLampLine();
+      },
+    });
+    animate(soundSystem, 0, {
+      duration: 0.5,
+      delay: DELAY,
     });
   };
 
   const showSoundSystem = () => {
     animate(soundSystem, 1, {
       duration: 0.5,
-      onComplete: () => animateSoundSystemOpacity(),
+      onComplete: () => hiddeSoundSystemLine(),
     });
   };
 
   const showSoundSystemLine = () => {
     animate(line_soundSystem, 1, {
       duration: 0.5,
-      delay: 2,
-      onPlay: () => opacity_line_soundSystem.set(1),
+      onPlay: () => {
+        opacity_line_soundSystem.set(1);
+        setCurrentDevice({ device: "SOUND_SYSTEM" });
+      },
       onComplete: () => showSoundSystem(),
     });
   };
@@ -456,308 +834,68 @@ const Iot: React.FC = () => {
                 id="path2099"
               />
             </g>
-            <g id="id_device_in_mobile">
-              <path
-                d="M804.932 524.355L789.458 515.362L789.445 510.759L804.92 519.751L804.932 524.355Z"
-                fill="#191716"
-                id="path2103"
-              />
-              <path
-                d="M804.92 519.846L789.445 510.853L813.744 496.824L829.218 505.817L804.92 519.846Z"
-                fill="#2C2A2A"
-                id="path2105"
-              />
-              <path
-                d="M829.218 505.743L829.231 510.347L804.932 524.375L804.919 519.772L829.218 505.743Z"
-                fill="#232121"
-                id="path2107"
-              />
-              <path
-                d="M805.855 519.851L811.87 516.378V520.054L805.855 523.527V519.851Z"
-                fill="#191716"
-                id="path2109"
-              />
-              <path
-                d="M811.607 519.857L806.11 523.03V520.156L811.607 516.982V519.857Z"
-                fill="#204C75"
-                id="path2111"
-              />
-              <path
-                d="M806.983 520.654C806.75 520.789 806.56 521.118 806.56 521.387C806.56 521.657 806.75 521.766 806.983 521.632C807.216 521.497 807.407 521.168 807.407 520.898C807.407 520.629 807.216 520.519 806.983 520.654ZM806.983 521.803C806.668 521.984 806.412 521.836 806.412 521.473C806.412 521.109 806.668 520.665 806.983 520.483C807.298 520.301 807.555 520.449 807.555 520.813C807.555 521.177 807.298 521.621 806.983 521.803Z"
-                fill="white"
-                id="path2113"
-              />
-              <path
-                d="M807.08 521.343C807.08 521.404 807.038 521.478 806.985 521.508C806.932 521.539 806.889 521.514 806.889 521.453V521.073C806.889 521.012 806.932 520.938 806.985 520.907C807.038 520.877 807.08 520.902 807.08 520.963V521.343Z"
-                fill="white"
-                id="path2115"
-              />
-              <path
-                d="M810.79 519.26C810.658 519.37 810.527 519.349 810.498 519.213C810.469 519.077 810.553 518.878 810.684 518.768C810.817 518.658 810.948 518.68 810.977 518.816C811.006 518.951 810.922 519.15 810.79 519.26ZM811.359 518.577L811.33 518.443L811.308 518.437L811.154 518.526L811.083 518.45L811.136 518.251L811.128 518.225L811.016 518.208L810.99 518.227L810.88 518.416L810.759 518.461L810.692 518.338L810.669 518.336L810.539 518.444L810.523 518.478L810.522 518.658L810.421 518.798L810.275 518.821L810.25 518.844L810.178 519.015L810.182 519.043L810.291 519.107C810.279 519.16 810.271 519.211 810.269 519.26L810.129 519.417L810.116 519.452L810.145 519.585L810.166 519.591L810.321 519.503L810.392 519.579L810.339 519.778L810.346 519.803L810.458 519.821L810.485 519.801L810.595 519.612L810.716 519.567L810.782 519.691L810.806 519.693L810.936 519.585L810.951 519.551L810.953 519.371L811.053 519.231L811.199 519.208L811.225 519.184L811.297 519.014L811.293 518.985L811.184 518.921C811.196 518.869 811.203 518.817 811.206 518.768L811.346 518.611L811.359 518.577Z"
-                fill="white"
-                id="path2117"
-              />
-              <path
-                d="M807.806 520.852L808.135 521.042L808.235 521.028L808.335 520.926L808.664 520.357C808.715 520.267 808.715 520.171 808.664 520.141C808.612 520.111 808.528 520.159 808.477 520.249L808.393 520.394V519.905C808.393 519.805 808.322 519.764 808.235 519.815C808.148 519.865 808.077 519.987 808.077 520.088V520.576L807.993 520.528C807.942 520.498 807.858 520.546 807.806 520.636C807.755 520.726 807.755 520.822 807.806 520.852Z"
-                fill="white"
-                id="path2119"
-              />
-              <path
-                d="M809.897 519.247L809.583 519.065L809.487 519.079L809.39 519.177L809.076 519.721C809.026 519.807 809.026 519.9 809.076 519.928C809.125 519.957 809.206 519.911 809.255 519.825L809.335 519.686V520.154C809.335 520.25 809.403 520.29 809.487 520.241C809.57 520.193 809.638 520.076 809.638 519.98V519.511L809.719 519.558C809.768 519.586 809.848 519.54 809.897 519.454C809.947 519.369 809.947 519.276 809.897 519.247Z"
-                fill="white"
-                id="path2121"
-              />
-              <path
-                d="M799.403 515.458L791.667 510.962L791.625 496.465L799.362 500.961L799.403 515.458Z"
-                fill="#672516"
-                id="path2123"
-              />
-              <path
-                d="M798.937 515.209L799.405 515.481L799.364 500.984L798.937 500.736V515.209Z"
-                fill="#191716"
-                id="path2125"
-              />
-              <path
-                d="M799.362 500.948L791.625 496.452L799.652 491.817L807.389 496.314L799.362 500.948Z"
-                fill="#95321D"
-                id="path2127"
-              />
-              <path
-                d="M799.364 500.978L798.937 500.731L806.963 496.096L807.39 496.344L799.364 500.978Z"
-                fill="#2C2A2A"
-                id="path2129"
-              />
-              <path
-                d="M807.391 496.342L807.432 510.839L799.406 515.473L799.364 500.976L807.391 496.342Z"
-                fill="#232121"
-                id="path2131"
-              />
-              <path
-                d="M803.514 504.39C805.428 503.285 806.985 504.172 806.991 506.371C806.997 508.571 805.45 511.25 803.537 512.355C801.622 513.46 800.065 512.573 800.059 510.373C800.053 508.174 801.599 505.495 803.514 504.39Z"
-                fill="#2C2A2A"
-                id="path2133"
-              />
-              <path
-                d="M803.519 499.308C804.643 498.66 805.557 499.181 805.56 500.472C805.564 501.763 804.656 503.336 803.533 503.985C802.408 504.634 801.494 504.113 801.491 502.821C801.487 501.53 802.395 499.957 803.519 499.308Z"
-                fill="#2C2A2A"
-                id="path2135"
-              />
-              <path
-                d="M800.721 498.996L796.056 496.285L796.031 487.544L800.696 490.256L800.721 498.996Z"
-                fill="#672516"
-                id="path2137"
-              />
-              <path
-                d="M800.696 490.24L796.031 487.529L800.871 484.735L805.536 487.446L800.696 490.24Z"
-                fill="#95321D"
-                id="path2139"
-              />
-              <path
-                d="M800.472 498.835L800.72 498.979L800.695 490.238L800.472 490.109V498.835Z"
-                fill="#191716"
-                id="path2141"
-              />
-              <path
-                d="M800.695 490.223L800.472 490.093L805.311 487.299L805.534 487.429L800.695 490.223Z"
-                fill="#2C2A2A"
-                id="path2143"
-              />
-              <path
-                d="M805.536 487.422L805.561 496.162L800.722 498.956L800.697 490.216L805.536 487.422Z"
-                fill="#232121"
-                id="path2145"
-              />
-              <path
-                d="M821.012 511.904L821.967 512.459C821.828 512.379 821.635 512.39 821.424 512.513L820.469 511.958C820.681 511.835 820.874 511.824 821.012 511.904Z"
-                fill="#4B5B67"
-                id="path2147"
-              />
-              <path
-                d="M820.886 514.211L819.932 513.656C819.795 513.577 819.71 513.408 819.71 513.169C819.708 512.685 820.048 512.095 820.468 511.853L821.422 512.408C821.003 512.65 820.663 513.239 820.664 513.723C820.664 513.963 820.749 514.132 820.886 514.211Z"
-                fill="#4B5B67"
-                id="path2149"
-              />
-              <path
-                d="M821.423 512.447C821.844 512.204 822.186 512.399 822.188 512.883C822.189 513.365 821.849 513.955 821.428 514.198C821.008 514.44 820.666 514.245 820.664 513.763C820.663 513.278 821.003 512.689 821.423 512.447Z"
-                fill="#6A818D"
-                id="path2151"
-              />
-              <path
-                d="M818.168 513.496L819.122 514.051C818.984 513.97 818.791 513.982 818.58 514.104L817.625 513.55C817.837 513.427 818.03 513.416 818.168 513.496Z"
-                fill="#4B5B67"
-                id="path2153"
-              />
-              <path
-                d="M818.046 515.925L817.091 515.371C816.955 515.291 816.87 515.123 816.869 514.883C816.868 514.399 817.208 513.809 817.628 513.567L818.582 514.122C818.163 514.364 817.823 514.954 817.823 515.438C817.824 515.677 817.909 515.846 818.046 515.925Z"
-                fill="#4B5B67"
-                id="path2155"
-              />
-              <path
-                d="M818.582 514.156C819.004 513.912 819.346 514.108 819.348 514.592C819.349 515.073 819.009 515.663 818.587 515.907C818.168 516.149 817.825 515.953 817.824 515.472C817.823 514.987 818.163 514.397 818.582 514.156Z"
-                fill="#6A818D"
-                id="path2157"
-              />
-              <path
-                d="M825.401 508.951L825.58 509.045C825.492 508.998 825.367 509.005 825.23 509.077L825.051 508.982C825.188 508.909 825.312 508.903 825.401 508.951Z"
-                fill="#4B5B67"
-                id="path2159"
-              />
-              <path
-                d="M824.881 510.197L824.702 510.103C824.613 510.056 824.559 509.957 824.558 509.815C824.558 509.531 824.777 509.185 825.049 509.042L825.228 509.138C824.956 509.28 824.737 509.626 824.738 509.91C824.739 510.052 824.794 510.151 824.881 510.197Z"
-                fill="#4B5B67"
-                id="path2161"
-              />
-              <path
-                d="M825.228 509.104C825.5 508.961 825.721 509.076 825.722 509.36C825.723 509.644 825.504 509.99 825.232 510.133C824.96 510.276 824.739 510.161 824.738 509.877C824.737 509.592 824.956 509.247 825.228 509.104Z"
-                fill="#6A818D"
-                id="path2163"
-              />
-              <path
-                d="M826.807 508.216L826.986 508.311C826.897 508.263 826.773 508.27 826.636 508.342L826.456 508.247C826.593 508.175 826.717 508.168 826.807 508.216Z"
-                fill="#4B5B67"
-                id="path2165"
-              />
-              <path
-                d="M826.291 509.34L826.111 509.245C826.022 509.199 825.968 509.1 825.967 508.958C825.966 508.674 826.185 508.328 826.457 508.186L826.638 508.281C826.366 508.424 826.146 508.769 826.147 509.053C826.148 509.195 826.202 509.294 826.291 509.34Z"
-                fill="#4B5B67"
-                id="path2167"
-              />
-              <path
-                d="M826.637 508.369C826.909 508.226 827.129 508.341 827.13 508.625C827.131 508.91 826.912 509.255 826.64 509.398C826.368 509.541 826.147 509.426 826.147 509.142C826.146 508.857 826.365 508.512 826.637 508.369Z"
-                fill="#6A818D"
-                id="path2169"
-              />
-              <path
-                d="M828.203 507.366L828.383 507.461C828.294 507.414 828.17 507.421 828.033 507.493L827.853 507.398C827.99 507.325 828.114 507.319 828.203 507.366Z"
-                fill="#4B5B67"
-                id="path2171"
-              />
-              <path
-                d="M827.689 508.612L827.508 508.517C827.42 508.471 827.365 508.372 827.365 508.23C827.365 507.946 827.583 507.6 827.855 507.458L828.035 507.553C827.763 507.696 827.544 508.041 827.545 508.325C827.545 508.467 827.6 508.566 827.689 508.612Z"
-                fill="#4B5B67"
-                id="path2173"
-              />
-              <path
-                d="M828.034 507.519C828.306 507.376 828.527 507.49 828.528 507.775C828.529 508.059 828.31 508.405 828.038 508.548C827.766 508.691 827.545 508.576 827.544 508.291C827.543 508.007 827.762 507.662 828.034 507.519Z"
-                fill="#6A818D"
-                id="path2175"
-              />
-              <path
-                d="M823.859 511.76L824.039 511.855C823.949 511.808 823.826 511.815 823.689 511.887L823.509 511.792C823.646 511.72 823.77 511.714 823.859 511.76Z"
-                fill="#4B5B67"
-                id="path2177"
-              />
-              <path
-                d="M823.343 513.008L823.164 512.913C823.075 512.867 823.021 512.767 823.02 512.626C823.019 512.341 823.238 511.996 823.51 511.853L823.69 511.948C823.418 512.091 823.199 512.436 823.199 512.721C823.2 512.862 823.254 512.962 823.343 513.008Z"
-                fill="#4B5B67"
-                id="path2179"
-              />
-              <path
-                d="M823.69 511.915C823.962 511.772 824.182 511.886 824.183 512.17C824.185 512.455 823.965 512.8 823.693 512.943C823.421 513.086 823.201 512.972 823.2 512.687C823.199 512.403 823.418 512.057 823.69 511.915Z"
-                fill="#6A818D"
-                id="path2181"
-              />
-              <path
-                d="M825.268 511.026L825.447 511.121C825.358 511.074 825.234 511.08 825.097 511.153L824.917 511.057C825.054 510.985 825.178 510.978 825.268 511.026Z"
-                fill="#4B5B67"
-                id="path2183"
-              />
-              <path
-                d="M824.752 512.151L824.572 512.055C824.484 512.009 824.429 511.91 824.429 511.769C824.428 511.484 824.647 511.138 824.919 510.996L825.098 511.091C824.826 511.234 824.607 511.579 824.609 511.864C824.609 512.005 824.664 512.104 824.752 512.151Z"
-                fill="#4B5B67"
-                id="path2185"
-              />
-              <path
-                d="M825.098 511.18C825.371 511.036 825.591 511.151 825.592 511.435C825.592 511.719 825.373 512.065 825.101 512.208C824.829 512.351 824.609 512.237 824.608 511.952C824.607 511.668 824.826 511.322 825.098 511.18Z"
-                fill="#6A818D"
-                id="path2187"
-              />
-              <path
-                d="M826.665 510.177L826.844 510.272C826.755 510.225 826.631 510.232 826.495 510.303L826.315 510.208C826.452 510.137 826.575 510.13 826.665 510.177Z"
-                fill="#4B5B67"
-                id="path2189"
-              />
-              <path
-                d="M826.146 511.423L825.966 511.328C825.877 511.281 825.823 511.182 825.822 511.041C825.822 510.756 826.041 510.411 826.313 510.268L826.492 510.363C826.221 510.506 826.001 510.851 826.002 511.136C826.002 511.277 826.058 511.376 826.146 511.423Z"
-                fill="#4B5B67"
-                id="path2191"
-              />
-              <path
-                d="M826.492 510.329C826.764 510.186 826.985 510.301 826.985 510.585C826.986 510.87 826.767 511.215 826.496 511.358C826.224 511.501 826.003 511.387 826.002 511.103C826.001 510.818 826.22 510.472 826.492 510.329Z"
-                fill="#6A818D"
-                id="path2193"
-              />
-              <path
-                d="M821.961 511.64C822.229 511.782 822.434 511.672 822.532 511.593C822.685 511.469 822.748 511.249 822.684 511.059C822.625 510.884 822.5 510.807 822.459 510.782C822.397 510.746 822.311 510.75 822.215 510.804C822.045 510.899 821.901 511.117 821.866 511.321L821.863 511.478C821.876 511.555 821.911 511.611 821.961 511.64Z"
-                fill="#EF2F23"
-                id="path2195"
-              />
-              <path
-                d="M823.427 510.904C823.695 511.046 823.9 510.936 823.998 510.857C824.151 510.733 824.213 510.514 824.149 510.323C824.09 510.148 823.966 510.072 823.925 510.047C823.862 510.01 823.777 510.014 823.681 510.068C823.511 510.162 823.367 510.381 823.332 510.585L823.329 510.742C823.341 510.819 823.376 510.875 823.427 510.904Z"
-                fill="#3CB83D"
-                id="path2197"
-              />
-              <path
-                d="M818.358 511.178L826.095 506.682L826.136 492.185L818.399 496.682L818.358 511.178Z"
-                fill="#672516"
-                id="path2199"
-              />
-              <path
-                d="M818.826 510.938L818.358 511.21L818.399 496.713L818.826 496.465V510.938Z"
-                fill="#232121"
-                id="path2201"
-              />
-              <path
-                d="M818.398 496.675L826.135 492.178L818.109 487.544L810.371 492.041L818.398 496.675Z"
-                fill="#95321D"
-                id="path2203"
-              />
-              <path
-                d="M818.398 496.699L818.825 496.451L810.798 491.817L810.371 492.065L818.398 496.699Z"
-                fill="#2C2A2A"
-                id="path2205"
-              />
-              <path
-                d="M810.37 492.062L810.329 506.559L818.356 511.193L818.397 496.696L810.37 492.062Z"
-                fill="#191716"
-                id="path2207"
-              />
-              <path
-                d="M814.248 500.109C812.335 499.004 810.778 499.891 810.772 502.09C810.766 504.291 812.312 506.969 814.226 508.074C816.141 509.18 817.698 508.292 817.704 506.092C817.71 503.894 816.163 501.215 814.248 500.109Z"
-                fill="#232121"
-                id="path2209"
-              />
-              <path
-                d="M814.241 494.906C813.118 494.257 812.204 494.778 812.2 496.069C812.197 497.361 813.105 498.934 814.228 499.582C815.353 500.232 816.266 499.711 816.27 498.418C816.274 497.128 815.365 495.555 814.241 494.906Z"
-                fill="#232121"
-                id="path2211"
-              />
-              <path
-                d="M819.397 495.328L824.061 492.617L824.086 483.877L819.422 486.588L819.397 495.328Z"
-                fill="#672516"
-                id="path2213"
-              />
-              <path
-                d="M819.418 486.573L824.082 483.862L819.243 481.068L814.579 483.778L819.418 486.573Z"
-                fill="#A5371F"
-                id="path2215"
-              />
-              <path
-                d="M819.644 495.169L819.397 495.312L819.422 486.572L819.644 486.442V495.169Z"
-                fill="#232121"
-                id="path2217"
-              />
-              <path
-                d="M819.418 486.555L819.64 486.426L814.801 483.632L814.579 483.761L819.418 486.555Z"
-                fill="#2C2A2A"
-                id="path2219"
-              />
-              <path
-                d="M814.581 483.755L814.556 492.495L819.395 495.289L819.42 486.549L814.581 483.755Z"
-                fill="#191716"
-                id="path2221"
-              />
-            </g>
+            <motion.g id="id_device_in_mobile" style={{ scale: 0.55 }}>
+              {currentDevice.device === "SOUND_SYSTEM" && (
+                <g transform="translate(35,275)">
+                  <SoundSystem />
+                </g>
+              )}
+              {currentDevice.device === "LAMP" && (
+                <g transform="translate(400,-255)">
+                  <Lamp />
+                </g>
+              )}
+              {currentDevice.device === "CAMERA" && (
+                <g transform="translate(-425,60)">
+                  <Camera />
+                </g>
+              )}
+              {currentDevice.device === "FRIDGE" && (
+                <g transform="translate(750,328)">
+                  <Fridge />
+                </g>
+              )}
+              {currentDevice.device === "TV" && (
+                <g transform="translate(-50,-240)">
+                  <TV />
+                </g>
+              )}
+              {currentDevice.device === "MICROWAVE" && (
+                <g transform="translate(-193,460)">
+                  <Microwave />
+                </g>
+              )}
+              {currentDevice.device === "CAR" && (
+                <g transform="translate(746,-200)">
+                  <Car />
+                </g>
+              )}
+              {currentDevice.device === "AIR_CONDITIONER" && (
+                <g transform="translate(-655,410)">
+                  <AirConditioner />
+                </g>
+              )}
+              {currentDevice.device === "COFFEE" && (
+                <g transform="translate(160,-410)">
+                  <Coffee />
+                </g>
+              )}
+              {currentDevice.device === "STOVE" && (
+                <g transform="translate(-735,-320)">
+                  <Stove />
+                </g>
+              )}
+              {currentDevice.device === "WASHING_MACHINE" && (
+                <g transform="translate(250,385)">
+                  <WasherMachine />
+                </g>
+              )}
+              {currentDevice.device === "DISHWASHER" && (
+                <g transform="translate(-270,-345)">
+                  <DishWasher />
+                </g>
+              )}
+            </motion.g>
             <text
               xmlSpace="preserve"
               fill="#000"
@@ -1387,7 +1525,8 @@ const Iot: React.FC = () => {
               strokeDasharray="14.44 14.44"
               id="path3490"
               style={{
-                pathLength: line_stove,
+                scaleX: line_stove,
+                scaleY: line_stove,
                 opacity: opacity_line_stove,
               }}
             />
@@ -1441,7 +1580,8 @@ const Iot: React.FC = () => {
               strokeDasharray="14.44 14.44"
               id="path3492"
               style={{
-                pathLength: line_airConditioner,
+                scaleX: line_airConditioner,
+                scaleY: line_airConditioner,
                 opacity: opacity_line_airConditioner,
               }}
             />
@@ -1555,7 +1695,8 @@ const Iot: React.FC = () => {
               strokeDasharray="14.44 14.44"
               id="path3554"
               style={{
-                pathLength: line_camera,
+                scaleX: line_camera,
+                scaleY: line_camera,
                 opacity: opacity_line_camera,
               }}
             />
@@ -1607,7 +1748,8 @@ const Iot: React.FC = () => {
               strokeDasharray="14.44 14.44"
               id="path3642"
               style={{
-                pathLength: line_microwave,
+                scaleX: line_microwave,
+                scaleY: line_microwave,
                 opacity: opacity_line_microwave,
               }}
             />
@@ -1631,11 +1773,6 @@ const Iot: React.FC = () => {
                 scaleY: line_soundSystem,
                 opacity: opacity_line_soundSystem,
               }}
-              // style={{
-              //   pathLength: line_soundSystem,
-              //   opacity: opacity_line_soundSystem,
-
-              // }}
             />
             <motion.path
               d="M792.617 289.217C792.617 286.541 790.447 284.372 787.772 284.372C785.097 284.372 782.928 286.541 782.928 289.217C782.928 291.892 785.097 294.06 787.772 294.06C790.447 294.06 792.617 291.892 792.617 289.217Z"
