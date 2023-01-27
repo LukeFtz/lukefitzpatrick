@@ -75,9 +75,10 @@ const Frontend: React.FC = () => {
 
       let newTop;
       if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
-        newTop = Math.abs(id_aux_top_frontend.position().top - topLine);
+        newTop = Math.abs(id_aux_top_frontend.position().top + 100 - topLine);
       } else if (aspectRatio >= 1.4 && aspectRatio < 1.6) {
-        newTop = Math.abs(id_aux_top_frontend.position().top - topLine) + 100;
+        newTop = Math.abs(id_aux_top_frontend.position().top - topLine) + 200;
+        // topFrontend.css({ "padding-top": "200px" });
       } else {
         newTop = Math.abs(topLine - id_aux_top_frontend.position().top);
       }
@@ -179,15 +180,18 @@ const Frontend: React.FC = () => {
 
   return (
     <div id="id_frontend_div" className="container mainFrontendDiv">
-      {/* <motion.div style={{ y: top }}> */}
-      <div className="row justify-content-end text-end">
-        <div className="col-12 col-xl-6 overflowXHidden">
-          <motion.h2
-            className={`${plus_jakarta_sans.className} fs-1 mb-5 `}
-            style={{ x: xFrontend }}
-          >
-            Front-end
-          </motion.h2>
+      <div className="row justify-content-center">
+        <div className="col-12 col-md-10 col-xl-12">
+          <div className="row justify-content-end text-end">
+            <div className="col-12 col-xl-6 overflowXHidden">
+              <motion.h2
+                className={`${plus_jakarta_sans.className} fs-1 mb-5 `}
+                style={{ x: xFrontend }}
+              >
+                Front-end
+              </motion.h2>
+            </div>
+          </div>
         </div>
       </div>
 

@@ -74,13 +74,17 @@ const Backend: React.FC = () => {
 
   return (
     <div id="id_Backend_div" className="container mt-5 pt-5">
-      <div className="col-12 col-xl-6 overflowXHidden">
-        <motion.h2
-          className={`${plus_jakarta_sans.className} fs-1 mb-5 `}
-          style={{ x: xBackend }}
-        >
-          Back-end
-        </motion.h2>
+      <div className="row justify-content-center">
+        <div className="col-12 col-md-11 col-xl-12">
+          <div className="col-12 col-xl-6 overflowXHidden">
+            <motion.h2
+              className={`${plus_jakarta_sans.className} fs-1 mb-5 `}
+              style={{ x: xBackend }}
+            >
+              Back-end
+            </motion.h2>
+          </div>
+        </div>
       </div>
 
       <div className="row justify-content-center mt-5 mb-5 " ref={scrollRef}>
@@ -93,10 +97,10 @@ const Backend: React.FC = () => {
           </motion.h2>
         </div>
         <motion.div
-          className="row col-12 col-md-6 mt-5 pt-5 justify-content-center"
+          className="row col-12 col-md-6 mt-5 justify-content-center"
           style={{ x: xBackendDjango, opacity }}
         >
-          <div className="col-12 col-md-9">
+          <div className="col-12 col-md-7 col-cl-9">
             <Image
               src={django}
               alt="devices icons"
@@ -105,10 +109,10 @@ const Backend: React.FC = () => {
           </div>
         </motion.div>
         <motion.div
-          className="row col-12 col-md-6 mt-5 pt-5 justify-content-center"
+          className="row col-12 col-md-6 mt-5 justify-content-center"
           style={{ x: xBackendDjangoRest, opacity }}
         >
-          <div className="col-12 col-md-9">
+          <div className="col-12 col-md-7 col-cl-9">
             <Image
               src={django_rest}
               alt="devices icons"
@@ -137,17 +141,17 @@ const Backend: React.FC = () => {
           </h2>
           <div className="row pt-5 mt-5 align-items-center justify-content-center">
             <div className="col-4 row justify-content-center">
-              <div className="col-6">
+              <div className="col-6 col-md-5 col-xl-6">
                 <Java />
               </div>
             </div>
             <div className="col-4 row justify-content-center">
-              <div className="col-7">
+              <div className="col-6 col-md-5 col-xl-6">
                 <Python />
               </div>
             </div>
             <div className="col-4 row justify-content-center">
-              <div className="col-5">
+              <div className="col-5 col-md-4 col-xl-6">
                 <C />
               </div>
             </div>

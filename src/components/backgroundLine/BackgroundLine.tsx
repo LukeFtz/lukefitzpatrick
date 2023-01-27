@@ -26,6 +26,7 @@ const BackgroundLine: React.FC = () => {
   const textOthers = useMotionValue<number>(6070);
   const y = useMotionValue<number>(0);
   const yPrototypeSize = useMotionValue<number>(1);
+  const marginTopFrontendProto = useMotionValue<number>(0);
   const marginTopPrototype = useMotionValue<number>(1);
   const prototypeY = useMotionValue<number>(0);
 
@@ -85,11 +86,17 @@ const BackgroundLine: React.FC = () => {
   const defineValues = () => {
     const aspectRatio =
       Math.round((window.screen.width / window.screen.height) * 100) / 100;
+    console.log(aspectRatio);
 
     if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
-    } else if (aspectRatio >= 1.4 && aspectRatio < 1.6) {
+      viewBoxY.set(8000);
+      textOthers.set(7775);
+    } else if (aspectRatio >= 1.4 && aspectRatio < 1.5) {
       viewBoxY.set(7500);
       textOthers.set(7140);
+    } else if (aspectRatio >= 1.5 && aspectRatio < 1.6) {
+      viewBoxY.set(7500);
+      textOthers.set(6850);
     } else {
       viewBoxY.set(6800);
       textOthers.set(6070);
@@ -101,14 +108,38 @@ const BackgroundLine: React.FC = () => {
         "id_vertical_prototype_line"
       );
       if (line && lineVerticalLine) {
-        const scaleY =
-          (line.getBoundingClientRect().height +
-            window.screen.availHeight / 1.6) /
-          lineVerticalLine.getBoundingClientRect().height;
+        let scaleY = 0;
+        if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
+          scaleY =
+            (line.getBoundingClientRect().height +
+              // window.screen.availHeight / 1.7) /
+              window.screen.availHeight / 1.7) /
+            lineVerticalLine.getBoundingClientRect().height;
+        } else if (aspectRatio >= 1.4 && aspectRatio < 1.6) {
+          scaleY =
+            (line.getBoundingClientRect().height +
+              window.screen.availHeight / 1.26) /
+            lineVerticalLine.getBoundingClientRect().height;
+        } else {
+          scaleY =
+            (line.getBoundingClientRect().height +
+              window.screen.availHeight / 1.6) /
+            lineVerticalLine.getBoundingClientRect().height;
+        }
+
         yPrototypeSize.set(Math.round(scaleY * 100) / 100);
         const auxValue = (50 * (yPrototypeSize.get() - 1)) / 0.5;
         prototypeY.set(auxValue);
-        marginTopPrototype.set(auxValue * 13.5);
+        if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
+          marginTopPrototype.set(auxValue * 13);
+          marginTopFrontendProto.set(auxValue * 13);
+        } else if (aspectRatio >= 1.5 && aspectRatio < 1.6) {
+          marginTopPrototype.set(auxValue * 13);
+          marginTopFrontendProto.set(auxValue * 13.9);
+        } else {
+          marginTopFrontendProto.set(auxValue * 13);
+          marginTopPrototype.set(auxValue * 13.5);
+        }
       }
 
       const frontendSize = $("#id_frontend_div").height();
@@ -120,28 +151,28 @@ const BackgroundLine: React.FC = () => {
         let auxValueFront: number;
 
         if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
-          scaleY2 = frontendSize / (frontendLine - 100);
+          // scaleY2 = frontendSize / (1500 + 25);
+          scaleY2 = frontendSize / 1185;
           yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
-
-          auxValueFront = auxValueFront =
-            ((50 * (yFrontendSize.get() - 1)) / 0.5) * 6;
-          marginTopFrontend.set(auxValueFront * 55);
-        } else if (aspectRatio >= 1.4 && aspectRatio < 1.6) {
+          auxValueFront = Math.abs((50 * (yFrontendSize.get() - 1)) / 0.5);
+          marginTopFrontend.set(Math.abs(frontendSize - frontendLine) * 155);
+        } else if (aspectRatio >= 1.4 && aspectRatio < 1.5) {
           scaleY2 = frontendSize / (frontendLine - 550);
           yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
-          auxValueFront = auxValueFront =
-            ((50 * (yFrontendSize.get() - 1)) / 0.5) * 2.1 - 50;
+          auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 2.1 - 50;
           marginTopFrontend.set(auxValueFront * 54);
+        } else if (aspectRatio >= 1.5 && aspectRatio < 1.6) {
+          scaleY2 = frontendSize / (frontendLine - 407);
+          yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
+          auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 2.1 - 50;
+          marginTopFrontend.set(auxValueFront * 67);
         } else {
           scaleY2 = frontendSize / frontendLine;
           yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
 
-          auxValueFront = auxValueFront =
-            ((50 * (yFrontendSize.get() - 1)) / 0.5) * 6;
+          auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 6;
           marginTopFrontend.set(auxValueFront * 7.2);
         }
-
-        // console.log(Math.round(frontendLine.getBoundingClientRect().height));
         frontendY.set(auxValueFront);
       }
 
@@ -246,7 +277,7 @@ const BackgroundLine: React.FC = () => {
             id="id_frontend_path_vertical"
             style={{
               pathLength: frontendVertical,
-              y: marginTopPrototype,
+              y: marginTopFrontendProto,
               height: 2003,
             }}
           />
@@ -315,7 +346,7 @@ const BackgroundLine: React.FC = () => {
             style={{ pathLength: scrollYProgress, y: marginTopFrontend }}
           />
         </motion.g>
-        <motion.text xmlSpace="preserve" fill="#fff">
+        <motion.text xmlSpace="preserve" fill="#000">
           <motion.tspan
             x={700}
             y={textOthers.get()}

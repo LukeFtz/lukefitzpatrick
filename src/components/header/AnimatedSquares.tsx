@@ -1,13 +1,11 @@
-import React, { SVGProps, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { animate, motion, useMotionValue, useTransform } from "framer-motion";
-import { isLineStaterd } from "@/store/redures/headerReducer";
-import { useAppSelector } from "@/store/hooks";
 
 let width = 0;
 let height = 0;
 
 const AnimatedSquares = () => {
-  const startAnimation = useAppSelector(isLineStaterd);
+  const viewBox = useMotionValue(1047);
 
   const rotate = useMotionValue(0);
   const rotate2 = useMotionValue(0);
@@ -196,58 +194,6 @@ const AnimatedSquares = () => {
     });
   };
 
-  // useEffect(() => {
-  //   if (startAnimation) {
-  //     opacity.set(1);
-
-  //     animate(rotate, -720, {
-  //       duration: 2,
-  //     });
-  //     animate(rotate2, -360, {
-  //       duration: 1.5,
-  //     });
-
-  //     animate(path01X, width * 0.02, {
-  //       duration: 1.5,
-  //     });
-
-  //     animate(path02X, width * 0.08, {
-  //       duration: 1.5,
-  //     });
-
-  //     animate(path03X, width * 0.15, {
-  //       duration: 1.5,
-  //     });
-
-  //     animate(path04X, width * 0.21, {
-  //       duration: 1.5,
-  //     });
-
-  //     animate(path05X, width * 0.25, {
-  //       duration: 1.5,
-  //     });
-
-  //     animate(path06X, width * 0.37, {
-  //       duration: 1.5,
-  //     });
-
-  //     animate(path07X, width * 0.45, {
-  //       duration: 1.5,
-  //     });
-
-  //     animate(path08X, width * 0.53, {
-  //       duration: 1.5,
-  //     });
-
-  //     animate(path09X, width * 0.46, {
-  //       duration: 1.5,
-  //     });
-
-  //     animate(path10X, width * 0.58, {
-  //       duration: 1.5,
-  //     });
-  //   }
-  // }, [startAnimation]);
   const aniamted = () => {
     // if (startAnimation) {
     opacity.set(1);
@@ -306,7 +252,21 @@ const AnimatedSquares = () => {
     // }
   };
 
+  const defineViewBox = () => {
+    const aspectRatio =
+      Math.round((window.screen.width / window.screen.height) * 100) / 100;
+
+    if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
+      viewBox.set(700);
+    } else if (aspectRatio >= 1.4 && aspectRatio < 1.6) {
+      viewBox.set(800);
+    } else {
+      viewBox.set(1047);
+    }
+  };
+
   useEffect(() => {
+    defineViewBox();
     const auxWidth = window.screen.width;
     const auxHeight = window.screen.height;
 
@@ -340,7 +300,8 @@ const AnimatedSquares = () => {
 
   return (
     <motion.svg
-      viewBox="0 0 1047 275"
+      // viewBox="0 0 1047 275"
+      viewBox={`0 0 ${viewBox.get()} 275`}
       fill="none"
       preserveAspectRatio="none"
       xmlns="http://www.w3.org/2000/svg"

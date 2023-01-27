@@ -89,11 +89,18 @@ const Iot: React.FC = () => {
       if (topCloud && auxTopIot) {
         let newTop: number;
         if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
-        } else if (aspectRatio >= 1.4 && aspectRatio < 1.6) {
+        } else if (aspectRatio >= 1.4 && aspectRatio < 1.5) {
           newTop = Math.abs(
             topCloud.position().top - auxTopIot.position().top * 0.8
             // topCloud.height()
           );
+          topIoTR.css({ "margin-top": newTop + "px" });
+        } else if (aspectRatio >= 1.5 && aspectRatio < 1.6) {
+          newTop =
+            Math.abs(
+              topCloud.position().top - auxTopIot.position().top + 380
+              // topCloud.height()
+            ) * 1.5;
           topIoTR.css({ "margin-top": newTop + "px" });
         } else {
           newTop =

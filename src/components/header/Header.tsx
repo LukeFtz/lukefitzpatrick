@@ -70,7 +70,7 @@ const Header: React.FC = () => {
   return (
     <div>
       <div className="col-12">
-        <div className="col-4 position-absolute imgPersonDiv row">
+        <div className="col-12 col-md-5 col-xl-4 position-absolute imgPersonDiv row">
           <ProfileImage />
         </div>
         <div className="row justify-content-end squaresHeight">

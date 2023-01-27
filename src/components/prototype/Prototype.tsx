@@ -65,14 +65,18 @@ const Prototype: React.FC = () => {
   // }, []);
 
   return (
-    <div id="id_prototype_div" className="container mt-5">
-      <div className="col-12 col-xl-6 overflowXHidden">
-        <motion.h2
-          className={`${plus_jakarta_sans.className} fs-1 mb-5 `}
-          style={{ x: xPrototype }}
-        >
-          Prototipação
-        </motion.h2>
+    <div id="id_prototype_div" className="container mt-5 ">
+      <div className="row justify-content-center">
+        <div className="col-12 col-md-11 col-xl-12">
+          <div className="col-12 col-xl-6 overflowXHidden">
+            <motion.h2
+              className={`${plus_jakarta_sans.className} fs-1 mb-5 `}
+              style={{ x: xPrototype }}
+            >
+              Prototipação
+            </motion.h2>
+          </div>
+        </div>
       </div>
 
       <div className="row justify-content-center mt-5" ref={scrollRef}>
