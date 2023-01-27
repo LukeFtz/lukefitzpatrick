@@ -21,3 +21,11 @@ a {
 .maxHeight {
   height: 100vh;
 }
+
+.overflowY {
+  overflow-y: hidden;
+}
+
+.cursorDefinition:hover {
+  cursor: pointer;
+}

@@ -77,7 +77,7 @@ const Prototype: React.FC = () => {
 
       <div className="row justify-content-center mt-5" ref={scrollRef}>
         <motion.div
-          className="row col-12 col-md-8 col-xl-6 mt-5 pt-5 text-center"
+          className="row col-12 col-md-6 mt-5 pt-5 text-center"
           style={{ x: yPrototypeDevices, opacity }}
         >
           <Image src={devices} alt="devices icons" className="img-fluid" />
@@ -88,23 +88,23 @@ const Prototype: React.FC = () => {
           style={{ x: yPrototypeIcons, opacity }}
         >
           <div className="row justify-content-center col-4 mt-5 pt-5">
-            <div className="col-10 text-center">
+            <div className="col-5 col-xl-10 text-center">
               <Image src={adobe} alt="adobe XD icon" className="img-fluid" />
             </div>
             <div className="text-center mt-3">
-              <p className={`${plus_jakarta_sans.className} fs-2`}>Adobe XD</p>
+              <p className={`${plus_jakarta_sans.className} fs-3`}>Adobe XD</p>
             </div>
           </div>
           <div className="row justify-content-center col-4 mt-5 pt-5">
-            <div className="col-10 text-center">
+            <div className="col-5 col-xl-10 text-center">
               <Image src={figma} alt="figma icon" className="img-fluid" />
             </div>
             <div className="text-center mt-3">
-              <p className={`${plus_jakarta_sans.className} fs-2`}>Figma</p>
+              <p className={`${plus_jakarta_sans.className} fs-3`}>Figma</p>
             </div>
           </div>
           <div className="row justify-content-center col-4 mt-5 pt-5">
-            <div className="col-10 text-center">
+            <div className="col-5 col-xl-10 text-center">
               <Image
                 src={photoshop}
                 alt="Adobe Photoshop icon"
@@ -112,7 +112,7 @@ const Prototype: React.FC = () => {
               />
             </div>
             <div className="text-center mt-3">
-              <p className={`${plus_jakarta_sans.className} fs-2`}>
+              <p className={`${plus_jakarta_sans.className} fs-3`}>
                 Adobe Photoshop
               </p>
             </div>

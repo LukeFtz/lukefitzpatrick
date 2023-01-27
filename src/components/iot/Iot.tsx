@@ -17,12 +17,9 @@ import {
 } from "./devices";
 import {
   animate,
+  AnimatePresence,
   motion,
-  useInView,
   useMotionValue,
-  useMotionValueEvent,
-  useScroll,
-  useTransform,
 } from "framer-motion";
 import { mobileDevice } from "@/utilitities/types";
 
@@ -34,7 +31,7 @@ const plus_jakarta_sans = Plus_Jakarta_Sans({
 });
 let firstTime = true;
 
-const DELAY = 0;
+const DELAY = 3;
 
 const Iot: React.FC = () => {
   const [currentDevice, setCurrentDevice] = useState<mobileDevice>({
@@ -82,17 +79,30 @@ const Iot: React.FC = () => {
 
   const defineTop = () => {
     if (firstTime) {
+      const aspectRatio =
+        Math.round((window.screen.width / window.screen.height) * 100) / 100;
+
       const topCloud = $("#id_cloud_iot");
       const topIoTR = $("#id_main_iot_div");
       const auxTopIot = $("#id_aux_top_iot");
 
       if (topCloud && auxTopIot) {
-        const newTop =
-          Math.abs(
-            topCloud.position().top - auxTopIot.position().top + 277
+        let newTop: number;
+        if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
+        } else if (aspectRatio >= 1.4 && aspectRatio < 1.6) {
+          newTop = Math.abs(
+            topCloud.position().top - auxTopIot.position().top * 0.8
             // topCloud.height()
-          ) * 1.5;
-        topIoTR.css({ "margin-top": newTop + "px" });
+          );
+          topIoTR.css({ "margin-top": newTop + "px" });
+        } else {
+          newTop =
+            Math.abs(
+              topCloud.position().top - auxTopIot.position().top + 277
+              // topCloud.height()
+            ) * 1.5;
+          topIoTR.css({ "margin-top": newTop + "px" });
+        }
       }
       firstTime = false;
     }
@@ -835,66 +845,155 @@ const Iot: React.FC = () => {
               />
             </g>
             <motion.g id="id_device_in_mobile" style={{ scale: 0.55 }}>
-              {currentDevice.device === "SOUND_SYSTEM" && (
+              {currentDevice.device === "NONE" && (
                 <g transform="translate(35,275)">
                   <SoundSystem />
                 </g>
               )}
-              {currentDevice.device === "LAMP" && (
-                <g transform="translate(400,-255)">
-                  <Lamp />
-                </g>
-              )}
-              {currentDevice.device === "CAMERA" && (
-                <g transform="translate(-425,60)">
-                  <Camera />
-                </g>
-              )}
-              {currentDevice.device === "FRIDGE" && (
-                <g transform="translate(750,328)">
-                  <Fridge />
-                </g>
-              )}
-              {currentDevice.device === "TV" && (
-                <g transform="translate(-50,-240)">
-                  <TV />
-                </g>
-              )}
-              {currentDevice.device === "MICROWAVE" && (
-                <g transform="translate(-193,460)">
-                  <Microwave />
-                </g>
-              )}
-              {currentDevice.device === "CAR" && (
-                <g transform="translate(746,-200)">
-                  <Car />
-                </g>
-              )}
-              {currentDevice.device === "AIR_CONDITIONER" && (
-                <g transform="translate(-655,410)">
-                  <AirConditioner />
-                </g>
-              )}
-              {currentDevice.device === "COFFEE" && (
-                <g transform="translate(160,-410)">
-                  <Coffee />
-                </g>
-              )}
-              {currentDevice.device === "STOVE" && (
-                <g transform="translate(-735,-320)">
-                  <Stove />
-                </g>
-              )}
-              {currentDevice.device === "WASHING_MACHINE" && (
-                <g transform="translate(250,385)">
-                  <WasherMachine />
-                </g>
-              )}
-              {currentDevice.device === "DISHWASHER" && (
-                <g transform="translate(-270,-345)">
-                  <DishWasher />
-                </g>
-              )}
+              <AnimatePresence>
+                {currentDevice.device === "SOUND_SYSTEM" && (
+                  <motion.g
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transform="translate(35,275)"
+                  >
+                    <SoundSystem />
+                  </motion.g>
+                )}
+              </AnimatePresence>
+              <AnimatePresence>
+                {currentDevice.device === "LAMP" && (
+                  <motion.g
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transform="translate(400,-255)"
+                  >
+                    <Lamp />
+                  </motion.g>
+                )}
+              </AnimatePresence>
+              <AnimatePresence>
+                {currentDevice.device === "CAMERA" && (
+                  <motion.g
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transform="translate(-425,60)"
+                  >
+                    <Camera />
+                  </motion.g>
+                )}
+              </AnimatePresence>
+              <AnimatePresence>
+                {currentDevice.device === "FRIDGE" && (
+                  <motion.g
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transform="translate(750,328)"
+                  >
+                    <Fridge />
+                  </motion.g>
+                )}
+              </AnimatePresence>
+              <AnimatePresence>
+                {currentDevice.device === "TV" && (
+                  <motion.g
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transform="translate(-50,-240)"
+                  >
+                    <TV />
+                  </motion.g>
+                )}
+              </AnimatePresence>
+              <AnimatePresence>
+                {currentDevice.device === "MICROWAVE" && (
+                  <motion.g
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transform="translate(-193,460)"
+                  >
+                    <Microwave />
+                  </motion.g>
+                )}
+              </AnimatePresence>
+              <AnimatePresence>
+                {currentDevice.device === "CAR" && (
+                  <motion.g
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transform="translate(746,-200)"
+                  >
+                    <Car />
+                  </motion.g>
+                )}
+              </AnimatePresence>
+              <AnimatePresence>
+                {currentDevice.device === "AIR_CONDITIONER" && (
+                  <motion.g
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transform="translate(-655,410)"
+                  >
+                    <AirConditioner />
+                  </motion.g>
+                )}
+              </AnimatePresence>
+              <AnimatePresence>
+                {currentDevice.device === "COFFEE" && (
+                  <motion.g
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transform="translate(160,-410)"
+                  >
+                    <Coffee />
+                  </motion.g>
+                )}
+              </AnimatePresence>
+              <AnimatePresence>
+                {currentDevice.device === "STOVE" && (
+                  <motion.g
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transform="translate(-735,-320)"
+                  >
+                    <Stove />
+                  </motion.g>
+                )}
+              </AnimatePresence>
+              <AnimatePresence>
+                {currentDevice.device === "WASHING_MACHINE" && (
+                  <motion.g
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transform="translate(250,385)"
+                  >
+                    <WasherMachine />
+                  </motion.g>
+                )}
+              </AnimatePresence>
+              <AnimatePresence>
+                {currentDevice.device === "DISHWASHER" && (
+                  <motion.g
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transform="translate(-270,-345)"
+                  >
+                    <DishWasher />
+                  </motion.g>
+                )}
+              </AnimatePresence>
             </motion.g>
             <text
               xmlSpace="preserve"
@@ -902,21 +1001,29 @@ const Iot: React.FC = () => {
               x="791.44684"
               y="456.69769"
               id="id_mobile_iot_text_svg"
-              transform="scale(1.0212605,0.97918211)"
+              transform="scale(0.8,0.97918211)"
             >
               <tspan
                 id="tspan7066"
-                x="791.44684"
+                x="1010"
                 y="456.69769"
-                //   style="text-align:center;text-anchor:middle;strokeWidth:1.02126"
+                style={{
+                  textAlign: "center",
+                  textAnchor: "middle",
+                  strokeWidth: 1,
+                }}
               >
                 Connected
               </tspan>
               <tspan
-                x="791.44684"
+                x="1010"
                 y="473.2034"
-                //   style="text-align:center;text-anchor:middle;strokeWidth:1.02126"
                 id="tspan7120"
+                style={{
+                  textAlign: "center",
+                  textAnchor: "middle",
+                  strokeWidth: 1,
+                }}
               >
                 to
               </tspan>

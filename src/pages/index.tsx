@@ -9,6 +9,7 @@ import Prototype from "@/components/prototype/Prototype";
 import Frontend from "@/components/Frontend/Frontend";
 import Backend from "@/components/backend/Backend";
 import Iot from "@/components/iot/Iot";
+import Others from "@/components/others/Others";
 
 export default function Home() {
   return (
@@ -46,7 +47,9 @@ export default function Home() {
           <div id="id_aux_top_iot"></div>
           <Iot />
         </div>
-        <div className="headerdiv "></div>
+        <div>
+          <Others />
+        </div>
       </main>
     </>
   );

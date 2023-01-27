@@ -20,11 +20,6 @@ export default function Document() {
           integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
           crossOrigin="anonymous"
         ></Script>
-        <Script
-          src="https://code.jquery.com/jquery-3.6.3.min.js"
-          integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
-          crossOrigin="anonymous"
-        ></Script>
       </body>
     </Html>
   );
