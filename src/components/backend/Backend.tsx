@@ -100,7 +100,7 @@ const Backend: React.FC = () => {
           className="row col-12 col-md-6 mt-5 justify-content-center"
           style={{ x: xBackendDjango, opacity }}
         >
-          <div className="col-12 col-md-7 col-cl-9">
+          <div className="col-12 col-md-7 col-xl-8">
             <Image
               src={django}
               alt="devices icons"
@@ -112,7 +112,7 @@ const Backend: React.FC = () => {
           className="row col-12 col-md-6 mt-5 justify-content-center"
           style={{ x: xBackendDjangoRest, opacity }}
         >
-          <div className="col-12 col-md-7 col-cl-9">
+          <div className="col-12 col-md-7 col-xl-8">
             <Image
               src={django_rest}
               alt="devices icons"

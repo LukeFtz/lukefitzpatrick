@@ -49,7 +49,7 @@ const MenuIcon = ({ backend, frontend, other, prototype }: menuContent) => {
 
       const aspectRatio =
         Math.round((window.screen.width / window.screen.height) * 100) / 100;
-
+      console.log(aspectRatio);
       // console.log(aspectRatio);
       if (aspectRatio >= 1.3 && aspectRatio < 1.6) {
         const backgroundLineTop =
@@ -59,6 +59,13 @@ const MenuIcon = ({ backend, frontend, other, prototype }: menuContent) => {
           windowSize;
         dispatch(setTopPosition(backgroundLineTop));
       } else if (aspectRatio >= 1.6) {
+        const backgroundLineTop =
+          contentDiv.position().top +
+          svgHeight * 1.5 +
+          renderedTitle.getBoundingClientRect().height -
+          windowSize;
+        dispatch(setTopPosition(backgroundLineTop));
+      } else if (aspectRatio < 0.6) {
         const backgroundLineTop =
           contentDiv.position().top +
           svgHeight * 1.5 +

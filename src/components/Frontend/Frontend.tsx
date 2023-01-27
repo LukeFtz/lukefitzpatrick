@@ -51,20 +51,6 @@ const Frontend: React.FC = () => {
   const webMob2 = useMotionValue(0);
   const webMob3 = useMotionValue(0);
 
-  const defineValues = () => {
-    // const line = document.getElementById("id_frontend_div");
-    // const lineVerticalLine = document.getElementById(
-    //   "id_vertical_prototype_line"
-    // );
-    // if (line && lineVerticalLine) {
-    //   const scaleY =
-    //     (line.getBoundingClientRect().height +
-    //       window.screen.availHeight / 1.6) /
-    //     lineVerticalLine.getBoundingClientRect().height;
-    //   dispatch(setPrototypeScale(Math.round(scaleY * 100) / 100));
-    // }
-  };
-
   const defineTop = () => {
     if (firstTime) {
       const topLine = $("#id_frontend_curve").position().top;
@@ -174,8 +160,6 @@ const Frontend: React.FC = () => {
 
   useEffect(() => {
     defineTop();
-
-    defineValues();
   }, []);
 
   return (

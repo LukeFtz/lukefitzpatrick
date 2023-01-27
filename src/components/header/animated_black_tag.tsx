@@ -79,6 +79,7 @@ const BlackTagHeader = (props: SVGProps<SVGSVGElement>) => {
       </motion.defs>
 
       <motion.path
+        id="id_black_line_path"
         d="M0 608h973.5l50.5 14H0v-14z"
         fill="url(#id_blackline)"
         preserveAspectRatio="none"

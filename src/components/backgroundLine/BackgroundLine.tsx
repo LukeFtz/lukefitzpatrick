@@ -86,7 +86,6 @@ const BackgroundLine: React.FC = () => {
   const defineValues = () => {
     const aspectRatio =
       Math.round((window.screen.width / window.screen.height) * 100) / 100;
-    console.log(aspectRatio);
 
     if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
       viewBoxY.set(8000);
@@ -137,7 +136,7 @@ const BackgroundLine: React.FC = () => {
           marginTopPrototype.set(auxValue * 13);
           marginTopFrontendProto.set(auxValue * 13.9);
         } else {
-          marginTopFrontendProto.set(auxValue * 13);
+          marginTopFrontendProto.set(auxValue * 13.5);
           marginTopPrototype.set(auxValue * 13.5);
         }
       }
@@ -346,7 +345,7 @@ const BackgroundLine: React.FC = () => {
             style={{ pathLength: scrollYProgress, y: marginTopFrontend }}
           />
         </motion.g>
-        <motion.text xmlSpace="preserve" fill="#000">
+        <motion.text xmlSpace="preserve" fill="#fff">
           <motion.tspan
             x={700}
             y={textOthers.get()}
@@ -358,14 +357,14 @@ const BackgroundLine: React.FC = () => {
         <defs>
           <linearGradient
             id="prefix__paint0_linear_273_13"
-            x1={-588.313}
-            y1={1282.98}
-            x2={1294.82}
-            y2={1344.12}
-            gradientUnits="userSpaceOnUse"
+            // x1={-588.313}
+            // y1={1282.98}
+            // x2={1294.82}
+            // y2={1344.12}
+            // gradientUnits="userSpaceOnUse"
           >
-            <stop stopColor="#4B76C3" />
-            <stop offset={1} stopColor="#8AD9EC" />
+            <stop stopColor="#0066cc" />
+            <stop offset={1} stopColor="#00ccff" />
           </linearGradient>
         </defs>
       </motion.svg>

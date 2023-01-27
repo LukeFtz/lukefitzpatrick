@@ -52,7 +52,7 @@ const TextHeader: React.FC<headerContent> = ({
           <h1 className={`col-12 ${staatliches.className} display-5`}>
             LUKE GERALD PERERIRA FITZPATRICK
           </h1>
-          <div className={`col-12 ${plus_jakarta_sans.className} fs-2 mt-3`}>
+          <div className={`col-12 ${plus_jakarta_sans.className} fs-3 mt-3`}>
             {title}
           </div>
         </div>

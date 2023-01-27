@@ -8,14 +8,16 @@
 }
 
 .imgPersonDiv {
-  height: 85vh;
+  /* margin-top: 100px; */
+  /* height: 85vh; */
   overflow-y: hidden;
 }
 
 .imgPersonDiv img {
-  height: 85vh;
-  object-fit: cover;
-  padding-bottom: 2.2%;
+  /* height: 85vh; */
+  /* object-fit: cover; */
+  object-fit: contain;
+  /* padding-bottom: 2.2%; */
 }
 
 .btnSize {

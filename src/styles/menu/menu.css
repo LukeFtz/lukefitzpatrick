@@ -31,8 +31,18 @@
   fill: #006918;
 }
 
-.svgSizeFull {
-  /* top: 0.05%; */
-  width: 95vh;
-  height: 95vh;
+@media (min-width: 701px) {
+  .svgSizeFull {
+    /* top: 0.05%; */
+    width: 95vh;
+    height: 95vh;
+  }
+}
+
+@media (max-width: 1120px) {
+  .svgSizeFull {
+    /* top: 0.05%; */
+    width: 95vw;
+    height: 95vw;
+  }
 }
