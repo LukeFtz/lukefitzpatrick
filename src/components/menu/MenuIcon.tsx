@@ -19,6 +19,7 @@ const MenuIcon = ({ backend, frontend, other, prototype }: menuContent) => {
     target: wrapDiv,
   });
 
+  const opacityMobile = useMotionValue(1);
   const opacity = useTransform(scrollYProgress, [0.5, 0.6], [0, 1]);
   const opacity2 = useTransform(scrollYProgress, [0.6, 0.7], [0, 1]);
   const opacity3 = useTransform(scrollYProgress, [0.7, 0.8], [0, 1]);
@@ -44,13 +45,19 @@ const MenuIcon = ({ backend, frontend, other, prototype }: menuContent) => {
       contentDiv.height(svgHeight * 2);
       const windowSize = window.screen.height;
 
-      top.set(windowSize * 0.025);
-      bottom.set(windowSize * 0.05);
-
       const aspectRatio =
         Math.round((window.screen.width / window.screen.height) * 100) / 100;
-      console.log(aspectRatio);
+
       // console.log(aspectRatio);
+      // console.log(window.screen.width);
+      if (aspectRatio < 0.6) {
+        top.set(windowSize * 0.25);
+        opacityMobile.set(0);
+      } else {
+        top.set(windowSize * 0.025);
+        bottom.set(windowSize * 0.05);
+      }
+
       if (aspectRatio >= 1.3 && aspectRatio < 1.6) {
         const backgroundLineTop =
           contentDiv.position().top +
@@ -88,14 +95,38 @@ const MenuIcon = ({ backend, frontend, other, prototype }: menuContent) => {
     const textBackend = $("#id_text_backend");
     const textOthers = $("#id_text_other");
 
+    // if (scrollYProgress.get() <= 0) {
+    //   position.set("relative");
+    //   contentDiv.removeClass("align-items-end");
+    //   left.set(0);
+    // } else if (scrollYProgress.get() > 0 && scrollYProgress.get() < 1) {
+    //   position.set("fixed");
+    //   left.set(svgLeft);
+    // } else {
+
+    // ######################## add Opacity ###########################
+
+    // const aspectRatio =
+    //   Math.round((window.screen.width / window.screen.height) * 100) / 100;
+
+    // if (aspectRatio < 0.6) {
+    //   opacityMobile.set(0);
+    // } else {
+    //   bottom.set(windowSize * 0.05);
+    // }
+
     if (scrollYProgress.get() <= 0) {
       position.set("relative");
+      contentDiv.addClass("align-items-center");
+      contentDiv.addClass("align-items-md-start");
       contentDiv.removeClass("align-items-end");
       left.set(0);
     } else if (scrollYProgress.get() > 0 && scrollYProgress.get() < 1) {
       position.set("fixed");
       left.set(svgLeft);
     } else {
+      contentDiv.removeClass("align-items-center");
+      contentDiv.removeClass("align-items-md-start");
       contentDiv.addClass("align-items-end");
       position.set("relative");
       left.set(0);
@@ -193,11 +224,11 @@ const MenuIcon = ({ backend, frontend, other, prototype }: menuContent) => {
   return (
     <motion.div
       id="id_menu"
-      className="row"
+      className="row justify-content-center"
       ref={wrapDiv}
-      style={{ paddingBottom: bottom }}
+      style={{ paddingBottom: bottom, opacity: opacityMobile }}
     >
-      <div className="svgSizeFull">
+      <div className="col svgSizeFull">
         <motion.svg
           viewBox="0 0 977 978"
           fill="none"

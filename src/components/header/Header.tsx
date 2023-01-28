@@ -71,7 +71,7 @@ const Header: React.FC = () => {
     <div>
       <div className="col-12">
         <div className="col-12 col-md-5 col-xl-5 position-absolute row justify-content-center align-items-end h-80">
-          <div className="col-10">
+          <div className="col-10 col-md-10 col-xxl-9">
             <ProfileImage />
           </div>
         </div>

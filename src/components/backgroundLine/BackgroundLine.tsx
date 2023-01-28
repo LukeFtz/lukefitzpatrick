@@ -189,13 +189,6 @@ const BackgroundLine: React.FC = () => {
     }
   }, [positionTop]);
 
-  // useEffect(() => {
-  //   if (scaleYPrototype) {
-  //     const auxValue = (50 * (scaleYPrototype - 1)) / 0.5;
-  //     prototypeY.set(auxValue);
-  //   }
-  // }, [scaleYPrototype]);
-
   return (
     <div ref={svgLine}>
       <motion.svg

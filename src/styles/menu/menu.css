@@ -31,7 +31,7 @@
   fill: #006918;
 }
 
-@media (min-width: 701px) {
+@media (min-width: 768px) {
   .svgSizeFull {
     /* top: 0.05%; */
     width: 95vh;
@@ -39,10 +39,14 @@
   }
 }
 
-@media (max-width: 1120px) {
+@media (max-width: 768px) {
   .svgSizeFull {
     /* top: 0.05%; */
     width: 95vw;
     height: 95vw;
+  }
+
+  .divSvgSize {
+    height: 190vw;
   }
 }
