@@ -13,6 +13,9 @@ const plus_jakarta_sans = Plus_Jakarta_Sans({
 
 let svgLeft: number;
 
+let width = 0;
+let height = 0;
+
 const MenuIcon = ({ backend, frontend, other, prototype }: menuContent) => {
   const wrapDiv = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -31,57 +34,6 @@ const MenuIcon = ({ backend, frontend, other, prototype }: menuContent) => {
   const left = useMotionValue<number>(0);
 
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    const contentDiv = $("#id_menu");
-    const renderedSvg = document.getElementById("id_menu_svg");
-    const renderedTitle = document.getElementById("id_title_menu");
-
-    if (renderedSvg && renderedTitle) {
-      const svgHeight = renderedSvg.getBoundingClientRect().height;
-      // const svgWidth = renderedSvg.getBoundingClientRect().width;
-      const svgleft = renderedSvg.getBoundingClientRect().left;
-      svgLeft = svgleft;
-      contentDiv.height(svgHeight * 2);
-      const windowSize = window.screen.height;
-
-      const aspectRatio =
-        Math.round((window.screen.width / window.screen.height) * 100) / 100;
-
-      // console.log(aspectRatio);
-      // console.log(window.screen.width);
-      if (aspectRatio < 0.6) {
-        top.set(windowSize * 0.25);
-        opacityMobile.set(0);
-      } else {
-        top.set(windowSize * 0.025);
-        bottom.set(windowSize * 0.05);
-      }
-
-      if (aspectRatio >= 1.3 && aspectRatio < 1.6) {
-        const backgroundLineTop =
-          contentDiv.position().top +
-          svgHeight * 1.38 +
-          renderedTitle.getBoundingClientRect().height -
-          windowSize;
-        dispatch(setTopPosition(backgroundLineTop));
-      } else if (aspectRatio >= 1.6) {
-        const backgroundLineTop =
-          contentDiv.position().top +
-          svgHeight * 1.5 +
-          renderedTitle.getBoundingClientRect().height -
-          windowSize;
-        dispatch(setTopPosition(backgroundLineTop));
-      } else if (aspectRatio < 0.6) {
-        const backgroundLineTop =
-          contentDiv.position().top +
-          svgHeight * 1.5 +
-          renderedTitle.getBoundingClientRect().height -
-          windowSize;
-        dispatch(setTopPosition(backgroundLineTop));
-      }
-    }
-  }, []);
 
   const definePosition = () => {
     const contentDiv = $("#id_menu");
@@ -217,8 +169,69 @@ const MenuIcon = ({ backend, frontend, other, prototype }: menuContent) => {
     }
   };
 
+  const defineStaticPosition = () => {
+    const contentDiv = $("#id_menu");
+    const renderedSvg = document.getElementById("id_menu_svg");
+    const renderedTitle = document.getElementById("id_title_menu");
+
+    if (renderedSvg && renderedTitle) {
+      const svgHeight = renderedSvg.getBoundingClientRect().height;
+      // const svgWidth = renderedSvg.getBoundingClientRect().width;
+      const svgleft = renderedSvg.getBoundingClientRect().left;
+      svgLeft = svgleft;
+      contentDiv.height(svgHeight * 2);
+      const windowSize = height;
+
+      const aspectRatio = Math.round((width / height) * 100) / 100;
+
+      // console.log(aspectRatio);
+      // console.log(window.screen.width);
+      if (aspectRatio < 0.6) {
+        top.set(windowSize * 0.25);
+        opacityMobile.set(0);
+      } else if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
+        top.set(windowSize * 0.025);
+        bottom.set(windowSize * 0.05);
+      } else {
+        top.set(windowSize * 0.025);
+        bottom.set(windowSize * 0.05);
+      }
+
+      if (aspectRatio >= 1.3 && aspectRatio < 1.6) {
+        const backgroundLineTop =
+          contentDiv.position().top +
+          svgHeight * 1.35 +
+          renderedTitle.getBoundingClientRect().height -
+          windowSize;
+        dispatch(setTopPosition(backgroundLineTop));
+      } else if (aspectRatio >= 1.6) {
+        const backgroundLineTop =
+          contentDiv.position().top +
+          svgHeight * 1.4 +
+          renderedTitle.getBoundingClientRect().height -
+          windowSize;
+        dispatch(setTopPosition(backgroundLineTop));
+      } else if (aspectRatio < 0.6) {
+        const backgroundLineTop =
+          contentDiv.position().top +
+          svgHeight * 1.5 +
+          renderedTitle.getBoundingClientRect().height -
+          windowSize;
+        dispatch(setTopPosition(backgroundLineTop));
+      }
+    }
+  };
+
   useEffect(() => {
-    $(window).on("scroll", () => definePosition());
+    const auxWidth = $(window).width();
+    const auxHeight = $(window).height();
+
+    if (auxWidth && auxHeight) {
+      width = auxWidth;
+      height = auxHeight;
+      defineStaticPosition();
+      $(window).on("scroll", () => definePosition());
+    }
   }, []);
 
   return (

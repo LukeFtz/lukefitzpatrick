@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   circOut,
   motion,
@@ -20,6 +20,9 @@ const plus_jakarta_sans = Plus_Jakarta_Sans({
   weight: "200",
   subsets: ["latin"],
 });
+
+let width = 0;
+let height = 0;
 
 const BackgroundLine: React.FC = () => {
   const viewBoxY = useMotionValue<number>(6800);
@@ -84,8 +87,7 @@ const BackgroundLine: React.FC = () => {
   const othersLine = useTransform(scrollYProgress, [0.999, 1], [0, 1]);
 
   const defineValues = () => {
-    const aspectRatio =
-      Math.round((window.screen.width / window.screen.height) * 100) / 100;
+    const aspectRatio = Math.round((width / height) * 100) / 100;
 
     if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
       viewBoxY.set(8000);
@@ -112,17 +114,15 @@ const BackgroundLine: React.FC = () => {
           scaleY =
             (line.getBoundingClientRect().height +
               // window.screen.availHeight / 1.7) /
-              window.screen.availHeight / 1.7) /
+              height / 1.7) /
             lineVerticalLine.getBoundingClientRect().height;
         } else if (aspectRatio >= 1.4 && aspectRatio < 1.6) {
           scaleY =
-            (line.getBoundingClientRect().height +
-              window.screen.availHeight / 1.26) /
+            (line.getBoundingClientRect().height + height / 1.26) /
             lineVerticalLine.getBoundingClientRect().height;
         } else {
           scaleY =
-            (line.getBoundingClientRect().height +
-              window.screen.availHeight / 1.6) /
+            (line.getBoundingClientRect().height + height / 1.6) /
             lineVerticalLine.getBoundingClientRect().height;
         }
 
@@ -132,11 +132,14 @@ const BackgroundLine: React.FC = () => {
         if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
           marginTopPrototype.set(auxValue * 13);
           marginTopFrontendProto.set(auxValue * 13);
+        } else if (aspectRatio >= 1.4 && aspectRatio < 1.5) {
+          marginTopPrototype.set(auxValue * 13.5);
+          marginTopFrontendProto.set(auxValue * 13.25);
         } else if (aspectRatio >= 1.5 && aspectRatio < 1.6) {
           marginTopPrototype.set(auxValue * 13);
           marginTopFrontendProto.set(auxValue * 13.9);
         } else {
-          marginTopFrontendProto.set(auxValue * 13.5);
+          marginTopFrontendProto.set(auxValue * 13.7);
           marginTopPrototype.set(auxValue * 13.5);
         }
       }
@@ -156,6 +159,7 @@ const BackgroundLine: React.FC = () => {
           auxValueFront = Math.abs((50 * (yFrontendSize.get() - 1)) / 0.5);
           marginTopFrontend.set(Math.abs(frontendSize - frontendLine) * 155);
         } else if (aspectRatio >= 1.4 && aspectRatio < 1.5) {
+          // Remake the maths
           scaleY2 = frontendSize / (frontendLine - 550);
           yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
           auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 2.1 - 50;
@@ -168,7 +172,6 @@ const BackgroundLine: React.FC = () => {
         } else {
           scaleY2 = frontendSize / frontendLine;
           yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
-
           auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 6;
           marginTopFrontend.set(auxValueFront * 7.2);
         }
@@ -180,7 +183,14 @@ const BackgroundLine: React.FC = () => {
   };
 
   useEffect(() => {
-    defineValues();
+    const auxWidth = $(window).width();
+    const auxHeight = $(window).height();
+
+    if (auxWidth && auxHeight) {
+      width = auxWidth;
+      height = auxHeight;
+      defineValues();
+    }
   }, []);
 
   useEffect(() => {

@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { animate, motion, useMotionValue, useTransform } from "framer-motion";
+import $ from "jquery";
 
 let width = 0;
 let height = 0;
@@ -253,8 +254,7 @@ const AnimatedSquares = () => {
   };
 
   const defineViewBox = () => {
-    const aspectRatio =
-      Math.round((window.screen.width / window.screen.height) * 100) / 100;
+    const aspectRatio = Math.round((width / height) * 100) / 100;
 
     if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
       viewBox.set(700);
@@ -266,36 +266,40 @@ const AnimatedSquares = () => {
   };
 
   useEffect(() => {
-    defineViewBox();
-    const auxWidth = window.screen.width;
-    const auxHeight = window.screen.height;
+    const auxWidth = $(window).width();
+    const auxHeight = $(window).height();
 
-    width = auxWidth;
-    height = auxHeight;
-    setValues();
+    if (auxWidth && auxHeight) {
+      width = auxWidth;
+      height = auxHeight;
 
-    path01Y.set(height * 0.2);
-    path02Y.set(height * 0.05);
-    path03Y.set(height * 0.15);
-    path04Y.set(height * 0.01);
-    path05Y.set(height * 0.08);
-    path06Y.set(height * 0.09);
-    path07Y.set(height * 0.19);
-    path08Y.set(height * 0.14);
-    path09Y.set(height * 0.012);
-    path10Y.set(height * 0.03);
+      defineViewBox();
 
-    path01X.set(width);
-    path02X.set(width);
-    path03X.set(width);
-    path04X.set(width);
-    path05X.set(width);
-    path06X.set(width);
-    path07X.set(width);
-    path08X.set(width);
-    path09X.set(width);
-    path10X.set(width);
-    aniamted();
+      setValues();
+
+      path01Y.set(height * 0.2);
+      path02Y.set(height * 0.05);
+      path03Y.set(height * 0.15);
+      path04Y.set(height * 0.01);
+      path05Y.set(height * 0.08);
+      path06Y.set(height * 0.09);
+      path07Y.set(height * 0.19);
+      path08Y.set(height * 0.14);
+      path09Y.set(height * 0.012);
+      path10Y.set(height * 0.03);
+
+      path01X.set(width);
+      path02X.set(width);
+      path03X.set(width);
+      path04X.set(width);
+      path05X.set(width);
+      path06X.set(width);
+      path07X.set(width);
+      path08X.set(width);
+      path09X.set(width);
+      path10X.set(width);
+      aniamted();
+    }
   }, []);
 
   return (
@@ -305,77 +309,66 @@ const AnimatedSquares = () => {
       fill="none"
       preserveAspectRatio="none"
       xmlns="http://www.w3.org/2000/svg"
-      // {...props}
     >
       <motion.path
         id="id_path01"
         fill="#000"
         preserveAspectRatio="none"
         d="M.02 31.207L21.488.02l31.187 21.467-21.468 31.188z"
-        // transform={`translate(${width * 0.02},${height * 0.2})`}
         style={{ x: path01X, y: path01Y, opacity, rotateZ: rotate }}
       />
       <motion.path
         id="id_path02"
         fill="#000"
         d="M7.747 0l47.05 7.747-7.748 47.05-47.05-7.748z"
-        // transform={`translate(${width * 0.08},${height * 0.05})`}
         style={{ x: path02X, y: path02Y, opacity, rotateZ: rotate2 }}
       />
       <motion.path
         id="id_path03"
         fill="#000"
         d="M36.132.226l43.274 36.132-36.133 43.274L0 43.499z"
-        // transform={`translate(${width * 0.15},${height * 0.15})`}
         style={{ x: path03X, y: path03Y, opacity, rotateZ: rotate }}
       />
       <motion.path
         id="id_path04"
         fill="#000"
         d="M0 23.237L33.458 0l24.143 34.763L24.143 58z"
-        // transform={`translate(${width * 0.21},${height * 0.01})`}
         style={{ x: path04X, y: path04Y, opacity, rotateZ: rotate2 }}
       />
       <motion.path
         id="id_path05"
         fill="#000"
         d="M0 26.305L123.491 0l26.305 123.491-123.491 26.305z"
-        // transform={`translate(${width * 0.25},${height * 0.08})`}
         style={{ x: path05X, y: path05Y, opacity, rotateZ: rotate }}
       />
       <motion.path
         id="id_path06"
         fill="#000"
         d="M35.204.552l54.464 33.787-35.103 56.587L.1 57.139z"
-        // transform={`translate(${width * 0.37},${height * 0.09})`}
         style={{ x: path06X, y: path06Y, opacity, rotateZ: rotate2 }}
       />
       <motion.path
         id="id_path07"
         fill="#000"
         d="M0 21.597L31.098 0l21.597 31.097-31.098 21.598z"
-        // transform={`translate(${width * 0.45},${height * 0.19})`}
         style={{ x: path07X, y: path07Y, opacity, rotateZ: rotate }}
       />
       <motion.path
         id="id_path08"
         fill="#000"
         d="M.73 47.634L69.315 0l47.633 68.587-68.586 47.633z"
-        // transform={`translate(${width * 0.53},${height * 0.14})`}
         style={{ x: path08X, y: path08Y, opacity, rotateZ: rotate2 }}
       />
       <motion.path
         id="id_path09"
         fill="#000"
         d="M0 40.5L58.316 0l40.5 58.315-58.316 40.5z"
-        // transform={`translate(${width * 0.46},${height * 0.012})`}
         style={{ x: path09X, y: path09Y, opacity, rotateZ: rotate }}
       />
       <motion.path
         id="id_path10"
         fill="#000"
         d="M0 21.597L31.098 0l21.597 31.097-31.098 21.598z"
-        // transform={`translate(${width * 0.58},${height * 0.03})`}
         style={{ x: path10X, y: path10Y, opacity, rotateZ: rotate }}
       />
     </motion.svg>
