@@ -117,24 +117,26 @@ const BackgroundLine: React.FC = () => {
     const lineVerticalLine = $("#id_vertical_prototype_line").height();
     const curvePrototype = $("#id_curve_top_prototype").height();
 
-    console.log(line);
-    console.log(lineVerticalLine);
+    let extraTopPadding = 0;
     if (line && lineVerticalLine && curvePrototype) {
       let scaleY = 1;
       if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
-        scaleY = (line + height / 1.7) / lineVerticalLine;
+        scaleY = (lineVerticalLine * 1.09) / line;
+        extraTopPadding = curvePrototype * 8;
       } else if (aspectRatio >= 1.4 && aspectRatio < 1.6) {
-        scaleY = (line + height / 1.5) / lineVerticalLine;
+        // scaleY = (line + height / 1.5) / lineVerticalLine;
+        scaleY = lineVerticalLine / line;
+        extraTopPadding = curvePrototype * 6;
       } else {
         scaleY = (line + height / 1.6) / lineVerticalLine;
+        extraTopPadding = curvePrototype * 1.45;
       }
 
       yPrototypeSize.set(Math.round(scaleY * 100) / 100);
-      // const auxValue = (50 * (yPrototypeSize.get() - 1)) / 0.5;
       const auxValue = Math.abs(line - lineVerticalLine);
-      // setText(yPrototypeSize.get() + "");
+      setText(aspectRatio);
 
-      prototypeY.set(curvePrototype);
+      prototypeY.set(curvePrototype + extraTopPadding);
       if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
         marginTopPrototype.set(auxValue * 13);
         marginTopFrontendProto.set(auxValue * 13);
@@ -212,7 +214,7 @@ const BackgroundLine: React.FC = () => {
 
   return (
     <div ref={svgLine}>
-      <p>{text}</p>
+      {/* <p>{text}</p> */}
       <motion.svg
         //   width="1550"
         //   height="5412.5"
@@ -238,7 +240,12 @@ const BackgroundLine: React.FC = () => {
           stroke="#00681d"
           strokeWidth={STROKE}
           id="id_curve_top_prototype"
-          style={{ pathLength: firstCurveLine, y: PADDING, x: PADDING }}
+          style={{
+            pathLength: firstCurveLine,
+            y: PADDING,
+            x: PADDING,
+            height: 50,
+          }}
         />
 
         <motion.path
@@ -251,7 +258,7 @@ const BackgroundLine: React.FC = () => {
           style={{
             pathLength: prototypeLine,
             x: PADDING,
-            // scaleY: yPrototypeSize,
+            scaleY: yPrototypeSize,
             y: prototypeY,
             height: 1400,
           }}
