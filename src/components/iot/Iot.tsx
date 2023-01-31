@@ -33,6 +33,9 @@ let firstTime = true;
 
 const DELAY = 3;
 
+let width = 0;
+let height = 0;
+
 const Iot: React.FC = () => {
   const [currentDevice, setCurrentDevice] = useState<mobileDevice>({
     device: "NONE",
@@ -79,8 +82,7 @@ const Iot: React.FC = () => {
 
   const defineTop = () => {
     if (firstTime) {
-      const aspectRatio =
-        Math.round((window.screen.width / window.screen.height) * 100) / 100;
+      const aspectRatio = Math.round((width / height) * 100) / 100;
 
       const topCloud = $("#id_cloud_iot");
       const topIoTR = $("#id_main_iot_div");
@@ -100,6 +102,20 @@ const Iot: React.FC = () => {
             auxTopIot.position().top - topCloud.position().top + 50
             // topCloud.height()
           );
+          topIoTR.css({ "margin-top": newTop + "px" });
+        } else if (aspectRatio >= 1.6 && aspectRatio < 1.7) {
+          newTop =
+            Math.abs(
+              topCloud.position().top - auxTopIot.position().top + 277
+              // topCloud.height()
+            ) * 1.5;
+          topIoTR.css({ "margin-top": newTop + "px" });
+        } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
+          newTop =
+            Math.abs(
+              topCloud.position().top - auxTopIot.position().top + 200
+              // topCloud.height()
+            ) * 1.5;
           topIoTR.css({ "margin-top": newTop + "px" });
         } else {
           newTop =
@@ -524,7 +540,14 @@ const Iot: React.FC = () => {
   };
 
   useEffect(() => {
-    defineTop();
+    const auxWidth = $(window).width();
+    const auxHeight = $(window).height();
+
+    if (auxWidth && auxHeight) {
+      width = auxWidth;
+      height = auxHeight;
+      defineTop();
+    }
     showSoundSystemLine();
   }, []);
 

@@ -24,6 +24,9 @@ const plus_jakarta_sans = Plus_Jakarta_Sans({
 let width = 0;
 let height = 0;
 
+const STROKE = 20;
+const PADDING = 5;
+
 const BackgroundLine: React.FC = () => {
   const viewBoxY = useMotionValue<number>(6800);
   const textOthers = useMotionValue<number>(6070);
@@ -46,18 +49,18 @@ const BackgroundLine: React.FC = () => {
     target: svgLine,
   });
 
-  const firstLine = useTransform(scrollYProgress, [0.2, 0.25], [0, 1]);
-  const firstCurveLine = useTransform(scrollYProgress, [0.25, 0.27], [0, 1]);
-  const prototypeLine = useTransform(scrollYProgress, [0.27, 0.45], [0, 1]);
+  const firstLine = useTransform(scrollYProgress, [0.1, 0.12], [0, 1]);
+  const firstCurveLine = useTransform(scrollYProgress, [0.12, 0.18], [0, 1]);
+  const prototypeLine = useTransform(scrollYProgress, [0.18, 0.2], [0, 1]);
   const prototypeBottomCurve = useTransform(
     scrollYProgress,
-    [0.45, 0.47],
+    [0.2, 0.3],
     [0, 1]
   );
 
   const prototypeBottomLine = useTransform(
     scrollYProgress,
-    [0.47, 0.48],
+    [0.3, 0.32],
     [0, 1]
   );
 
@@ -98,6 +101,12 @@ const BackgroundLine: React.FC = () => {
     } else if (aspectRatio >= 1.5 && aspectRatio < 1.6) {
       viewBoxY.set(7500);
       textOthers.set(6850);
+    } else if (aspectRatio >= 1.6 && aspectRatio < 1.7) {
+      viewBoxY.set(7500);
+      textOthers.set(6850);
+    } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
+      viewBoxY.set(6800);
+      textOthers.set(6000);
     } else {
       viewBoxY.set(6800);
       textOthers.set(6070);
@@ -118,7 +127,7 @@ const BackgroundLine: React.FC = () => {
             lineVerticalLine.getBoundingClientRect().height;
         } else if (aspectRatio >= 1.4 && aspectRatio < 1.6) {
           scaleY =
-            (line.getBoundingClientRect().height + height / 1.26) /
+            (line.getBoundingClientRect().height + height / 1.45) /
             lineVerticalLine.getBoundingClientRect().height;
         } else {
           scaleY =
@@ -134,7 +143,7 @@ const BackgroundLine: React.FC = () => {
           marginTopFrontendProto.set(auxValue * 13);
         } else if (aspectRatio >= 1.4 && aspectRatio < 1.5) {
           marginTopPrototype.set(auxValue * 13.5);
-          marginTopFrontendProto.set(auxValue * 13.25);
+          marginTopFrontendProto.set(auxValue * 13.5);
         } else if (aspectRatio >= 1.5 && aspectRatio < 1.6) {
           marginTopPrototype.set(auxValue * 13);
           marginTopFrontendProto.set(auxValue * 13.9);
@@ -153,14 +162,12 @@ const BackgroundLine: React.FC = () => {
         let auxValueFront: number;
 
         if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
-          // scaleY2 = frontendSize / (1500 + 25);
           scaleY2 = frontendSize / 1185;
           yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
           auxValueFront = Math.abs((50 * (yFrontendSize.get() - 1)) / 0.5);
           marginTopFrontend.set(Math.abs(frontendSize - frontendLine) * 155);
         } else if (aspectRatio >= 1.4 && aspectRatio < 1.5) {
-          // Remake the maths
-          scaleY2 = frontendSize / (frontendLine - 550);
+          scaleY2 = frontendSize / frontendLine;
           yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
           auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 2.1 - 50;
           marginTopFrontend.set(auxValueFront * 54);
@@ -169,6 +176,16 @@ const BackgroundLine: React.FC = () => {
           yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
           auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 2.1 - 50;
           marginTopFrontend.set(auxValueFront * 67);
+        } else if (aspectRatio >= 1.6 && aspectRatio < 1.7) {
+          scaleY2 = frontendSize / (frontendLine - 407);
+          yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
+          auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 2.1 - 50;
+          marginTopFrontend.set(auxValueFront * 67);
+        } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
+          scaleY2 = frontendSize / frontendLine;
+          yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
+          auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 6;
+          marginTopFrontend.set(auxValueFront * 6.5);
         } else {
           scaleY2 = frontendSize / frontendLine;
           yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
@@ -216,70 +233,78 @@ const BackgroundLine: React.FC = () => {
         <motion.path
           d="M 296.5,5.0000217 H 148.453 90.978384"
           stroke="#00681d"
-          strokeWidth={10}
+          strokeWidth={STROKE}
           id="id_first_line_background"
-          style={{ pathLength: firstLine }}
+          style={{ pathLength: firstLine, y: PADDING }}
         />
 
         <motion.path
           d="M 90.978384,5.0000217 H 76.7268 c 0,0 -71.7265303,0 -71.7267903,50.4140003 -1.7e-6,0.323134 -3.1e-6,7.500621 -4.2e-6,20.638243"
           stroke="#00681d"
-          strokeWidth={10}
+          strokeWidth={STROKE}
           id="id_curve_top_prototype"
-          style={{ pathLength: firstCurveLine }}
+          style={{ pathLength: firstCurveLine, y: PADDING, x: PADDING }}
         />
 
         <motion.path
           d="m 5.0000055,76.052265 c -1.24e-5,142.362035 3.7e-6,984.583835 4.2e-6,1388.841835"
           stroke="#00681d"
-          strokeWidth={10}
+          strokeWidth={STROKE}
           id="id_vertical_prototype_line"
           // transform={`matrix(1 0 0 ${scaleYPrototype} 0 -${prototypeY.get()})`}
           transform={`matrix(1 0 0 ${yPrototypeSize.get()} 0 -${prototypeY.get()})`}
           style={{
             pathLength: prototypeLine,
+            x: PADDING,
           }}
         />
 
         <motion.path
           d="m 5.0000097,1464.8941 v 18.0559 c 0,0 3e-5,66.16 71.7267903,66.16"
           stroke="#00681d"
-          strokeWidth={10}
+          strokeWidth={STROKE}
           height={799}
           id="id_curver_prototype_bottom"
           style={{
             pathLength: prototypeBottomCurve,
             y: marginTopPrototype,
+            x: PADDING,
             // translateY: prototypeY.get() * 13,
           }}
         />
         <motion.path
           d="M 76.7268,1549.11 H 1470.52"
           stroke="#00681d"
-          strokeWidth={10}
+          strokeWidth={STROKE}
           id="id_prototype_bottom"
           style={{
             pathLength: prototypeBottomLine,
             y: marginTopPrototype,
+            x: -PADDING,
           }}
         />
         <motion.path
           d="m 1470.52,1549.11 c 0,0 74.48,0 74.48,97.21"
           stroke="#00681d"
-          strokeWidth={10}
+          strokeWidth={STROKE}
           id="id_frontend_curve"
-          style={{ pathLength: frontendTopCurve, y: marginTopPrototype }}
+          style={{
+            pathLength: frontendTopCurve,
+            y: marginTopPrototype,
+            x: -PADDING,
+          }}
         />
         <motion.g style={{ scaleY: yFrontendSize, y: frontendY }}>
           <motion.path
             d="M 1545,1646.32 V 2739 3724"
             stroke="#00681d"
-            strokeWidth={10}
+            strokeWidth={STROKE}
             // height={yFrontendDefault.get()}
             id="id_frontend_path_vertical"
             style={{
               pathLength: frontendVertical,
               y: marginTopFrontendProto,
+              x: -PADDING,
               height: 2003,
             }}
           />
@@ -287,42 +312,62 @@ const BackgroundLine: React.FC = () => {
         <motion.path
           d="m 1545,3724 c 0,85.5 -105.5,82.5 -105.5,82.5"
           stroke="#00681d"
-          strokeWidth={10}
+          strokeWidth={STROKE}
           id="id_frontend_bottom_curve"
-          style={{ pathLength: frontendBottomCurve, y: marginTopFrontend }}
+          style={{
+            pathLength: frontendBottomCurve,
+            y: marginTopFrontend,
+            x: -PADDING,
+          }}
         />
         <motion.path
           d="M 1439.5,3806.5 H 76.7268"
           stroke="#00681d"
-          strokeWidth={10}
+          strokeWidth={STROKE}
           id="id_frontend_bottom"
-          style={{ pathLength: frontendBottomLine, y: marginTopFrontend }}
+          style={{
+            pathLength: frontendBottomLine,
+            y: marginTopFrontend,
+            x: PADDING,
+          }}
         />
         <motion.path
           d="m 76.7268,3806.5 c -54.415406,0 -67.5486582,51.7993 -70.7183909,76.803 -1.0083977,7.9545 -1.0083994,13.197 -1.0083994,13.197"
           stroke="#00681d"
-          strokeWidth={10}
+          strokeWidth={STROKE}
           id="id_backend_curve_top"
-          style={{ pathLength: backendTopCurve, y: marginTopFrontend }}
+          style={{
+            pathLength: backendTopCurve,
+            y: marginTopFrontend,
+            x: PADDING,
+          }}
         />
         <motion.path
           d="M 5.0000097,3896.5 V 5320"
           stroke="#00681d"
-          strokeWidth={10}
+          strokeWidth={STROKE}
           id="id_backend_vertical_line"
-          style={{ pathLength: backendVerticalLine, y: marginTopFrontend }}
+          style={{
+            pathLength: backendVerticalLine,
+            y: marginTopFrontend,
+            x: PADDING,
+          }}
         />
         <motion.path
           d="m 5.0000097,5320 c 0,87.5 71.7267903,87.5 71.7267903,87.5"
           stroke="#00681d"
-          strokeWidth={10}
+          strokeWidth={STROKE}
           id="id_others_bottom_curve"
-          style={{ pathLength: othersBottomCurve, y: marginTopFrontend }}
+          style={{
+            pathLength: othersBottomCurve,
+            y: marginTopFrontend,
+            x: PADDING,
+          }}
         />
         <motion.path
           d="M 76.7268,5407.5 H 507.5"
           stroke="#00681d"
-          strokeWidth={10}
+          strokeWidth={STROKE}
           id="id_others_line"
           style={{ pathLength: othersLine, y: marginTopFrontend }}
         />

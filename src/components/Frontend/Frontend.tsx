@@ -33,6 +33,9 @@ const plus_jakarta_sans = Plus_Jakarta_Sans({
 
 let scrollPrev = 0;
 
+let width = 0;
+let height = 0;
+
 let firstTime = true;
 const Frontend: React.FC = () => {
   const top = useMotionValue<number>(0);
@@ -56,15 +59,17 @@ const Frontend: React.FC = () => {
       const topLine = $("#id_frontend_curve").position().top;
       const id_aux_top_frontend = $("#id_aux_top_frontend");
       const topFrontend = $("#id_frontend_div");
-      const aspectRatio =
-        Math.round((window.screen.width / window.screen.height) * 100) / 100;
+      const aspectRatio = Math.round((width / height) * 100) / 100;
 
       let newTop;
       if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
         newTop = Math.abs(id_aux_top_frontend.position().top + 100 - topLine);
       } else if (aspectRatio >= 1.4 && aspectRatio < 1.6) {
         newTop = Math.abs(id_aux_top_frontend.position().top - topLine) + 200;
-        // topFrontend.css({ "padding-top": "200px" });
+      } else if (aspectRatio >= 1.6 && aspectRatio < 1.7) {
+        newTop = Math.abs(topLine - id_aux_top_frontend.position().top);
+      } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
+        newTop = Math.abs(topLine - id_aux_top_frontend.position().top) - 100;
       } else {
         newTop = Math.abs(topLine - id_aux_top_frontend.position().top);
       }
@@ -159,7 +164,14 @@ const Frontend: React.FC = () => {
   }, [isTextInView]);
 
   useEffect(() => {
-    defineTop();
+    const auxWidth = $(window).width();
+    const auxHeight = $(window).height();
+
+    if (auxWidth && auxHeight) {
+      width = auxWidth;
+      height = auxHeight;
+      defineTop();
+    }
   }, []);
 
   return (
