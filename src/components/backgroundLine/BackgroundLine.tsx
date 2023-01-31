@@ -15,7 +15,6 @@ import {
 } from "@/store/redures/backgroundLineReducer";
 import { Plus_Jakarta_Sans } from "@next/font/google";
 
-let firstTime = true;
 const plus_jakarta_sans = Plus_Jakarta_Sans({
   weight: "200",
   subsets: ["latin"],
@@ -43,6 +42,8 @@ const BackgroundLine: React.FC = () => {
   const positionTop = useAppSelector(positionY);
 
   const scaleYPrototype = useAppSelector(scalePrototype);
+
+  const [text, setText] = useState<string | number>("");
 
   const svgLine = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -112,90 +113,83 @@ const BackgroundLine: React.FC = () => {
       textOthers.set(6070);
     }
 
-    if (firstTime) {
-      const line = document.getElementById("id_prototype_div");
-      const lineVerticalLine = document.getElementById(
-        "id_vertical_prototype_line"
-      );
-      if (line && lineVerticalLine) {
-        let scaleY = 0;
-        if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
-          scaleY =
-            (line.getBoundingClientRect().height +
-              // window.screen.availHeight / 1.7) /
-              height / 1.7) /
-            lineVerticalLine.getBoundingClientRect().height;
-        } else if (aspectRatio >= 1.4 && aspectRatio < 1.6) {
-          scaleY =
-            (line.getBoundingClientRect().height + height / 1.45) /
-            lineVerticalLine.getBoundingClientRect().height;
-        } else {
-          scaleY =
-            (line.getBoundingClientRect().height + height / 1.6) /
-            lineVerticalLine.getBoundingClientRect().height;
-        }
+    const line = $("#id_prototype_div").height();
+    const lineVerticalLine = $("#id_vertical_prototype_line").height();
+    const curvePrototype = $("#id_curve_top_prototype").height();
 
-        yPrototypeSize.set(Math.round(scaleY * 100) / 100);
-        const auxValue = (50 * (yPrototypeSize.get() - 1)) / 0.5;
-        prototypeY.set(auxValue);
-        if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
-          marginTopPrototype.set(auxValue * 13);
-          marginTopFrontendProto.set(auxValue * 13);
-        } else if (aspectRatio >= 1.4 && aspectRatio < 1.5) {
-          marginTopPrototype.set(auxValue * 13.5);
-          marginTopFrontendProto.set(auxValue * 13.5);
-        } else if (aspectRatio >= 1.5 && aspectRatio < 1.6) {
-          marginTopPrototype.set(auxValue * 13);
-          marginTopFrontendProto.set(auxValue * 13.9);
-        } else {
-          marginTopFrontendProto.set(auxValue * 13.7);
-          marginTopPrototype.set(auxValue * 13.5);
-        }
+    console.log(line);
+    console.log(lineVerticalLine);
+    if (line && lineVerticalLine && curvePrototype) {
+      let scaleY = 1;
+      if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
+        scaleY = (line + height / 1.7) / lineVerticalLine;
+      } else if (aspectRatio >= 1.4 && aspectRatio < 1.6) {
+        scaleY = (line + height / 1.5) / lineVerticalLine;
+      } else {
+        scaleY = (line + height / 1.6) / lineVerticalLine;
       }
 
-      const frontendSize = $("#id_frontend_div").height();
-      const frontendLine = $("#id_frontend_path_vertical").height();
+      yPrototypeSize.set(Math.round(scaleY * 100) / 100);
+      // const auxValue = (50 * (yPrototypeSize.get() - 1)) / 0.5;
+      const auxValue = Math.abs(line - lineVerticalLine);
+      // setText(yPrototypeSize.get() + "");
 
-      if (frontendSize && frontendLine) {
-        let scaleY2: number;
-
-        let auxValueFront: number;
-
-        if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
-          scaleY2 = frontendSize / 1185;
-          yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
-          auxValueFront = Math.abs((50 * (yFrontendSize.get() - 1)) / 0.5);
-          marginTopFrontend.set(Math.abs(frontendSize - frontendLine) * 155);
-        } else if (aspectRatio >= 1.4 && aspectRatio < 1.5) {
-          scaleY2 = frontendSize / frontendLine;
-          yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
-          auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 2.1 - 50;
-          marginTopFrontend.set(auxValueFront * 54);
-        } else if (aspectRatio >= 1.5 && aspectRatio < 1.6) {
-          scaleY2 = frontendSize / (frontendLine - 407);
-          yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
-          auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 2.1 - 50;
-          marginTopFrontend.set(auxValueFront * 67);
-        } else if (aspectRatio >= 1.6 && aspectRatio < 1.7) {
-          scaleY2 = frontendSize / (frontendLine - 407);
-          yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
-          auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 2.1 - 50;
-          marginTopFrontend.set(auxValueFront * 67);
-        } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
-          scaleY2 = frontendSize / frontendLine;
-          yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
-          auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 6;
-          marginTopFrontend.set(auxValueFront * 6.5);
-        } else {
-          scaleY2 = frontendSize / frontendLine;
-          yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
-          auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 6;
-          marginTopFrontend.set(auxValueFront * 7.2);
-        }
-        frontendY.set(auxValueFront);
+      prototypeY.set(curvePrototype);
+      if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
+        marginTopPrototype.set(auxValue * 13);
+        marginTopFrontendProto.set(auxValue * 13);
+      } else if (aspectRatio >= 1.4 && aspectRatio < 1.5) {
+        marginTopPrototype.set(auxValue * 13.5);
+        marginTopFrontendProto.set(auxValue * 13.5);
+      } else if (aspectRatio >= 1.5 && aspectRatio < 1.6) {
+        marginTopPrototype.set(auxValue * 13);
+        marginTopFrontendProto.set(auxValue * 13.9);
+      } else {
+        marginTopFrontendProto.set(auxValue * 13.7);
+        marginTopPrototype.set(auxValue * 13.5);
       }
+    }
 
-      firstTime = false;
+    const frontendSize = $("#id_frontend_div").height();
+    const frontendLine = $("#id_frontend_path_vertical").height();
+
+    if (frontendSize && frontendLine) {
+      let scaleY2: number;
+
+      let auxValueFront: number;
+
+      if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
+        scaleY2 = frontendSize / 1185;
+        yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
+        auxValueFront = Math.abs((50 * (yFrontendSize.get() - 1)) / 0.5);
+        marginTopFrontend.set(Math.abs(frontendSize - frontendLine) * 155);
+      } else if (aspectRatio >= 1.4 && aspectRatio < 1.5) {
+        scaleY2 = frontendSize / frontendLine;
+        yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
+        auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 2.1 - 50;
+        marginTopFrontend.set(auxValueFront * 54);
+      } else if (aspectRatio >= 1.5 && aspectRatio < 1.6) {
+        scaleY2 = frontendSize / (frontendLine - 407);
+        yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
+        auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 2.1 - 50;
+        marginTopFrontend.set(auxValueFront * 67);
+      } else if (aspectRatio >= 1.6 && aspectRatio < 1.7) {
+        scaleY2 = frontendSize / (frontendLine - 407);
+        yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
+        auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 2.1 - 50;
+        marginTopFrontend.set(auxValueFront * 67);
+      } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
+        scaleY2 = frontendSize / frontendLine;
+        yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
+        auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 6;
+        marginTopFrontend.set(auxValueFront * 6.5);
+      } else {
+        scaleY2 = frontendSize / frontendLine;
+        yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
+        auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 6;
+        marginTopFrontend.set(auxValueFront * 7.2);
+      }
+      frontendY.set(auxValueFront);
     }
   };
 
@@ -218,6 +212,7 @@ const BackgroundLine: React.FC = () => {
 
   return (
     <div ref={svgLine}>
+      <p>{text}</p>
       <motion.svg
         //   width="1550"
         //   height="5412.5"
@@ -252,10 +247,13 @@ const BackgroundLine: React.FC = () => {
           strokeWidth={STROKE}
           id="id_vertical_prototype_line"
           // transform={`matrix(1 0 0 ${scaleYPrototype} 0 -${prototypeY.get()})`}
-          transform={`matrix(1 0 0 ${yPrototypeSize.get()} 0 -${prototypeY.get()})`}
+          // transform={`matrix(1 0 0 ${yPrototypeSize.get()} 0 -${prototypeY.get()})`}
           style={{
             pathLength: prototypeLine,
             x: PADDING,
+            // scaleY: yPrototypeSize,
+            y: prototypeY,
+            height: 1400,
           }}
         />
 
