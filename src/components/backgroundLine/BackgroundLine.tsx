@@ -197,9 +197,9 @@ const BackgroundLine: React.FC = () => {
         marginTopFrontend.set(Math.abs(frontendSize - frontendLine) * 155);
       } else if (aspectRatio >= 1.4 && aspectRatio < 1.5) {
         scaleY2 = frontendSize / 1300;
-        yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
+        yFrontendSize.set(scaleY2);
         auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 2.1 - 50;
-        marginTopFrontend.set(auxValueFront * 54);
+        marginTopFrontend.set(auxValueFront * 27.5);
       } else if (aspectRatio >= 1.5 && aspectRatio < 1.6) {
         scaleY2 = frontendSize / (frontendLine - 407);
         yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
@@ -252,7 +252,7 @@ const BackgroundLine: React.FC = () => {
 
   return (
     <div ref={svgLine}>
-      <p>{text}</p>
+      {/* <p>{text}</p> */}
       <motion.svg
         //   width="1550"
         //   height="5412.5"

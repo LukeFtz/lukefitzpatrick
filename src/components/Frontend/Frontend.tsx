@@ -1,6 +1,6 @@
 import { Plus_Jakarta_Sans } from "@next/font/google";
 import Image from "next/image";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import redux from "../../../public/media/frontend/redux.svg";
 import react from "../../../public/media/frontend/react.svg";
 import typescript from "../../../public/media/frontend/typescript.svg";
@@ -53,6 +53,8 @@ const Frontend: React.FC = () => {
   const webMob2 = useMotionValue(0);
   const webMob3 = useMotionValue(0);
 
+  const [text, setText] = useState<string | number>("");
+
   const defineTop = () => {
     const topLine = $("#id_frontend_curve").position().top;
     const id_aux_top_frontend = $("#id_aux_top_frontend");
@@ -63,7 +65,10 @@ const Frontend: React.FC = () => {
     if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
       newTop = Math.abs(id_aux_top_frontend.position().top + 100 - topLine);
     } else if (aspectRatio >= 1.4 && aspectRatio < 1.6) {
-      newTop = Math.abs(topLine - id_aux_top_frontend.position().top) + 100;
+      // newTop = Math.abs(topLine - id_aux_top_frontend.position().top);
+      newTop = 100;
+
+      setText(topLine);
     } else if (aspectRatio >= 1.6 && aspectRatio < 1.7) {
       newTop = Math.abs(topLine - id_aux_top_frontend.position().top);
     } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
