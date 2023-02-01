@@ -16,6 +16,8 @@ import {
   scalePrototype,
 } from "@/store/redures/backgroundLineReducer";
 import { Plus_Jakarta_Sans } from "@next/font/google";
+import { pageScrollLine } from "@/utilitities/types";
+import { defineAreaValue } from "@/utilitities/functions";
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
   weight: "200",
@@ -29,6 +31,14 @@ const STROKE = 20;
 const PADDING = 5;
 
 let prevScroll = 0;
+
+let currentArea: pageScrollLine = defineAreaValue({
+  nextArea: "FIRST_LINE",
+  prevArea: "FIRST_LINE",
+  area: "FIRST_LINE",
+});
+
+let passOnFirstLine = true;
 
 const BackgroundLine: React.FC = () => {
   const viewBoxY = useMotionValue<number>(6800);
@@ -102,20 +112,12 @@ const BackgroundLine: React.FC = () => {
   const firstLine = useMotionValue<number>(0);
   const firstCurveLine = useMotionValue<number>(0);
   const prototypeLine = useMotionValue<number>(0);
-  const prototypeBottomCurve = useTransform(
-    scrollYProgress,
-    [0.2, 0.3],
-    [0, 1]
-  );
+  const prototypeBottomCurve = useMotionValue<number>(0);
 
-  const prototypeBottomLine = useTransform(
-    scrollYProgress,
-    [0.3, 0.32],
-    [0, 1]
-  );
+  const prototypeBottomLine = useMotionValue<number>(0);
 
-  const frontendTopCurve = useTransform(scrollYProgress, [0.48, 0.5], [0, 1]);
-  const frontendVertical = useTransform(scrollYProgress, [0.5, 0.6], [0, 1]);
+  const frontendTopCurve = useMotionValue<number>(0);
+  const frontendVertical = useMotionValue<number>(0);
   const frontendBottomCurve = useTransform(
     scrollYProgress,
     [0.94, 0.95],
@@ -149,26 +151,104 @@ const BackgroundLine: React.FC = () => {
   const animateFirstCurve = () => {
     animate(firstCurveLine, 1, {
       duration: 0.5,
+      onComplete: () => (passOnFirstLine = false),
     });
   };
 
   const animateHalfPrototype = () => {
     animate(prototypeLine, 0.5, {
       duration: 1,
+      onComplete: () => {
+        currentArea = { ...currentArea, area: "HALF_PROTOTYPE" };
+        currentArea = defineAreaValue(currentArea);
+      },
     });
   };
   const animateFullPrototype = () => {
     animate(prototypeLine, 1, {
       duration: 1,
+      onComplete: () => {
+        currentArea = { ...currentArea, area: "FULL_PROTOTYPE" };
+        currentArea = defineAreaValue(currentArea);
+      },
+    });
+  };
+  const animateCurvePrototype = () => {
+    animate(prototypeBottomCurve, 1, {
+      duration: 1,
+      onComplete: () => {
+        currentArea = { ...currentArea, area: "PROTOTYPE_BOTTOM_CURVE" };
+        currentArea = defineAreaValue(currentArea);
+      },
+    });
+  };
+  const animateBottomPrototype = () => {
+    animate(prototypeBottomLine, 1, {
+      duration: 1,
+      onComplete: () => {
+        currentArea = { ...currentArea, area: "BOTTOM_LINE" };
+        currentArea = defineAreaValue(currentArea);
+      },
+    });
+  };
+  const animateFrontendCurve = () => {
+    animate(frontendTopCurve, 1, {
+      duration: 1,
+      onComplete: () => {
+        currentArea = { ...currentArea, area: "FRONTEND_CURVE" };
+        currentArea = defineAreaValue(currentArea);
+      },
+    });
+  };
+  const animateHalfFrontend = () => {
+    animate(frontendVertical, 0.5, {
+      duration: 1,
+      onComplete: () => {
+        currentArea = { ...currentArea, area: "HALF_FRONTEND" };
+        currentArea = defineAreaValue(currentArea);
+      },
     });
   };
 
   const moveForward = (currentScrool: number) => {
-    if (currentScrool >= 0.18 && currentScrool < 0.19) {
+    if (
+      currentScrool >= 0.18 &&
+      currentArea.area === "FIRST_LINE" &&
+      passOnFirstLine
+    ) {
       animateFirstLine();
-    } else if (currentScrool >= 0.23 && currentScrool < 0.25) {
+    } else if (
+      currentScrool >= 0.2 &&
+      currentArea.nextArea === "HALF_PROTOTYPE"
+    ) {
       animateHalfPrototype();
+    } else if (
+      currentScrool >= 0.25 &&
+      currentArea.nextArea === "FULL_PROTOTYPE"
+    ) {
+      animateFullPrototype();
+    } else if (
+      currentScrool >= 0.3 &&
+      currentArea.nextArea === "PROTOTYPE_BOTTOM_CURVE"
+    ) {
+      animateCurvePrototype();
+    } else if (
+      currentScrool >= 0.31 &&
+      currentArea.nextArea === "BOTTOM_LINE"
+    ) {
+      animateBottomPrototype();
+    } else if (
+      currentScrool >= 0.35 &&
+      currentArea.nextArea === "FRONTEND_CURVE"
+    ) {
+      animateFrontendCurve();
+    } else if (
+      currentScrool >= 0.36 &&
+      currentArea.nextArea === "HALF_FRONTEND"
+    ) {
+      animateHalfFrontend();
     }
+
     prevScroll = currentScrool;
   };
 
