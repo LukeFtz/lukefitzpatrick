@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
+  animate,
   circOut,
   motion,
   useMotionValue,
+  useMotionValueEvent,
   useScroll,
   useSpring,
   useTransform,
@@ -25,6 +27,8 @@ let height = 0;
 
 const STROKE = 20;
 const PADDING = 5;
+
+let prevScroll = 0;
 
 const BackgroundLine: React.FC = () => {
   const viewBoxY = useMotionValue<number>(6800);
@@ -50,9 +54,54 @@ const BackgroundLine: React.FC = () => {
     target: svgLine,
   });
 
-  const firstLine = useTransform(scrollYProgress, [0.1, 0.12], [0, 1]);
-  const firstCurveLine = useTransform(scrollYProgress, [0.12, 0.18], [0, 1]);
-  const prototypeLine = useTransform(scrollYProgress, [0.18, 0.2], [0, 1]);
+  // const scaleX = useSpring(scrollYProgress, {
+  //   stiffness: 100,
+  //   damping: 30,
+  //   restDelta: 0.001,
+  // });
+
+  // const firstLine = useTransform(scrollYProgress, [0.1, 0.12], [0, 1]);
+  // const firstCurveLine = useTransform(scrollYProgress, [0.12, 0.18], [0, 1]);
+  // const prototypeLine = useTransform(scrollYProgress, [0.18, 0.2], [0, 1]);
+  // const prototypeBottomCurve = useTransform(
+  //   scrollYProgress,
+  //   [0.2, 0.3],
+  //   [0, 1]
+  // );
+
+  // const prototypeBottomLine = useTransform(
+  //   scrollYProgress,
+  //   [0.3, 0.32],
+  //   [0, 1]
+  // );
+
+  // const frontendTopCurve = useTransform(scrollYProgress, [0.48, 0.5], [0, 1]);
+  // const frontendVertical = useTransform(scrollYProgress, [0.5, 0.6], [0, 1]);
+  // const frontendBottomCurve = useTransform(
+  //   scrollYProgress,
+  //   [0.94, 0.95],
+  //   [0, 1]
+  // );
+  // const frontendBottomLine = useTransform(
+  //   scrollYProgress,
+  //   [0.95, 0.96],
+  //   [0, 1]
+  // );
+  // const backendTopCurve = useTransform(scrollYProgress, [0.96, 0.97], [0, 1]);
+  // const backendVerticalLine = useTransform(
+  //   scrollYProgress,
+  //   [0.97, 0.99],
+  //   [0, 1]
+  // );
+  // const othersBottomCurve = useTransform(
+  //   scrollYProgress,
+  //   [0.99, 0.999],
+  //   [0, 1]
+  // );
+  // const othersLine = useTransform(scrollYProgress, [0.999, 1], [0, 1]);
+  const firstLine = useMotionValue<number>(0);
+  const firstCurveLine = useMotionValue<number>(0);
+  const prototypeLine = useMotionValue<number>(0);
   const prototypeBottomCurve = useTransform(
     scrollYProgress,
     [0.2, 0.3],
@@ -89,6 +138,46 @@ const BackgroundLine: React.FC = () => {
     [0, 1]
   );
   const othersLine = useTransform(scrollYProgress, [0.999, 1], [0, 1]);
+
+  const animateFirstLine = () => {
+    animate(firstLine, 1, {
+      duration: 0.5,
+      onComplete: () => animateFirstCurve(),
+    });
+  };
+
+  const animateFirstCurve = () => {
+    animate(firstCurveLine, 1, {
+      duration: 0.5,
+    });
+  };
+
+  const animateHalfPrototype = () => {
+    animate(prototypeLine, 0.5, {
+      duration: 1,
+    });
+  };
+  const animateFullPrototype = () => {
+    animate(prototypeLine, 1, {
+      duration: 1,
+    });
+  };
+
+  const moveForward = (currentScrool: number) => {
+    if (currentScrool >= 0.18 && currentScrool < 0.19) {
+      animateFirstLine();
+    } else if (currentScrool >= 0.23 && currentScrool < 0.25) {
+      animateHalfPrototype();
+    }
+    prevScroll = currentScrool;
+  };
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    console.log("Page scroll: ", latest);
+    if (latest - prevScroll > 0) {
+      moveForward(latest);
+    }
+  });
 
   const defineValues = () => {
     const aspectRatio = Math.round((width / height) * 100) / 100;
