@@ -112,10 +112,9 @@ const Iot: React.FC = () => {
           topIoTR.css({ "margin-top": newTop + "px" });
         } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
           newTop =
-            Math.abs(
-              topCloud.position().top - auxTopIot.position().top + 200
-              // topCloud.height()
-            ) * 1.5;
+            (Math.abs(topCloud.position().top - auxTopIot.position().top) +
+              200) *
+            1.5;
           topIoTR.css({ "margin-top": newTop + "px" });
         } else {
           newTop =
@@ -554,7 +553,12 @@ const Iot: React.FC = () => {
   return (
     <div id="id_main_iot_div" className="row justify-content-center">
       <h2
-        className={`${plus_jakarta_sans.className} fs-1 text-secondary text-center`}
+        className={`${plus_jakarta_sans.className} display-3 text-center mb-5`}
+      >
+        Outros
+      </h2>
+      <h2
+        className={`${plus_jakarta_sans.className} fs-1 text-secondary mt-5 text-center`}
       >
         IoT
       </h2>

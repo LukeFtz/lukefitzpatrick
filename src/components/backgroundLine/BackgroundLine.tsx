@@ -66,7 +66,7 @@ const BackgroundLine: React.FC = () => {
   );
 
   const frontendTopCurve = useTransform(scrollYProgress, [0.48, 0.5], [0, 1]);
-  const frontendVertical = useTransform(scrollYProgress, [0.5, 0.94], [0, 1]);
+  const frontendVertical = useTransform(scrollYProgress, [0.5, 0.6], [0, 1]);
   const frontendBottomCurve = useTransform(
     scrollYProgress,
     [0.94, 0.95],
@@ -107,7 +107,7 @@ const BackgroundLine: React.FC = () => {
       textOthers.set(6850);
     } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
       viewBoxY.set(6800);
-      textOthers.set(6000);
+      textOthers.set(5900);
     } else {
       viewBoxY.set(6800);
       textOthers.set(6070);
@@ -136,16 +136,20 @@ const BackgroundLine: React.FC = () => {
         scaleY = lineVerticalLine / line;
         extraTopPadding = curvePrototype * 6;
       } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
-        scaleY = (line + height / 1.6) / lineVerticalLine;
-        extraTopPadding = curvePrototype * 1.45;
+        if ((line + height / 2) / lineVerticalLine > 1) {
+          scaleY = (line * 1.1 + height / 2) / lineVerticalLine;
+          extraTopPadding = scaleY * 30;
+        } else {
+          scaleY = (line + height / 2) / 1095;
+          extraTopPadding = scaleY * 80;
+        }
       } else {
         scaleY = (line + height / 2) / lineVerticalLine;
         extraTopPadding = curvePrototype * 0.6;
       }
 
-      yPrototypeSize.set(Math.round(scaleY * 100) / 100);
+      yPrototypeSize.set(scaleY);
       const auxValue = Math.abs(line - lineVerticalLine);
-      setText(auxValue);
 
       prototypeY.set(curvePrototype + extraTopPadding);
       if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
@@ -164,10 +168,15 @@ const BackgroundLine: React.FC = () => {
         marginTopPrototype.set(auxValue * 13);
         marginTopFrontendProto.set(auxValue * 13.9);
       } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
-        marginTopFrontendProto.set(auxValue * 0.65);
-        marginTopPrototype.set(auxValue * 0.6);
+        if ((line + height / 2) / lineVerticalLine > 1) {
+          marginTopFrontendProto.set(auxValue * 0.5);
+          marginTopPrototype.set(auxValue * 0.45);
+        } else {
+          marginTopFrontendProto.set(auxValue * 0.82);
+          marginTopPrototype.set(auxValue * 0.75);
+        }
       } else {
-        marginTopFrontendProto.set(auxValue * 0.48);
+        marginTopFrontendProto.set(auxValue * 0.4);
         marginTopPrototype.set(auxValue * 0.4);
       }
     }
@@ -202,17 +211,25 @@ const BackgroundLine: React.FC = () => {
         auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 2.1 - 50;
         marginTopFrontend.set(auxValueFront * 67);
       } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
-        scaleY2 = frontendSize / (frontendLine - 50);
+        if (frontendSize / (frontendLine - 50) > 1.12) {
+          scaleY2 = frontendSize / frontendLine;
+          yFrontendSize.set(scaleY2);
+          auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 6;
+          marginTopFrontend.set(auxValueFront * 5);
+        } else {
+          scaleY2 = frontendSize / 1540;
+          yFrontendSize.set(scaleY2);
+          auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 6;
+          marginTopFrontend.set(auxValueFront * 4.74);
+        }
+      } else {
+        scaleY2 = frontendSize / (frontendLine + 285);
         yFrontendSize.set(scaleY2);
         auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 6;
-        marginTopFrontend.set(auxValueFront * 5.3);
-      } else {
-        scaleY2 = frontendSize / frontendLine;
-        yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
-        auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 6;
-        marginTopFrontend.set(auxValueFront * 7.2);
+        marginTopFrontend.set(auxValueFront * 6.2);
       }
       frontendY.set(auxValueFront);
+      setText(scaleY2);
     }
   };
 
@@ -235,7 +252,7 @@ const BackgroundLine: React.FC = () => {
 
   return (
     <div ref={svgLine}>
-      {/* <p>{text}</p> */}
+      <p>{text}</p>
       <motion.svg
         //   width="1550"
         //   height="5412.5"
@@ -419,7 +436,7 @@ const BackgroundLine: React.FC = () => {
             style={{ pathLength: scrollYProgress, y: marginTopFrontend }}
           />
         </motion.g>
-        <motion.text xmlSpace="preserve" fill="#fff">
+        {/* <motion.text xmlSpace="preserve" fill="#000">
           <motion.tspan
             x={700}
             y={textOthers.get()}
@@ -427,16 +444,9 @@ const BackgroundLine: React.FC = () => {
           >
             Outros
           </motion.tspan>
-        </motion.text>
+        </motion.text> */}
         <defs>
-          <linearGradient
-            id="prefix__paint0_linear_273_13"
-            // x1={-588.313}
-            // y1={1282.98}
-            // x2={1294.82}
-            // y2={1344.12}
-            // gradientUnits="userSpaceOnUse"
-          >
+          <linearGradient id="prefix__paint0_linear_273_13">
             <stop stopColor="#0066cc" />
             <stop offset={1} stopColor="#00ccff" />
           </linearGradient>

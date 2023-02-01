@@ -33,7 +33,7 @@ export default function Home() {
         <div>
           <Menu />
         </div>
-        <div className="mt-5">
+        <div className="">
           <Prototype />
         </div>
         <div>
