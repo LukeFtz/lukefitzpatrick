@@ -121,34 +121,54 @@ const BackgroundLine: React.FC = () => {
     if (line && lineVerticalLine && curvePrototype) {
       let scaleY = 1;
       if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
-        scaleY = (lineVerticalLine * 1.09) / line;
+        // verify devices
+        scaleY = (lineVerticalLine * 1.1) / line;
         extraTopPadding = curvePrototype * 8;
-      } else if (aspectRatio >= 1.4 && aspectRatio < 1.6) {
-        // scaleY = (line + height / 1.5) / lineVerticalLine;
+      } else if (aspectRatio >= 1.4 && aspectRatio < 1.5) {
         scaleY = lineVerticalLine / line;
         extraTopPadding = curvePrototype * 6;
-      } else {
+      } else if (aspectRatio >= 1.5 && aspectRatio < 1.6) {
+        // Verify devices
+        scaleY = lineVerticalLine / line;
+        extraTopPadding = curvePrototype * 6;
+      } else if (aspectRatio >= 1.6 && aspectRatio < 1.7) {
+        // verify devices
+        scaleY = lineVerticalLine / line;
+        extraTopPadding = curvePrototype * 6;
+      } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
         scaleY = (line + height / 1.6) / lineVerticalLine;
         extraTopPadding = curvePrototype * 1.45;
+      } else {
+        scaleY = (line + height / 2) / lineVerticalLine;
+        extraTopPadding = curvePrototype * 0.6;
       }
 
       yPrototypeSize.set(Math.round(scaleY * 100) / 100);
       const auxValue = Math.abs(line - lineVerticalLine);
-      setText(aspectRatio);
+      setText(auxValue);
 
       prototypeY.set(curvePrototype + extraTopPadding);
       if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
-        marginTopPrototype.set(auxValue * 13);
-        marginTopFrontendProto.set(auxValue * 13);
+        // Verify devices
+        marginTopPrototype.set(auxValue);
+        marginTopFrontendProto.set(auxValue);
       } else if (aspectRatio >= 1.4 && aspectRatio < 1.5) {
-        marginTopPrototype.set(auxValue * 13.5);
-        marginTopFrontendProto.set(auxValue * 13.5);
+        marginTopPrototype.set(auxValue * 1.45);
+        marginTopFrontendProto.set(auxValue * 1.6);
       } else if (aspectRatio >= 1.5 && aspectRatio < 1.6) {
+        // Verify devices
         marginTopPrototype.set(auxValue * 13);
         marginTopFrontendProto.set(auxValue * 13.9);
+      } else if (aspectRatio >= 1.6 && aspectRatio < 1.7) {
+        // Verify devices
+        marginTopPrototype.set(auxValue * 13);
+        marginTopFrontendProto.set(auxValue * 13.9);
+      } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
+        marginTopFrontendProto.set(auxValue * 0.65);
+        marginTopPrototype.set(auxValue * 0.6);
       } else {
-        marginTopFrontendProto.set(auxValue * 13.7);
-        marginTopPrototype.set(auxValue * 13.5);
+        marginTopFrontendProto.set(auxValue * 0.48);
+        marginTopPrototype.set(auxValue * 0.4);
       }
     }
 
@@ -161,12 +181,13 @@ const BackgroundLine: React.FC = () => {
       let auxValueFront: number;
 
       if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
+        // Verify devices
         scaleY2 = frontendSize / 1185;
         yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
         auxValueFront = Math.abs((50 * (yFrontendSize.get() - 1)) / 0.5);
         marginTopFrontend.set(Math.abs(frontendSize - frontendLine) * 155);
       } else if (aspectRatio >= 1.4 && aspectRatio < 1.5) {
-        scaleY2 = frontendSize / frontendLine;
+        scaleY2 = frontendSize / 1300;
         yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
         auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 2.1 - 50;
         marginTopFrontend.set(auxValueFront * 54);
@@ -181,10 +202,10 @@ const BackgroundLine: React.FC = () => {
         auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 2.1 - 50;
         marginTopFrontend.set(auxValueFront * 67);
       } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
-        scaleY2 = frontendSize / frontendLine;
-        yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
+        scaleY2 = frontendSize / (frontendLine - 50);
+        yFrontendSize.set(scaleY2);
         auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 6;
-        marginTopFrontend.set(auxValueFront * 6.5);
+        marginTopFrontend.set(auxValueFront * 5.3);
       } else {
         scaleY2 = frontendSize / frontendLine;
         yFrontendSize.set(Math.round(scaleY2 * 100) / 100);

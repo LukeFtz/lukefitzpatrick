@@ -65,13 +65,13 @@ const Frontend: React.FC = () => {
       if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
         newTop = Math.abs(id_aux_top_frontend.position().top + 100 - topLine);
       } else if (aspectRatio >= 1.4 && aspectRatio < 1.6) {
-        newTop = Math.abs(id_aux_top_frontend.position().top - topLine) + 200;
+        newTop = Math.abs(topLine - id_aux_top_frontend.position().top) + 100;
       } else if (aspectRatio >= 1.6 && aspectRatio < 1.7) {
         newTop = Math.abs(topLine - id_aux_top_frontend.position().top);
       } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
-        newTop = Math.abs(topLine - id_aux_top_frontend.position().top) - 100;
+        newTop = Math.abs(topLine - id_aux_top_frontend.position().top) - 150;
       } else {
-        newTop = Math.abs(topLine - id_aux_top_frontend.position().top);
+        newTop = Math.abs(topLine - id_aux_top_frontend.position().top) - 150;
       }
       topFrontend.css({ "margin-top": newTop + "px" });
       firstTime = false;
