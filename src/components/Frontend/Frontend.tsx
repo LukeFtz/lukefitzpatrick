@@ -62,7 +62,9 @@ const Frontend: React.FC = () => {
     const aspectRatio = Math.round((width / height) * 100) / 100;
 
     let newTop;
-    if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
+    if (aspectRatio < 0.9) {
+      newTop = Math.abs(id_aux_top_frontend.position().top - topLine) - 50;
+    } else if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
       newTop = Math.abs(id_aux_top_frontend.position().top + 100 - topLine);
     } else if (aspectRatio >= 1.4 && aspectRatio < 1.6) {
       // newTop = Math.abs(topLine - id_aux_top_frontend.position().top);
@@ -178,7 +180,7 @@ const Frontend: React.FC = () => {
   return (
     <div id="id_frontend_div" className="container mainFrontendDiv pt-5">
       <div className="row justify-content-center">
-        <div className="col-12 col-md-10 col-xl-12">
+        <div className="col-9 col-md-10 col-xl-12">
           <div className="row justify-content-end text-end">
             <div className="col-12 col-xl-6 overflowXHidden">
               <motion.h2
@@ -193,10 +195,10 @@ const Frontend: React.FC = () => {
       </div>
 
       <div className="row justify-content-center">
-        <div className="container row">
+        <div className="container row ">
           <div className="row col-3 mt-5 pt-5 justify-content-center">
             <motion.div
-              className="col-9"
+              className="col-12 col-md-9"
               style={{ y: yFrontendItems, opacity }}
             >
               <Image src={redux} alt="Redux icon" className="img-fluid w-100" />
@@ -205,7 +207,9 @@ const Frontend: React.FC = () => {
               className="col-12 text-center mb-5"
               style={{ opacity: opacityText }}
             >
-              <h2 className={`${plus_jakarta_sans.className} fs-5 mb-5`}>
+              <h2
+                className={`${plus_jakarta_sans.className} fontSmall fs-md-5 mb-5`}
+              >
                 Redux
               </h2>
             </motion.div>
@@ -214,7 +218,7 @@ const Frontend: React.FC = () => {
             className="row col-6 mt-5 pt-5 justify-content-center"
             style={{ y: yFrontendReact, opacity }}
           >
-            <div className="col-10 reactRotate">
+            <div className="col-12 col-md-10 reactRotate">
               <Image src={react} alt="React icon" className="img-fluid w-100" />
             </div>
             <motion.div
@@ -223,7 +227,7 @@ const Frontend: React.FC = () => {
             >
               <h2
                 ref={scrollRef}
-                className={`${plus_jakarta_sans.className} fs-4 mt-5`}
+                className={`${plus_jakarta_sans.className} fs-md-4 fs-6 mt-md-5`}
               >
                 React & React Native
               </h2>
@@ -231,7 +235,7 @@ const Frontend: React.FC = () => {
           </motion.div>
           <div className="row col-3 mt-5 pt-5 justify-content-center">
             <motion.div
-              className="col-9"
+              className="col-12 col-md-9"
               style={{ y: yFrontendItems, opacity }}
             >
               <Image
@@ -244,7 +248,9 @@ const Frontend: React.FC = () => {
               className="col-12 text-center mb-5"
               style={{ opacity: opacityText }}
             >
-              <h2 className={`${plus_jakarta_sans.className} fs-5 mb-5 `}>
+              <h2
+                className={`${plus_jakarta_sans.className} fontSmall fs-md-5 mb-5`}
+              >
                 Typescript
               </h2>
             </motion.div>
@@ -254,7 +260,7 @@ const Frontend: React.FC = () => {
         <div className="container mt-5">
           <div className="row justify-content-center ">
             <motion.div
-              className="col-12 col-md-9"
+              className="col-10 col-md-9"
               style={{ opacity: opacityText }}
             >
               <p
@@ -272,7 +278,7 @@ const Frontend: React.FC = () => {
           className="row justify-content-center"
           style={{ opacity: opacityText }}
         >
-          <div className="row justify-content-center col-6 mt-5 pt-5">
+          <div className="row justify-content-center col-12 col-md-6 mt-5 pt-5">
             <div className="col-12 col-md-12 text-center">
               <Image
                 src={mobile}
@@ -284,7 +290,7 @@ const Frontend: React.FC = () => {
         </motion.div>
         <div className="container mt-5 mb-5">
           <div className="row justify-content-center mb-5">
-            <div className="col-12 col-md-8">
+            <div className="col-10 col-md-8">
               <p
                 className={`${plus_jakarta_sans.className} fs-6 mt-5 text-center`}
               >
@@ -294,10 +300,10 @@ const Frontend: React.FC = () => {
             </div>
           </div>
           <div className="row justify-content-center mt-5 mb-5">
-            <div className="col-12 col-md-6 row ">
+            <div className="col-6 col-md-6 row ">
               <div className="mb-5">
                 <h3
-                  className={`${plus_jakarta_sans.className} fs-3 mt-5 text-center`}
+                  className={`${plus_jakarta_sans.className} fs-5 fs-md-3 mt-5 text-center`}
                 >
                   Web
                 </h3>
@@ -308,12 +314,12 @@ const Frontend: React.FC = () => {
                   className="row col-12 align-items-center mb-5 mt-5"
                   style={{ y: webMob }}
                 >
-                  <div className="col-2">
+                  <div className="col-6 col-md-2">
                     <NextJs />
                   </div>
-                  <div className="col-10">
+                  <div className="col-6 col-md-10">
                     <p
-                      className={`${plus_jakarta_sans.className} fs-5 text-start`}
+                      className={`${plus_jakarta_sans.className} fontSmall fs-md-5 text-start`}
                     >
                       Next.js
                     </p>
@@ -323,12 +329,12 @@ const Frontend: React.FC = () => {
                   className="row col-12 align-items-center mb-5 mt-5"
                   style={{ y: webMob2 }}
                 >
-                  <div className="col-2">
+                  <div className="col-6 col-md-2">
                     <ReactRouter />
                   </div>
-                  <div className="col-10">
+                  <div className="col-6 col-md-10">
                     <p
-                      className={`${plus_jakarta_sans.className} fs-5 text-start`}
+                      className={`${plus_jakarta_sans.className} fontSmall fs-md-5 text-start`}
                     >
                       React Router Dom
                     </p>
@@ -338,12 +344,12 @@ const Frontend: React.FC = () => {
                   className="row col-12 align-items-center mt-5"
                   style={{ y: webMob3 }}
                 >
-                  <div className="col-2">
+                  <div className="col-6 col-md-2">
                     <Jquery />
                   </div>
-                  <div className="col-10">
+                  <div className="col-6 col-md-10">
                     <p
-                      className={`${plus_jakarta_sans.className} fs-5 text-start`}
+                      className={`${plus_jakarta_sans.className} fontSmall fs-md-5 text-start`}
                     >
                       Jquery
                     </p>
@@ -351,10 +357,10 @@ const Frontend: React.FC = () => {
                 </motion.div>
               </div>
             </div>
-            <div className="col-12 col-md-6 row">
+            <div className="col-6 col-md-6 row">
               <div className="mb-5">
                 <h3
-                  className={`${plus_jakarta_sans.className} fs-3 mt-5 text-center`}
+                  className={`${plus_jakarta_sans.className} fs-5 fs-md-3 mt-5 text-center`}
                 >
                   Mobile
                 </h3>
@@ -365,14 +371,14 @@ const Frontend: React.FC = () => {
                   className="row col-12 align-items-center mb-5 mt-5"
                   style={{ y: webMob }}
                 >
-                  <div className="col-10">
+                  <div className="col-9 col-md-10">
                     <p
-                      className={`${plus_jakarta_sans.className} fs-5 text-end`}
+                      className={`${plus_jakarta_sans.className} fontSmall fs-md-5 text-end`}
                     >
                       React Navigation
                     </p>
                   </div>
-                  <div className="col-2">
+                  <div className="col-3 col-md-2 ">
                     <ReactNavigation />
                   </div>
                 </motion.div>
@@ -380,14 +386,14 @@ const Frontend: React.FC = () => {
                   className="row col-12 align-items-center mb-5 mt-5"
                   style={{ y: webMob2 }}
                 >
-                  <div className="col-10">
+                  <div className="col-9 col-md-10">
                     <p
-                      className={`${plus_jakarta_sans.className} fs-5 text-end`}
+                      className={`${plus_jakarta_sans.className} fontSmall fs-md-5 text-end`}
                     >
                       Expo
                     </p>
                   </div>
-                  <div className="col-2">
+                  <div className="col-3 col-md-2">
                     <Expo />
                   </div>
                 </motion.div>
@@ -395,19 +401,19 @@ const Frontend: React.FC = () => {
                   className="row col-12 align-items-center mt-5"
                   style={{ y: webMob3 }}
                 >
-                  <div className="col-10">
+                  <div className="col-9 col-md-10">
                     <div
-                      className={`${plus_jakarta_sans.className} fs-5 text-end`}
+                      className={`${plus_jakarta_sans.className} fontSmall fs-md-5 text-end`}
                     >
                       React Native Reanimated
                     </div>
                     <div
-                      className={`${plus_jakarta_sans.className} fs-5 text-end`}
+                      className={`${plus_jakarta_sans.className} fontSmall fs-md-5 text-end`}
                     >
                       React Native Gesture Handler
                     </div>
                   </div>
-                  <div className="col-2">
+                  <div className="col-3 col-md-2">
                     <SoftwareMansion />
                   </div>
                 </motion.div>

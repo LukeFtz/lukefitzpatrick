@@ -42,8 +42,8 @@
 @media (max-width: 768px) {
   .svgSizeFull {
     /* top: 0.05%; */
-    width: 95vw;
-    height: 95vw;
+    width: 90vw;
+    height: 90vw;
   }
 
   .divSvgSize {

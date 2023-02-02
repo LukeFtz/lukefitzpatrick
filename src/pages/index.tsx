@@ -26,7 +26,7 @@ export default function Home() {
         </div>
 
         <div className="row container-fluid position-absolute justify-content-center">
-          <div className="col-11">
+          <div className="col-12 col-md-11">
             <BackgroundLine />
           </div>
         </div>

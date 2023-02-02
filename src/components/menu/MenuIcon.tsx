@@ -1,5 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { motion, useMotionValue, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  MotionValue,
+  useMotionValue,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import $ from "jquery";
 import { M_PLUS_1, Plus_Jakarta_Sans } from "@next/font/google";
 import { menuContent } from "@/utilitities/datatypes";
@@ -22,7 +28,13 @@ const MenuIcon = ({ backend, frontend, other, prototype }: menuContent) => {
     target: wrapDiv,
   });
 
-  const opacityMobile = useMotionValue(1);
+  // const opacityMobile = useMotionValue(0);
+  // const opacityMobile:MotionValue = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
+  const opacityMobile: MotionValue = useTransform(
+    scrollYProgress,
+    [0, 0.15],
+    [0, 1]
+  );
   const opacity = useTransform(scrollYProgress, [0.5, 0.6], [0, 1]);
   const opacity2 = useTransform(scrollYProgress, [0.6, 0.7], [0, 1]);
   const opacity3 = useTransform(scrollYProgress, [0.7, 0.8], [0, 1]);
@@ -61,7 +73,7 @@ const MenuIcon = ({ backend, frontend, other, prototype }: menuContent) => {
     // const aspectRatio =
     //   Math.round((window.screen.width / window.screen.height) * 100) / 100;
 
-    // if (aspectRatio < 0.6) {
+    // if (aspectRatio < 0.9) {
     //   opacityMobile.set(0);
     // } else {
     //   bottom.set(windowSize * 0.05);
@@ -186,9 +198,9 @@ const MenuIcon = ({ backend, frontend, other, prototype }: menuContent) => {
 
       // console.log(aspectRatio);
       // console.log(window.screen.width);
-      if (aspectRatio < 0.6) {
+      if (aspectRatio < 0.9) {
         top.set(windowSize * 0.25);
-        opacityMobile.set(0);
+        bottom.set(windowSize * 0.47);
       } else if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
         top.set(windowSize * 0.025);
         bottom.set(windowSize * 0.05);
@@ -196,8 +208,14 @@ const MenuIcon = ({ backend, frontend, other, prototype }: menuContent) => {
         top.set(windowSize * 0.025);
         bottom.set(windowSize * 0.05);
       }
-
-      if (aspectRatio >= 1.3 && aspectRatio < 1.6) {
+      if (aspectRatio < 0.9) {
+        const backgroundLineTop =
+          contentDiv.position().top +
+          svgHeight * 1.44 +
+          renderedTitle.getBoundingClientRect().height -
+          windowSize;
+        dispatch(setTopPosition(backgroundLineTop));
+      } else if (aspectRatio >= 1.3 && aspectRatio < 1.6) {
         const backgroundLineTop =
           contentDiv.position().top +
           svgHeight * 1.35 +
@@ -211,7 +229,7 @@ const MenuIcon = ({ backend, frontend, other, prototype }: menuContent) => {
           renderedTitle.getBoundingClientRect().height -
           windowSize;
         dispatch(setTopPosition(backgroundLineTop));
-      } else if (aspectRatio < 0.6) {
+      } else if (aspectRatio < 0.9) {
         const backgroundLineTop =
           contentDiv.position().top +
           svgHeight * 1.5 +

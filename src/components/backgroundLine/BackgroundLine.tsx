@@ -384,8 +384,9 @@ const BackgroundLine: React.FC = () => {
 
   const defineValues = () => {
     const aspectRatio = Math.round((width / height) * 100) / 100;
-
-    if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
+    if (aspectRatio < 0.9) {
+      viewBoxY.set(15000);
+    } else if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
       viewBoxY.set(8000);
       textOthers.set(7775);
     } else if (aspectRatio >= 1.4 && aspectRatio < 1.5) {
@@ -412,7 +413,10 @@ const BackgroundLine: React.FC = () => {
     let extraTopPadding = 0;
     if (line && lineVerticalLine && curvePrototype) {
       let scaleY = 1;
-      if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
+      if (aspectRatio < 0.9) {
+        scaleY = (line + height) / 350;
+        extraTopPadding = height * 3.45;
+      } else if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
         // verify devices
         scaleY = (lineVerticalLine * 1.1) / line;
         extraTopPadding = curvePrototype * 8;
@@ -444,7 +448,13 @@ const BackgroundLine: React.FC = () => {
       const auxValue = Math.abs(line - lineVerticalLine);
 
       prototypeY.set(curvePrototype + extraTopPadding);
-      if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
+      if (aspectRatio < 0.9) {
+        const auxValueMobile =
+          Math.abs(line - lineVerticalLine * scaleY) * 0.88;
+        // Margin Base on scale
+        marginTopPrototype.set(auxValueMobile);
+        marginTopFrontendProto.set(auxValueMobile * 0.429);
+      } else if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
         // Verify devices
         marginTopPrototype.set(auxValue);
         marginTopFrontendProto.set(auxValue);
@@ -481,7 +491,15 @@ const BackgroundLine: React.FC = () => {
 
       let auxValueFront: number;
 
-      if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
+      if (aspectRatio < 0.9) {
+        // scaleY2 = (frontendSize + height) / 668;
+        scaleY2 = 3.6;
+        yFrontendSize.set(scaleY2);
+        auxValueFront = Math.abs((50 * (yFrontendSize.get() - 1)) / 0.5);
+        // marginTopFrontend.set();
+        setText(scaleY2);
+        // extraTopPadding = height * 3.45;
+      } else if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
         // Verify devices
         scaleY2 = frontendSize / 1185;
         yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
@@ -521,7 +539,6 @@ const BackgroundLine: React.FC = () => {
         marginTopFrontend.set(auxValueFront * 6.5);
       }
       frontendY.set(auxValueFront);
-      setText(scaleY2);
     }
   };
 
@@ -544,7 +561,7 @@ const BackgroundLine: React.FC = () => {
 
   return (
     <div ref={svgLine}>
-      {/* <p>{text}</p> */}
+      <p>{text}</p>
       <motion.svg
         //   width="1550"
         //   height="5412.5"
@@ -586,7 +603,8 @@ const BackgroundLine: React.FC = () => {
           // transform={`matrix(1 0 0 ${scaleYPrototype} 0 -${prototypeY.get()})`}
           // transform={`matrix(1 0 0 ${yPrototypeSize.get()} 0 -${prototypeY.get()})`}
           style={{
-            pathLength: prototypeLine,
+            // pathLength: prototypeLine,
+            pathLength: 1,
             x: PADDING,
             scaleY: yPrototypeSize,
             y: prototypeY,
@@ -601,10 +619,10 @@ const BackgroundLine: React.FC = () => {
           height={799}
           id="id_curver_prototype_bottom"
           style={{
-            pathLength: prototypeBottomCurve,
+            // pathLength: prototypeBottomCurve,
+            pathLength: 1,
             y: marginTopPrototype,
             x: PADDING,
-            // translateY: prototypeY.get() * 13,
           }}
         />
         <motion.path
@@ -613,7 +631,7 @@ const BackgroundLine: React.FC = () => {
           strokeWidth={STROKE}
           id="id_prototype_bottom"
           style={{
-            pathLength: prototypeBottomLine,
+            pathLength: 1,
             y: marginTopPrototype,
             x: -PADDING,
           }}
@@ -624,7 +642,8 @@ const BackgroundLine: React.FC = () => {
           strokeWidth={STROKE}
           id="id_frontend_curve"
           style={{
-            pathLength: frontendTopCurve,
+            // pathLength: frontendTopCurve,
+            pathLength: 1,
             y: marginTopPrototype,
             x: -PADDING,
           }}
@@ -637,7 +656,8 @@ const BackgroundLine: React.FC = () => {
             // height={yFrontendDefault.get()}
             id="id_frontend_path_vertical"
             style={{
-              pathLength: frontendVertical,
+              // pathLength: frontendVertical,
+              pathLength: 1,
               y: marginTopFrontendProto,
               x: -PADDING,
               height: 2003,
@@ -683,7 +703,8 @@ const BackgroundLine: React.FC = () => {
           strokeWidth={STROKE}
           id="id_backend_vertical_line"
           style={{
-            pathLength: backendVerticalLine,
+            // pathLength: backendVerticalLine,
+            pathLength: 0,
             y: marginTopFrontend,
             x: PADDING,
           }}

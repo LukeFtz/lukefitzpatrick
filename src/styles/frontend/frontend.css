@@ -20,3 +20,17 @@
     transform: rotate(360deg);
   }
 }
+
+@media (max-width: 768px) {
+  .fontSmall {
+    font-size: 10px;
+  }
+  .iconSize {
+    width: 45px;
+    height: 45px;
+  }
+  .iconSizeHorizontal {
+    width: 56px;
+    height: 30px;
+  }
+}
