@@ -1,13 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   animate,
-  circOut,
   motion,
   useMotionValue,
   useMotionValueEvent,
   useScroll,
-  useSpring,
-  useTransform,
 } from "framer-motion";
 import $ from "jquery";
 import { useAppSelector } from "@/store/hooks";
@@ -439,8 +436,8 @@ const BackgroundLine: React.FC = () => {
           extraTopPadding = scaleY * 80;
         }
       } else {
-        scaleY = (line + height / 2) / lineVerticalLine;
-        extraTopPadding = curvePrototype * 0.6;
+        scaleY = (line + height / 2.25) / lineVerticalLine;
+        extraTopPadding = -curvePrototype * 0.6;
       }
 
       yPrototypeSize.set(scaleY);
@@ -471,8 +468,8 @@ const BackgroundLine: React.FC = () => {
           marginTopPrototype.set(auxValue * 0.75);
         }
       } else {
-        marginTopFrontendProto.set(auxValue * 0.4);
-        marginTopPrototype.set(auxValue * 0.4);
+        marginTopFrontendProto.set(auxValue * 0.15);
+        marginTopPrototype.set(auxValue * 0.15);
       }
     }
 
@@ -521,7 +518,7 @@ const BackgroundLine: React.FC = () => {
         scaleY2 = frontendSize / (frontendLine + 285);
         yFrontendSize.set(scaleY2);
         auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 6;
-        marginTopFrontend.set(auxValueFront * 6.2);
+        marginTopFrontend.set(auxValueFront * 6.5);
       }
       frontendY.set(auxValueFront);
       setText(scaleY2);

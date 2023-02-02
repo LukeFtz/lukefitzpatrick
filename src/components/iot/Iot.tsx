@@ -121,7 +121,7 @@ const Iot: React.FC = () => {
             Math.abs(
               topCloud.position().top - auxTopIot.position().top + 277
               // topCloud.height()
-            ) * 1.5;
+            ) * 1.2;
           topIoTR.css({ "margin-top": newTop + "px" });
         }
       }

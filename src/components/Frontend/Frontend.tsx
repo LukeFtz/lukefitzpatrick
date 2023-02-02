@@ -74,7 +74,7 @@ const Frontend: React.FC = () => {
     } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
       newTop = Math.abs(topLine - id_aux_top_frontend.position().top) - 150;
     } else {
-      newTop = Math.abs(topLine - id_aux_top_frontend.position().top) - 250;
+      newTop = Math.abs(topLine - id_aux_top_frontend.position().top) + 150;
     }
     topFrontend.css({ "margin-top": newTop + "px" });
   };
