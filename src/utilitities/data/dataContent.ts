@@ -1,7 +1,7 @@
 import { headerContent, menuContent } from "../datatypes";
 
 export const headerDataPT: headerContent = {
-  title: "Engenhario de Software",
+  title: "Engenherio de Software",
   about:
     "25 anos, natural de boa vista, RR. Estou sempre em busca  de inovações e ideas que possam melhorar a vida e cotidiano da pessoas. Isso me inspira e me motiva a idealizar e desenvolver sistemas. Sigo isso como meta de vida",
   language: "Língua",

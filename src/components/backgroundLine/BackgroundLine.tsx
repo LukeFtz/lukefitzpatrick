@@ -118,32 +118,19 @@ const BackgroundLine: React.FC = () => {
 
   const frontendTopCurve = useMotionValue<number>(0);
   const frontendVertical = useMotionValue<number>(0);
-  const frontendBottomCurve = useTransform(
-    scrollYProgress,
-    [0.94, 0.95],
-    [0, 1]
-  );
-  const frontendBottomLine = useTransform(
-    scrollYProgress,
-    [0.95, 0.96],
-    [0, 1]
-  );
-  const backendTopCurve = useTransform(scrollYProgress, [0.96, 0.97], [0, 1]);
-  const backendVerticalLine = useTransform(
-    scrollYProgress,
-    [0.97, 0.99],
-    [0, 1]
-  );
-  const othersBottomCurve = useTransform(
-    scrollYProgress,
-    [0.99, 0.999],
-    [0, 1]
-  );
-  const othersLine = useTransform(scrollYProgress, [0.999, 1], [0, 1]);
+  const frontendBottomCurve = useMotionValue<number>(0);
+  const frontendBottomLine = useMotionValue<number>(0);
+
+  const backendTopCurve = useMotionValue<number>(0);
+  const backendVerticalLine = useMotionValue<number>(0);
+  const othersBottomCurve = useMotionValue<number>(0);
+  const othersLine = useMotionValue<number>(0);
+  const cloud = useMotionValue<number>(0);
 
   const animateFirstLine = () => {
     animate(firstLine, 1, {
       duration: 0.5,
+      onPlay: () => (currentArea = { ...currentArea, nextArea: "DEFAULT" }),
       onComplete: () => animateFirstCurve(),
     });
   };
@@ -151,6 +138,8 @@ const BackgroundLine: React.FC = () => {
   const animateFirstCurve = () => {
     animate(firstCurveLine, 1, {
       duration: 0.5,
+      onPlay: () =>
+        (currentArea = { ...currentArea, nextArea: "HALF_PROTOTYPE" }),
       onComplete: () => (passOnFirstLine = false),
     });
   };
@@ -158,6 +147,7 @@ const BackgroundLine: React.FC = () => {
   const animateHalfPrototype = () => {
     animate(prototypeLine, 0.5, {
       duration: 1,
+      onPlay: () => (currentArea = { ...currentArea, nextArea: "DEFAULT" }),
       onComplete: () => {
         currentArea = { ...currentArea, area: "HALF_PROTOTYPE" };
         currentArea = defineAreaValue(currentArea);
@@ -167,6 +157,7 @@ const BackgroundLine: React.FC = () => {
   const animateFullPrototype = () => {
     animate(prototypeLine, 1, {
       duration: 1,
+      onPlay: () => (currentArea = { ...currentArea, nextArea: "DEFAULT" }),
       onComplete: () => {
         currentArea = { ...currentArea, area: "FULL_PROTOTYPE" };
         currentArea = defineAreaValue(currentArea);
@@ -176,6 +167,7 @@ const BackgroundLine: React.FC = () => {
   const animateCurvePrototype = () => {
     animate(prototypeBottomCurve, 1, {
       duration: 1,
+      onPlay: () => (currentArea = { ...currentArea, nextArea: "DEFAULT" }),
       onComplete: () => {
         currentArea = { ...currentArea, area: "PROTOTYPE_BOTTOM_CURVE" };
         currentArea = defineAreaValue(currentArea);
@@ -185,6 +177,7 @@ const BackgroundLine: React.FC = () => {
   const animateBottomPrototype = () => {
     animate(prototypeBottomLine, 1, {
       duration: 1,
+      onPlay: () => (currentArea = { ...currentArea, nextArea: "DEFAULT" }),
       onComplete: () => {
         currentArea = { ...currentArea, area: "BOTTOM_LINE" };
         currentArea = defineAreaValue(currentArea);
@@ -194,6 +187,7 @@ const BackgroundLine: React.FC = () => {
   const animateFrontendCurve = () => {
     animate(frontendTopCurve, 1, {
       duration: 1,
+      onPlay: () => (currentArea = { ...currentArea, nextArea: "DEFAULT" }),
       onComplete: () => {
         currentArea = { ...currentArea, area: "FRONTEND_CURVE" };
         currentArea = defineAreaValue(currentArea);
@@ -203,8 +197,102 @@ const BackgroundLine: React.FC = () => {
   const animateHalfFrontend = () => {
     animate(frontendVertical, 0.5, {
       duration: 1,
+      onPlay: () => (currentArea = { ...currentArea, nextArea: "DEFAULT" }),
       onComplete: () => {
         currentArea = { ...currentArea, area: "HALF_FRONTEND" };
+        currentArea = defineAreaValue(currentArea);
+      },
+    });
+  };
+  const animateFullFrontend = () => {
+    animate(frontendVertical, 1, {
+      duration: 1,
+      onPlay: () => (currentArea = { ...currentArea, nextArea: "DEFAULT" }),
+      onComplete: () => {
+        currentArea = { ...currentArea, area: "FULL_FRONTEND" };
+        currentArea = defineAreaValue(currentArea);
+      },
+    });
+  };
+  const animateFrontendBottomCurve = () => {
+    animate(frontendBottomCurve, 1, {
+      duration: 1,
+      onPlay: () => (currentArea = { ...currentArea, nextArea: "DEFAULT" }),
+      onComplete: () => {
+        currentArea = { ...currentArea, area: "FRONTEND_BOTTOM_CURVE" };
+        currentArea = defineAreaValue(currentArea);
+      },
+    });
+  };
+  const animateFrontendBottomLine = () => {
+    animate(frontendBottomLine, 1, {
+      duration: 1,
+      onPlay: () => (currentArea = { ...currentArea, nextArea: "DEFAULT" }),
+      onComplete: () => {
+        currentArea = { ...currentArea, area: "FRONTEND_BOTTOM_LINE" };
+        currentArea = defineAreaValue(currentArea);
+      },
+    });
+  };
+  const animateBackendCurve = () => {
+    animate(backendTopCurve, 1, {
+      duration: 1,
+      onPlay: () => (currentArea = { ...currentArea, nextArea: "DEFAULT" }),
+      onComplete: () => {
+        currentArea = { ...currentArea, area: "BACKEND_CURVE" };
+        currentArea = defineAreaValue(currentArea);
+      },
+    });
+  };
+  const animateHalfBackend = () => {
+    animate(backendVerticalLine, 0.5, {
+      duration: 1,
+      onPlay: () => (currentArea = { ...currentArea, nextArea: "DEFAULT" }),
+      onComplete: () => {
+        currentArea = { ...currentArea, area: "HALF_BACKEND" };
+        currentArea = defineAreaValue(currentArea);
+      },
+    });
+  };
+  const animateFullBackend = () => {
+    animate(backendVerticalLine, 1, {
+      duration: 1,
+      onPlay: () => (currentArea = { ...currentArea, nextArea: "DEFAULT" }),
+      onComplete: () => {
+        currentArea = { ...currentArea, area: "FULL_BACKEND" };
+        currentArea = defineAreaValue(currentArea);
+        animateOthersCurve();
+      },
+    });
+  };
+  const animateOthersCurve = () => {
+    animate(othersBottomCurve, 1, {
+      duration: 1,
+      onPlay: () => (currentArea = { ...currentArea, nextArea: "DEFAULT" }),
+      onComplete: () => {
+        currentArea = { ...currentArea, area: "OTHERS_CURVE" };
+        currentArea = defineAreaValue(currentArea);
+        animateOthersLine();
+      },
+    });
+  };
+  const animateOthersLine = () => {
+    animate(othersLine, 1, {
+      duration: 1,
+      onPlay: () => (currentArea = { ...currentArea, nextArea: "DEFAULT" }),
+      onComplete: () => {
+        currentArea = { ...currentArea, area: "OTHERS_LINE" };
+        currentArea = defineAreaValue(currentArea);
+        animateOpacity();
+      },
+    });
+  };
+  const animateOpacity = () => {
+    animate(cloud, 1, {
+      duration: 1,
+      onPlay: () => (currentArea = { ...currentArea, nextArea: "DEFAULT" }),
+      onComplete: () => {
+        currentArea = { ...currentArea, area: "CLOUD" };
         currentArea = defineAreaValue(currentArea);
       },
     });
@@ -247,7 +335,45 @@ const BackgroundLine: React.FC = () => {
       currentArea.nextArea === "HALF_FRONTEND"
     ) {
       animateHalfFrontend();
+    } else if (
+      currentScrool >= 0.6 &&
+      currentArea.nextArea === "FULL_FRONTEND"
+    ) {
+      animateFullFrontend();
+    } else if (
+      currentScrool >= 0.8 &&
+      currentArea.nextArea === "FRONTEND_BOTTOM_CURVE"
+    ) {
+      animateFrontendBottomCurve();
+    } else if (
+      currentScrool >= 0.81 &&
+      currentArea.nextArea === "FRONTEND_BOTTOM_LINE"
+    ) {
+      animateFrontendBottomLine();
+    } else if (
+      currentScrool >= 0.82 &&
+      currentArea.nextArea === "BACKEND_CURVE"
+    ) {
+      animateBackendCurve();
+    } else if (
+      currentScrool >= 0.85 &&
+      currentArea.nextArea === "HALF_BACKEND"
+    ) {
+      animateHalfBackend();
+    } else if (
+      currentScrool >= 0.9 ||
+      (currentScrool === 1 && currentArea.nextArea === "FULL_BACKEND")
+    ) {
+      animateFullBackend();
     }
+    // } else if (
+    //   currentScrool >= 0.86 &&
+    //   currentArea.nextArea === "OTHERS_CURVE"
+    // ) {
+    //   animateOthersCurve();
+    // } else if (currentScrool >= 0.9 && currentArea.nextArea === "OTHERS_LINE") {
+    //   animateOthersLine();
+    // }
 
     prevScroll = currentScrool;
   };
@@ -589,20 +715,21 @@ const BackgroundLine: React.FC = () => {
             d="M923.135 5365.21a61.85 61.85 0 00-24.115 4.87c.169-1.6.261-3.22.261-4.87 0-25.46-20.64-46.11-46.105-46.11-8.61 0-16.64 2.4-23.536 6.51-3.813-35.75-34.061-63.61-70.827-63.61-38.316 0-69.477 30.27-71.097 68.19a81.885 81.885 0 00-30.398-5.83c-45.462 0-82.318 36.86-82.318 82.32 0 45.46 36.856 82.32 82.318 82.32h265.817c34.183 0 61.896-27.71 61.896-61.9 0-34.18-27.713-61.89-61.896-61.89z"
             fill="url(#prefix__paint0_linear_273_13)"
             style={{
-              pathLength: scrollYProgress,
+              pathLength: 1,
               y: marginTopFrontend,
               height: 227,
+              opacity: cloud,
             }}
           />
           <motion.path
             d="M575 5403.5c.5 11.5.5 13 1.5 18.5-3.369.5-6.863.5-11.5.5-17.673 0-32-1.83-32-19.5s14.327-20 32-20c5.346 0 9.836.21 13.5 1-1.5 5.5-3 9-3.5 19.5z"
             fill="#00681D"
-            style={{ pathLength: scrollYProgress, y: marginTopFrontend }}
+            style={{ pathLength: 1, y: marginTopFrontend, opacity: cloud }}
           />
           <motion.path
             d="M536 5391.66l-35 5.84v10l35 6.5v-11.17-11.17z"
             fill="#00681D"
-            style={{ pathLength: scrollYProgress, y: marginTopFrontend }}
+            style={{ pathLength: 1, y: marginTopFrontend, opacity: cloud }}
           />
         </motion.g>
         {/* <motion.text xmlSpace="preserve" fill="#000">

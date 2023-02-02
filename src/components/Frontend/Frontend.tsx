@@ -194,10 +194,7 @@ const Frontend: React.FC = () => {
 
       <div className="row justify-content-center">
         <div className="container row">
-          <div
-            className="row col-3 mt-5 pt-5 justify-content-center"
-            ref={scrollRef}
-          >
+          <div className="row col-3 mt-5 pt-5 justify-content-center">
             <motion.div
               className="col-9"
               style={{ y: yFrontendItems, opacity }}
@@ -224,7 +221,10 @@ const Frontend: React.FC = () => {
               className="col-12 text-center mt-5"
               style={{ opacity: opacityText }}
             >
-              <h2 className={`${plus_jakarta_sans.className} fs-4 mt-5`}>
+              <h2
+                ref={scrollRef}
+                className={`${plus_jakarta_sans.className} fs-4 mt-5`}
+              >
                 React & React Native
               </h2>
             </motion.div>

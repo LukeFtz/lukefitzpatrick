@@ -55,7 +55,8 @@ export interface pageScrollLine {
     | "OTHERS_CURVE"
     | "OTHERS_LINE"
     | "PLUG"
-    | "CLOUD";
+    | "CLOUD"
+    | "DEFAULT";
   prevArea:
     | "FIRST_LINE"
     | "HALF_PROTOTYPE"
