@@ -74,6 +74,7 @@ const Frontend: React.FC = () => {
     } else if (aspectRatio >= 1.6 && aspectRatio < 1.7) {
       newTop = Math.abs(topLine - id_aux_top_frontend.position().top);
     } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
+      // newTop = Math.abs(topLine - id_aux_top_frontend.position().top) - 150;
       newTop = Math.abs(topLine - id_aux_top_frontend.position().top) - 150;
     } else {
       newTop = Math.abs(topLine - id_aux_top_frontend.position().top) + 150;
@@ -227,7 +228,7 @@ const Frontend: React.FC = () => {
             >
               <h2
                 ref={scrollRef}
-                className={`${plus_jakarta_sans.className} fs-md-4 fs-6 mt-md-5`}
+                className={`${plus_jakarta_sans.className} fontSmallReactNative  mt-md-5`}
               >
                 React & React Native
               </h2>

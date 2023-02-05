@@ -376,7 +376,7 @@ const BackgroundLine: React.FC = () => {
   };
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    console.log("Page scroll: ", latest);
+    // console.log("Page scroll: ", latest);
     if (latest - prevScroll > 0) {
       moveForward(latest);
     }
@@ -384,6 +384,7 @@ const BackgroundLine: React.FC = () => {
 
   const defineValues = () => {
     const aspectRatio = Math.round((width / height) * 100) / 100;
+    console.log(aspectRatio);
     if (aspectRatio < 0.9) {
       viewBoxY.set(15000);
     } else if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
@@ -433,15 +434,26 @@ const BackgroundLine: React.FC = () => {
         extraTopPadding = curvePrototype * 6;
       } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
         if ((line + height / 2) / lineVerticalLine > 1) {
+          // scaleY = (line * 1.1 + height / 2) / lineVerticalLine;
+          // extraTopPadding = scaleY * 30;
           scaleY = (line * 1.1 + height / 2) / lineVerticalLine;
-          extraTopPadding = scaleY * 30;
+          extraTopPadding = (scaleY - 1) * 300;
+          // console.log(scaleY);
+          // console.log(extraTopPadding);
         } else {
           scaleY = (line + height / 2) / 1095;
           extraTopPadding = scaleY * 80;
         }
-      } else {
-        scaleY = (line + height / 2.25) / lineVerticalLine;
+      } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
+        // scaleY = (line + height / 2) / lineVerticalLine;
+        scaleY = (line * 1.1 + height / 2) / lineVerticalLine;
         extraTopPadding = -curvePrototype * 0.6;
+      } else {
+        scaleY = (line * 1.1 + height / 2) / lineVerticalLine;
+        extraTopPadding = (scaleY - 1) * 350;
+        console.log(scaleY);
+        console.log(line);
+        console.log(height / 2);
       }
 
       yPrototypeSize.set(scaleY);
@@ -470,16 +482,23 @@ const BackgroundLine: React.FC = () => {
         marginTopPrototype.set(auxValue * 13);
         marginTopFrontendProto.set(auxValue * 13.9);
       } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
+        const diference = (((scaleY - 1) * 100 - 13) * 5.83 + 150) * scaleY;
         if ((line + height / 2) / lineVerticalLine > 1) {
-          marginTopFrontendProto.set(auxValue * 0.5);
-          marginTopPrototype.set(auxValue * 0.45);
+          marginTopFrontendProto.set(diference + 10);
+          marginTopPrototype.set(diference);
         } else {
-          marginTopFrontendProto.set(auxValue * 0.82);
-          marginTopPrototype.set(auxValue * 0.75);
+          marginTopFrontendProto.set(diference + 50);
+          marginTopPrototype.set(diference + 20);
         }
       } else {
-        marginTopFrontendProto.set(auxValue * 0.15);
-        marginTopPrototype.set(auxValue * 0.15);
+        const diference = (((scaleY - 1) * 100 - 13) * 5.83 + 95) * scaleY;
+        if ((line + height / 2) / lineVerticalLine > 1) {
+          marginTopFrontendProto.set(diference - 10);
+          marginTopPrototype.set(diference);
+        } else {
+          marginTopFrontendProto.set(diference - 5);
+          marginTopPrototype.set(diference);
+        }
       }
     }
 
@@ -524,19 +543,31 @@ const BackgroundLine: React.FC = () => {
         if (frontendSize / (frontendLine - 50) > 1.12) {
           scaleY2 = frontendSize / frontendLine;
           yFrontendSize.set(scaleY2);
-          auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 6;
+          auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 6.7;
           marginTopFrontend.set(auxValueFront * 5);
+          // console.log("prev " + auxValueFront * 5);
+          // console.log((((scaleY2 - 1) * 100 - 13) * 5.83 + 100) * scaleY2);
+          // console.log((((scaleY2 - 1) * 100 - 12) * 28.48 + 369) * scaleY2);
+          // console.log((((scaleY2 - 1) * 100 - 12) * 17.48 + 369) * scaleY2);
+
+          // console.log((scaleY2 - 1) * 100);
+          // auxValueFront = (((scaleY2 - 1) * 100 - 12) * 28.48 + 369) * scaleY2;
+          // marginTopFrontend.set(auxValueFront);
         } else {
           scaleY2 = frontendSize / 1540;
           yFrontendSize.set(scaleY2);
           auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 6;
-          marginTopFrontend.set(auxValueFront * 4.74);
+          marginTopFrontend.set(auxValueFront * 4.64);
+
+          // console.log("prev " + auxValueFront * 5);
+          // console.log((((scaleY2 - 1) * 100 - 12) * 17.48 + 369) * scaleY2);
+          // console.log((scaleY2 - 1) * 100);
         }
       } else {
         scaleY2 = frontendSize / (frontendLine + 285);
         yFrontendSize.set(scaleY2);
         auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 6;
-        marginTopFrontend.set(auxValueFront * 6.5);
+        marginTopFrontend.set(auxValueFront);
       }
       frontendY.set(auxValueFront);
     }
@@ -571,6 +602,7 @@ const BackgroundLine: React.FC = () => {
         // version="1.1"
         id="svg7431"
         xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="none"
         style={{ y }}
         className="mt-5 pt-3"
       >
@@ -594,7 +626,6 @@ const BackgroundLine: React.FC = () => {
             height: 50,
           }}
         />
-
         <motion.path
           d="m 5.0000055,76.052265 c -1.24e-5,142.362035 3.7e-6,984.583835 4.2e-6,1388.841835"
           stroke="#00681d"
@@ -609,6 +640,7 @@ const BackgroundLine: React.FC = () => {
             scaleY: yPrototypeSize,
             y: prototypeY,
             height: 1400,
+            // height: 00,
           }}
         />
 
@@ -617,7 +649,7 @@ const BackgroundLine: React.FC = () => {
           stroke="#00681d"
           strokeWidth={STROKE}
           height={799}
-          id="id_curver_prototype_bottom"
+          id="id_curve_prototype_bottom"
           style={{
             // pathLength: prototypeBottomCurve,
             pathLength: 1,
@@ -670,7 +702,8 @@ const BackgroundLine: React.FC = () => {
           strokeWidth={STROKE}
           id="id_frontend_bottom_curve"
           style={{
-            pathLength: frontendBottomCurve,
+            // pathLength: frontendBottomCurve,
+            pathLength: 1,
             y: marginTopFrontend,
             x: -PADDING,
           }}
@@ -681,7 +714,8 @@ const BackgroundLine: React.FC = () => {
           strokeWidth={STROKE}
           id="id_frontend_bottom"
           style={{
-            pathLength: frontendBottomLine,
+            // pathLength: frontendBottomLine,
+            pathLength: 1,
             y: marginTopFrontend,
             x: PADDING,
           }}
@@ -692,7 +726,8 @@ const BackgroundLine: React.FC = () => {
           strokeWidth={STROKE}
           id="id_backend_curve_top"
           style={{
-            pathLength: backendTopCurve,
+            // pathLength: backendTopCurve,
+            pathLength: 1,
             y: marginTopFrontend,
             x: PADDING,
           }}
@@ -704,7 +739,7 @@ const BackgroundLine: React.FC = () => {
           id="id_backend_vertical_line"
           style={{
             // pathLength: backendVerticalLine,
-            pathLength: 0,
+            pathLength: 1,
             y: marginTopFrontend,
             x: PADDING,
           }}
@@ -715,7 +750,8 @@ const BackgroundLine: React.FC = () => {
           strokeWidth={STROKE}
           id="id_others_bottom_curve"
           style={{
-            pathLength: othersBottomCurve,
+            // pathLength: othersBottomCurve,
+            pathLength: 1,
             y: marginTopFrontend,
             x: PADDING,
           }}

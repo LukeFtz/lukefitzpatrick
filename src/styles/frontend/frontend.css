@@ -21,6 +21,23 @@
   }
 }
 
+@media (min-width: 768px) {
+  .fontSmallReactNative {
+    font-size: 30px;
+  }
+  .fontSmall {
+    font-size: 20px;
+  }
+  .iconSize {
+    width: 45px;
+    height: 45px;
+  }
+  .iconSizeHorizontal {
+    width: 56px;
+    height: 30px;
+  }
+}
+
 @media (max-width: 768px) {
   .fontSmall {
     font-size: 10px;

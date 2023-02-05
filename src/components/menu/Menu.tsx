@@ -29,7 +29,7 @@ const Menu: React.FC = () => {
       <h2 id="id_title_menu" className={`${plus_jakarta_sans.className} mb-5`}>
         {data?.title}
       </h2>
-      <div className="row justify-content-center align-items-end mt-5 ">
+      <div className="row justify-content-center align-items-end pt-5 ">
         <div className="col-12 col-md-8 col-xl-7">
           {data && <MenuIcon {...data} />}
         </div>
