@@ -225,7 +225,8 @@ const MenuIcon = ({ backend, frontend, other, prototype }: menuContent) => {
       } else if (aspectRatio >= 1.6) {
         const backgroundLineTop =
           contentDiv.position().top +
-          svgHeight * 1.4 +
+          // svgHeight * 1.4 +
+          svgHeight * 1.3 +
           renderedTitle.getBoundingClientRect().height -
           windowSize;
         dispatch(setTopPosition(backgroundLineTop));

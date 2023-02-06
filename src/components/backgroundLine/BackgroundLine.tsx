@@ -24,7 +24,7 @@ const plus_jakarta_sans = Plus_Jakarta_Sans({
 let width = 0;
 let height = 0;
 
-const STROKE = 20;
+const STROKE = 1;
 const PADDING = 5;
 
 let prevScroll = 0;
@@ -414,45 +414,114 @@ const BackgroundLine: React.FC = () => {
     let extraTopPadding = 0;
     if (line && lineVerticalLine && curvePrototype) {
       let scaleY = 1;
-      if (aspectRatio < 0.9) {
-        scaleY = (line + height) / 350;
-        extraTopPadding = height * 3.45;
-      } else if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
-        // verify devices
-        scaleY = (lineVerticalLine * 1.1) / line;
-        extraTopPadding = curvePrototype * 8;
-      } else if (aspectRatio >= 1.4 && aspectRatio < 1.5) {
-        scaleY = lineVerticalLine / line;
-        extraTopPadding = curvePrototype * 6;
-      } else if (aspectRatio >= 1.5 && aspectRatio < 1.6) {
-        // Verify devices
-        scaleY = lineVerticalLine / line;
-        extraTopPadding = curvePrototype * 6;
-      } else if (aspectRatio >= 1.6 && aspectRatio < 1.7) {
-        // verify devices
-        scaleY = lineVerticalLine / line;
-        extraTopPadding = curvePrototype * 6;
-      } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
-        if ((line + height / 2) / lineVerticalLine > 1) {
-          // scaleY = (line * 1.1 + height / 2) / lineVerticalLine;
-          // extraTopPadding = scaleY * 30;
-          scaleY = (line * 1.1 + height / 2) / lineVerticalLine;
-          extraTopPadding = (scaleY - 1) * 300;
-          // console.log(scaleY);
-          // console.log(extraTopPadding);
-        } else {
-          scaleY = (line + height / 2) / 1095;
-          extraTopPadding = scaleY * 80;
-        }
-      } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
-        // scaleY = (line + height / 2) / lineVerticalLine;
-        scaleY = (line * 1.1 + height / 2) / lineVerticalLine;
-        extraTopPadding = -curvePrototype * 0.6;
+      // if (aspectRatio < 0.9) {
+      //   scaleY = (line + height) / 350;
+      //   extraTopPadding = height * 3.45;
+      // } else if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
+      //   // verify devices
+      //   scaleY = (lineVerticalLine * 1.1) / line;
+      //   extraTopPadding = curvePrototype * 8;
+      //   scaleY = (line + height / 2) / 15 / lineVerticalLine;
+      //   extraTopPadding = (scaleY - 1) * 350;
+      //   console.log(scaleY);
+      //   console.log(line);
+      //   console.log(lineVerticalLine);
+      //   console.log(height / 2);
+      // } else if (aspectRatio >= 1.4 && aspectRatio < 1.5) {
+      //   scaleY = lineVerticalLine / line;
+      //   extraTopPadding = curvePrototype * 6;
+      //   scaleY = (line + height / 2) / 15 / lineVerticalLine;
+      //   extraTopPadding = (scaleY - 1) * 350;
+      //   console.log(scaleY);
+      //   console.log(line);
+      //   console.log(lineVerticalLine);
+      //   console.log(height / 2);
+      // } else if (aspectRatio >= 1.5 && aspectRatio < 1.6) {
+      //   // Verify devices
+      //   scaleY = lineVerticalLine / line;
+      //   extraTopPadding = curvePrototype * 6;
+      //   scaleY = (line + height / 2) / 15 / lineVerticalLine;
+      //   extraTopPadding = (scaleY - 1) * 350;
+      //   console.log(scaleY);
+      //   console.log(line);
+      //   console.log(lineVerticalLine);
+      //   console.log(height / 2);
+      // } else if (aspectRatio >= 1.6 && aspectRatio < 1.7) {
+      //   // verify devices
+      //   scaleY = lineVerticalLine / line;
+      //   extraTopPadding = curvePrototype * 6;
+      //   scaleY = (line + height / 2) / 15 / lineVerticalLine;
+      //   extraTopPadding = (scaleY - 1) * 350;
+      //   console.log(scaleY);
+      //   console.log(line);
+      //   console.log(lineVerticalLine);
+      //   console.log(height / 2);
+      // } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
+      //   if ((line + height / 2) / lineVerticalLine > 1) {
+      //     // scaleY = (line * 1.1 + height / 2) / lineVerticalLine;
+      //     // extraTopPadding = scaleY * 30;
+      //     // scaleY = (line * 1.1 + height / 2) / lineVerticalLine;
+      //     // extraTopPadding = (scaleY - 1) * 300;
+      //     scaleY = (line + height / 2) / 15 / lineVerticalLine;
+      //     extraTopPadding = (scaleY - 1) * 350;
+      //     console.log(scaleY);
+      //     console.log(line);
+      //     console.log(lineVerticalLine);
+      //     console.log(height / 2);
+      //     // console.log(scaleY);
+      //     // console.log(extraTopPadding);
+      //   } else {
+      //     scaleY = (line + height / 1.3) / 1095;
+      //     extraTopPadding = scaleY * 80;
+      //   }
+      // } else {
+      //   // scaleY = (line + height / 2) / 15 / lineVerticalLine;
+      //   scaleY = (line + height / 2) / 15 / lineVerticalLine;
+      //   extraTopPadding = (scaleY - 1) * 350;
+      //   console.log(scaleY);
+      //   console.log(line);
+      //   console.log(lineVerticalLine);
+      //   console.log(height / 2);
+      // }
+
+      // if (height / 2 <= 350) {
+      //   scaleY = (line + height / 1.1) / 15 / lineVerticalLine;
+      //   extraTopPadding = (scaleY - 1) * 380;
+      //   console.log(scaleY);
+      //   console.log(line);
+      //   console.log(lineVerticalLine);
+      //   console.log(height / 2);
+      // } else if (height / 2 <= 400) {
+      //   scaleY = (line + height / 2) / 15 / lineVerticalLine;
+      //   extraTopPadding = (scaleY - 1) * 350;
+      //   console.log(scaleY);
+      //   console.log(line);
+      //   console.log(lineVerticalLine);
+      //   console.log(height / 2);
+      // } else {
+      //   // scaleY = (line + height / 2) / 15 / lineVerticalLine;
+      //   scaleY = (line + height / 2) / 15 / lineVerticalLine;
+      //   extraTopPadding = (scaleY - 1) * 350;
+      //   console.log(scaleY);
+      //   console.log(line);
+      //   console.log(lineVerticalLine);
+      //   console.log(height / 2);
+      // }
+
+      if ((line + height / 2) / 15 / lineVerticalLine <= 1.11) {
+        scaleY = (line + height / 1) / 15 / lineVerticalLine;
+        extraTopPadding = (scaleY - 1) * 380;
+        console.log(scaleY);
+        console.log(line);
+        console.log(lineVerticalLine);
+        console.log(height / 2);
       } else {
-        scaleY = (line * 1.1 + height / 2) / lineVerticalLine;
+        // scaleY = (line + height / 2) / 15 / lineVerticalLine;
+        scaleY = (line + height / 2) / 15 / lineVerticalLine;
         extraTopPadding = (scaleY - 1) * 350;
         console.log(scaleY);
         console.log(line);
+        console.log(lineVerticalLine);
         console.log(height / 2);
       }
 
@@ -594,10 +663,10 @@ const BackgroundLine: React.FC = () => {
     <div ref={svgLine}>
       <p>{text}</p>
       <motion.svg
-        //   width="1550"
+        // width="100"
         //   height="5412.5"
         // viewBox="0 0 1550 5412.5"
-        viewBox={`0 0 1550 ${viewBoxY.get()}`}
+        viewBox={`0 0 100 ${viewBoxY.get()}`}
         fill="none"
         // version="1.1"
         id="svg7431"
@@ -606,28 +675,40 @@ const BackgroundLine: React.FC = () => {
         style={{ y }}
         className="mt-5 pt-3"
       >
-        <motion.path
+        {/* <motion.path
           d="M 296.5,5.0000217 H 148.453 90.978384"
           stroke="#00681d"
           strokeWidth={STROKE}
           id="id_first_line_background"
           style={{ pathLength: firstLine, y: PADDING }}
+        /> */}
+
+        <motion.path
+          d="M 19.129038,0.3225789 H 9.5776184 5.8695784"
+          stroke="#00681d"
+          strokeWidth={STROKE}
+          id="id_first_line_background"
+          // style={{ pathLength: firstLine, y: PADDING }}
+          style={{ pathLength: 1, y: PADDING }}
         />
 
         <motion.path
-          d="M 90.978384,5.0000217 H 76.7268 c 0,0 -71.7265303,0 -71.7267903,50.4140003 -1.7e-6,0.323134 -3.1e-6,7.500621 -4.2e-6,20.638243"
+          // d="M 90.978384,5.0000217 H 76.7268 c 0,0 -71.7265303,0 -71.7267903,50.4140003 -1.7e-6,0.323134 -3.1e-6,7.500621 -4.2e-6,20.638243"
+          d="m 5.8695784,0.3225789 h -0.91946 c 0,0 -4.62751996,0 -4.62753996,3.2525189 0,0.02085 0,0.483912 0,1.331499"
           stroke="#00681d"
           strokeWidth={STROKE}
           id="id_curve_top_prototype"
           style={{
-            pathLength: firstCurveLine,
+            pathLength: 1,
+            // pathLength: firstCurveLine,
             y: PADDING,
-            x: PADDING,
+            x: STROKE,
             height: 50,
           }}
         />
         <motion.path
-          d="m 5.0000055,76.052265 c -1.24e-5,142.362035 3.7e-6,984.583835 4.2e-6,1388.841835"
+          // d="m 5.0000055,76.052265 c -1.24e-5,142.362035 3.7e-6,984.583835 4.2e-6,1388.841835"
+          d="m 0.32257844,4.9065968 c 0,9.1846512 0,63.5215552 0,89.6028042"
           stroke="#00681d"
           strokeWidth={STROKE}
           id="id_vertical_prototype_line"
@@ -636,40 +717,51 @@ const BackgroundLine: React.FC = () => {
           style={{
             // pathLength: prototypeLine,
             pathLength: 1,
-            x: PADDING,
+            display: "inline",
+            x: STROKE,
             scaleY: yPrototypeSize,
-            y: prototypeY,
-            height: 1400,
+            // scaleY: 1.2,
+            // y: 4.907,
+            y: 10,
+            height: 89.603,
+            // y: prototypeY,
+            // height: 1400,
             // height: 00,
           }}
         />
 
         <motion.path
-          d="m 5.0000097,1464.8941 v 18.0559 c 0,0 3e-5,66.16 71.7267903,66.16"
+          // d="m 5.0000097,1464.8941 v 18.0559 c 0,0 3e-5,66.16 71.7267903,66.16"
+          d="m 0.32257844,94.509401 v 1.16491 c 0,0 0,4.26833 4.62753996,4.26833"
           stroke="#00681d"
           strokeWidth={STROKE}
-          height={799}
+          height={5.756}
           id="id_curve_prototype_bottom"
           style={{
             // pathLength: prototypeBottomCurve,
             pathLength: 1,
-            y: marginTopPrototype,
-            x: PADDING,
+            // y: marginTopPrototype,
+            y: 4.8,
+            x: STROKE,
           }}
         />
+
         <motion.path
-          d="M 76.7268,1549.11 H 1470.52"
+          // d="M 76.7268,1549.11 H 1470.52"
+          d="M 4.9501184,99.942641 H 94.872288"
           stroke="#00681d"
           strokeWidth={STROKE}
           id="id_prototype_bottom"
           style={{
             pathLength: 1,
-            y: marginTopPrototype,
-            x: -PADDING,
+            y: 4.8,
+
+            // y: marginTopPrototype,
+            x: STROKE,
           }}
         />
         <motion.path
-          d="m 1470.52,1549.11 c 0,0 74.48,0 74.48,97.21"
+          // d="m 1470.52,1549.11 c 0,0 74.48,0 74.48,97.21"
           stroke="#00681d"
           strokeWidth={STROKE}
           id="id_frontend_curve"
@@ -682,7 +774,7 @@ const BackgroundLine: React.FC = () => {
         />
         <motion.g style={{ scaleY: yFrontendSize, y: frontendY }}>
           <motion.path
-            d="M 1545,1646.32 V 2739 3724"
+            // d="M 1545,1646.32 V 2739 3724"
             stroke="#00681d"
             strokeWidth={STROKE}
             // height={yFrontendDefault.get()}
@@ -697,7 +789,7 @@ const BackgroundLine: React.FC = () => {
           />
         </motion.g>
         <motion.path
-          d="m 1545,3724 c 0,85.5 -105.5,82.5 -105.5,82.5"
+          // d="m 1545,3724 c 0,85.5 -105.5,82.5 -105.5,82.5"
           stroke="#00681d"
           strokeWidth={STROKE}
           id="id_frontend_bottom_curve"
@@ -709,7 +801,7 @@ const BackgroundLine: React.FC = () => {
           }}
         />
         <motion.path
-          d="M 1439.5,3806.5 H 76.7268"
+          // d="M 1439.5,3806.5 H 76.7268"
           stroke="#00681d"
           strokeWidth={STROKE}
           id="id_frontend_bottom"
@@ -721,7 +813,7 @@ const BackgroundLine: React.FC = () => {
           }}
         />
         <motion.path
-          d="m 76.7268,3806.5 c -54.415406,0 -67.5486582,51.7993 -70.7183909,76.803 -1.0083977,7.9545 -1.0083994,13.197 -1.0083994,13.197"
+          // d="m 76.7268,3806.5 c -54.415406,0 -67.5486582,51.7993 -70.7183909,76.803 -1.0083977,7.9545 -1.0083994,13.197 -1.0083994,13.197"
           stroke="#00681d"
           strokeWidth={STROKE}
           id="id_backend_curve_top"
@@ -733,7 +825,7 @@ const BackgroundLine: React.FC = () => {
           }}
         />
         <motion.path
-          d="M 5.0000097,3896.5 V 5320"
+          // d="M 5.0000097,3896.5 V 5320"
           stroke="#00681d"
           strokeWidth={STROKE}
           id="id_backend_vertical_line"
@@ -745,7 +837,7 @@ const BackgroundLine: React.FC = () => {
           }}
         />
         <motion.path
-          d="m 5.0000097,5320 c 0,87.5 71.7267903,87.5 71.7267903,87.5"
+          // d="m 5.0000097,5320 c 0,87.5 71.7267903,87.5 71.7267903,87.5"
           stroke="#00681d"
           strokeWidth={STROKE}
           id="id_others_bottom_curve"
@@ -757,7 +849,7 @@ const BackgroundLine: React.FC = () => {
           }}
         />
         <motion.path
-          d="M 76.7268,5407.5 H 507.5"
+          // d="M 76.7268,5407.5 H 507.5"
           stroke="#00681d"
           strokeWidth={STROKE}
           id="id_others_line"
@@ -786,15 +878,6 @@ const BackgroundLine: React.FC = () => {
             style={{ pathLength: 1, y: marginTopFrontend, opacity: cloud }}
           />
         </motion.g>
-        {/* <motion.text xmlSpace="preserve" fill="#000">
-          <motion.tspan
-            x={700}
-            y={textOthers.get()}
-            className={`${plus_jakarta_sans.className} fs-1 ms-2`}
-          >
-            Outros
-          </motion.tspan>
-        </motion.text> */}
         <defs>
           <linearGradient id="prefix__paint0_linear_273_13">
             <stop stopColor="#0066cc" />
