@@ -57,28 +57,32 @@ const Frontend: React.FC = () => {
 
   const defineTop = () => {
     const topLine = $("#id_frontend_curve").position().top;
-    const id_aux_top_frontend = $("#id_aux_top_frontend");
+    const id_aux_top_frontend = $("#id_aux_top_frontend").position().top;
     const topFrontend = $("#id_frontend_div");
     const aspectRatio = Math.round((width / height) * 100) / 100;
 
     let newTop;
-    if (aspectRatio < 0.9) {
-      newTop = Math.abs(id_aux_top_frontend.position().top - topLine) - 50;
-    } else if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
-      newTop = Math.abs(id_aux_top_frontend.position().top + 100 - topLine);
-    } else if (aspectRatio >= 1.4 && aspectRatio < 1.6) {
-      // newTop = Math.abs(topLine - id_aux_top_frontend.position().top);
-      newTop = 100;
-
-      setText(topLine);
-    } else if (aspectRatio >= 1.6 && aspectRatio < 1.7) {
-      newTop = Math.abs(topLine - id_aux_top_frontend.position().top);
-    } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
-      // newTop = Math.abs(topLine - id_aux_top_frontend.position().top) - 150;
-      newTop = Math.abs(topLine - id_aux_top_frontend.position().top) - 150;
-    } else {
-      newTop = Math.abs(topLine - id_aux_top_frontend.position().top) + 150;
-    }
+    newTop = Math.abs(topLine - id_aux_top_frontend) / 2.5;
+    // newTop = 75;
+    console.log(topLine);
+    console.log(id_aux_top_frontend);
+    console.log("default: " + Math.abs(topLine - id_aux_top_frontend));
+    console.log("margin: " + newTop);
+    // if (aspectRatio < 0.9) {
+    //   newTop = Math.abs(id_aux_top_frontend.position().top - topLine) - 50;
+    // } else if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
+    //   newTop = Math.abs(id_aux_top_frontend.position().top + 100 - topLine);
+    // } else if (aspectRatio >= 1.4 && aspectRatio < 1.6) {
+    //   newTop = 100;
+    //   setText(topLine);
+    // } else if (aspectRatio >= 1.6 && aspectRatio < 1.7) {
+    //   newTop = Math.abs(topLine - id_aux_top_frontend.position().top);
+    // } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
+    //   // newTop = Math.abs(topLine - id_aux_top_frontend.position().top) - 150;
+    //   newTop = Math.abs(topLine - id_aux_top_frontend.position().top) - 150;
+    // } else {
+    //   newTop = Math.abs(topLine - id_aux_top_frontend.position().top) + 150;
+    // }
     topFrontend.css({ "margin-top": newTop + "px" });
   };
 

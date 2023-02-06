@@ -33,11 +33,11 @@ export default function Home() {
         <div>
           <Menu />
         </div>
-        <div className="">
+        <div className="position-relative">
           <Prototype />
         </div>
         <div>
-          <div id="id_aux_top_frontend"></div>
+          <div id="id_aux_top_frontend">&nbsp;</div>
           <Frontend />
         </div>
         <div className="mt-5">

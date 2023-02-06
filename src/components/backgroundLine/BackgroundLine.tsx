@@ -399,13 +399,17 @@ const BackgroundLine: React.FC = () => {
     } else if (aspectRatio >= 1.6 && aspectRatio < 1.7) {
       viewBoxY.set(7500);
       textOthers.set(6850);
-    } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
-      viewBoxY.set(6800);
-      textOthers.set(5900);
     } else {
       viewBoxY.set(6800);
       textOthers.set(6070);
     }
+    // } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
+    //   viewBoxY.set(6800);
+    //   textOthers.set(5900);
+    // } else {
+    //   viewBoxY.set(6800);
+    //   textOthers.set(6070);
+    // }
 
     const line = $("#id_prototype_div").height();
     const lineVerticalLine = $("#id_vertical_prototype_line").height();
@@ -507,68 +511,91 @@ const BackgroundLine: React.FC = () => {
       //   console.log(lineVerticalLine);
       //   console.log(height / 2);
       // }
-
-      if ((line + height / 2) / 15 / lineVerticalLine <= 1.11) {
-        scaleY = (line + height / 1) / 15 / lineVerticalLine;
-        extraTopPadding = (scaleY - 1) * 380;
-        console.log(scaleY);
-        console.log(line);
-        console.log(lineVerticalLine);
-        console.log(height / 2);
+      console.log(":" + (line + height / 2) / 15 / lineVerticalLine);
+      if ((line + height / 2) / 15 / lineVerticalLine <= 1.09) {
+        scaleY = (line + height / 1.2) / 15 / lineVerticalLine;
+        extraTopPadding = (scaleY - 1) * 60;
+        // console.log(scaleY);
+        // console.log(line);
+        // console.log(lineVerticalLine);
+        // console.log(height / 2);
+      } else if ((line + height / 2) / 15 / lineVerticalLine <= 1.11) {
+        scaleY = (line + height / 1.65) / 15 / lineVerticalLine;
+        extraTopPadding = (scaleY - 1) * 65;
+        // console.log(scaleY);
+        // console.log(line);
+        // console.log(lineVerticalLine);
+        // console.log(height / 2);
       } else {
         // scaleY = (line + height / 2) / 15 / lineVerticalLine;
         scaleY = (line + height / 2) / 15 / lineVerticalLine;
-        extraTopPadding = (scaleY - 1) * 350;
-        console.log(scaleY);
-        console.log(line);
-        console.log(lineVerticalLine);
-        console.log(height / 2);
+        extraTopPadding = (scaleY - 1) * 80;
+        // console.log(scaleY);
+        // console.log(line);
+        // console.log(lineVerticalLine);
+        // console.log(height / 2);
       }
 
       yPrototypeSize.set(scaleY);
-      const auxValue = Math.abs(line - lineVerticalLine);
+      // const auxValue = Math.abs(line - lineVerticalLine);
+      const auxValue = scaleY * 19;
 
-      prototypeY.set(curvePrototype + extraTopPadding);
-      if (aspectRatio < 0.9) {
-        const auxValueMobile =
-          Math.abs(line - lineVerticalLine * scaleY) * 0.88;
-        // Margin Base on scale
-        marginTopPrototype.set(auxValueMobile);
-        marginTopFrontendProto.set(auxValueMobile * 0.429);
-      } else if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
-        // Verify devices
-        marginTopPrototype.set(auxValue);
-        marginTopFrontendProto.set(auxValue);
-      } else if (aspectRatio >= 1.4 && aspectRatio < 1.5) {
-        marginTopPrototype.set(auxValue * 1.45);
-        marginTopFrontendProto.set(auxValue * 1.6);
-      } else if (aspectRatio >= 1.5 && aspectRatio < 1.6) {
-        // Verify devices
-        marginTopPrototype.set(auxValue * 13);
-        marginTopFrontendProto.set(auxValue * 13.9);
-      } else if (aspectRatio >= 1.6 && aspectRatio < 1.7) {
-        // Verify devices
-        marginTopPrototype.set(auxValue * 13);
-        marginTopFrontendProto.set(auxValue * 13.9);
-      } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
-        const diference = (((scaleY - 1) * 100 - 13) * 5.83 + 150) * scaleY;
-        if ((line + height / 2) / lineVerticalLine > 1) {
-          marginTopFrontendProto.set(diference + 10);
-          marginTopPrototype.set(diference);
-        } else {
-          marginTopFrontendProto.set(diference + 50);
-          marginTopPrototype.set(diference + 20);
-        }
+      // prototypeY.set(curvePrototype + extraTopPadding);
+      prototypeY.set(extraTopPadding);
+
+      // const diference = (((scaleY - 1) * 100 - 13) * 5.83 + 95) * scaleY;
+
+      if ((line + height / 2) / 15 / lineVerticalLine <= 1.09) {
+        marginTopFrontendProto.set(scaleY * 19);
+        marginTopPrototype.set(scaleY * 19);
+      } else if ((line + height / 2) / 15 / lineVerticalLine <= 1.11) {
+        marginTopFrontendProto.set(scaleY * 16);
+        marginTopPrototype.set(scaleY * 16);
       } else {
-        const diference = (((scaleY - 1) * 100 - 13) * 5.83 + 95) * scaleY;
-        if ((line + height / 2) / lineVerticalLine > 1) {
-          marginTopFrontendProto.set(diference - 10);
-          marginTopPrototype.set(diference);
-        } else {
-          marginTopFrontendProto.set(diference - 5);
-          marginTopPrototype.set(diference);
-        }
+        marginTopFrontendProto.set(scaleY * 13);
+        marginTopPrototype.set(scaleY * 13);
       }
+
+      // if (aspectRatio < 0.9) {
+      //   const auxValueMobile =
+      //     Math.abs(line - lineVerticalLine * scaleY) * 0.88;
+      //   // Margin Base on scale
+      //   marginTopPrototype.set(auxValueMobile);
+      //   marginTopFrontendProto.set(auxValueMobile * 0.429);
+      // } else if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
+      //   // Verify devices
+      //   marginTopPrototype.set(auxValue);
+      //   marginTopFrontendProto.set(auxValue);
+      // } else if (aspectRatio >= 1.4 && aspectRatio < 1.5) {
+      //   marginTopPrototype.set(auxValue * 1.45);
+      //   marginTopFrontendProto.set(auxValue * 1.6);
+      // } else if (aspectRatio >= 1.5 && aspectRatio < 1.6) {
+      //   // Verify devices
+      //   marginTopPrototype.set(auxValue * 13);
+      //   marginTopFrontendProto.set(auxValue * 13.9);
+      // } else if (aspectRatio >= 1.6 && aspectRatio < 1.7) {
+      //   // Verify devices
+      //   marginTopPrototype.set(auxValue * 13);
+      //   marginTopFrontendProto.set(auxValue * 13.9);
+      // } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
+      //   const diference = (((scaleY - 1) * 100 - 13) * 5.83 + 150) * scaleY;
+      //   if ((line + height / 2) / lineVerticalLine > 1) {
+      //     marginTopFrontendProto.set(diference + 10);
+      //     marginTopPrototype.set(diference);
+      //   } else {
+      //     marginTopFrontendProto.set(diference + 50);
+      //     marginTopPrototype.set(diference + 20);
+      //   }
+      // } else {4.8
+      //   const diference = (((scaleY - 1) * 100 - 13) * 5.83 + 95) * scaleY;
+      //   if ((line + height / 2) / lineVerticalLine > 1) {
+      //     marginTopFrontendProto.set(diference - 10);
+      //     marginTopPrototype.set(diference);
+      //   } else {
+      //     marginTopFrontendProto.set(diference - 5);
+      //     marginTopPrototype.set(diference);
+      //   }
+      // }
     }
 
     const frontendSize = $("#id_frontend_div").height();
@@ -579,65 +606,83 @@ const BackgroundLine: React.FC = () => {
 
       let auxValueFront: number;
 
-      if (aspectRatio < 0.9) {
-        // scaleY2 = (frontendSize + height) / 668;
-        scaleY2 = 3.6;
-        yFrontendSize.set(scaleY2);
-        auxValueFront = Math.abs((50 * (yFrontendSize.get() - 1)) / 0.5);
-        // marginTopFrontend.set();
-        setText(scaleY2);
-        // extraTopPadding = height * 3.45;
-      } else if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
-        // Verify devices
-        scaleY2 = frontendSize / 1185;
-        yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
-        auxValueFront = Math.abs((50 * (yFrontendSize.get() - 1)) / 0.5);
-        marginTopFrontend.set(Math.abs(frontendSize - frontendLine) * 155);
-      } else if (aspectRatio >= 1.4 && aspectRatio < 1.5) {
-        scaleY2 = frontendSize / 1300;
-        yFrontendSize.set(scaleY2);
-        auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 2.1 - 50;
-        marginTopFrontend.set(auxValueFront * 27.5);
-      } else if (aspectRatio >= 1.5 && aspectRatio < 1.6) {
-        scaleY2 = frontendSize / (frontendLine - 407);
-        yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
-        auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 2.1 - 50;
-        marginTopFrontend.set(auxValueFront * 67);
-      } else if (aspectRatio >= 1.6 && aspectRatio < 1.7) {
-        scaleY2 = frontendSize / (frontendLine - 407);
-        yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
-        auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 2.1 - 50;
-        marginTopFrontend.set(auxValueFront * 67);
-      } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
-        if (frontendSize / (frontendLine - 50) > 1.12) {
-          scaleY2 = frontendSize / frontendLine;
-          yFrontendSize.set(scaleY2);
-          auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 6.7;
-          marginTopFrontend.set(auxValueFront * 5);
-          // console.log("prev " + auxValueFront * 5);
-          // console.log((((scaleY2 - 1) * 100 - 13) * 5.83 + 100) * scaleY2);
-          // console.log((((scaleY2 - 1) * 100 - 12) * 28.48 + 369) * scaleY2);
-          // console.log((((scaleY2 - 1) * 100 - 12) * 17.48 + 369) * scaleY2);
+      // if (aspectRatio < 0.9) {
+      //   scaleY2 = 3.6;
+      //   yFrontendSize.set(scaleY2);
+      //   auxValueFront = Math.abs((50 * (yFrontendSize.get() - 1)) / 0.5);
+      //   setText(scaleY2);
+      // } else if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
+      //   // Verify devices
+      //   scaleY2 = frontendSize / 1185;
+      //   yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
+      //   auxValueFront = Math.abs((50 * (yFrontendSize.get() - 1)) / 0.5);
+      //   marginTopFrontend.set(Math.abs(frontendSize - frontendLine) * 155);
+      // } else if (aspectRatio >= 1.4 && aspectRatio < 1.5) {
+      //   scaleY2 = frontendSize / 1300;
+      //   yFrontendSize.set(scaleY2);
+      //   auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 2.1 - 50;
+      //   marginTopFrontend.set(auxValueFront * 27.5);
+      // } else if (aspectRatio >= 1.5 && aspectRatio < 1.6) {
+      //   scaleY2 = frontendSize / (frontendLine - 407);
+      //   yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
+      //   auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 2.1 - 50;
+      //   marginTopFrontend.set(auxValueFront * 67);
+      // } else if (aspectRatio >= 1.6 && aspectRatio < 1.7) {
+      //   scaleY2 = frontendSize / (frontendLine - 407);
+      //   yFrontendSize.set(Math.round(scaleY2 * 100) / 100);
+      //   auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 2.1 - 50;
+      //   marginTopFrontend.set(auxValueFront * 67);
+      // } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
+      //   if (frontendSize / (frontendLine - 50) > 1.12) {
+      //     scaleY2 = frontendSize / frontendLine;
+      //     yFrontendSize.set(scaleY2);
+      //     auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 6.7;
+      //     marginTopFrontend.set(auxValueFront * 5);
+      //   } else {
+      //     scaleY2 = frontendSize / 1540;
+      //     yFrontendSize.set(scaleY2);
+      //     auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 6;
+      //     marginTopFrontend.set(auxValueFront * 4.64);
+      //   }
+      // } else {
+      //   scaleY2 = frontendSize / (frontendLine + 285);
+      //   yFrontendSize.set(scaleY2);
+      //   auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 6;
+      //   marginTopFrontend.set(auxValueFront);
+      // }
 
-          // console.log((scaleY2 - 1) * 100);
-          // auxValueFront = (((scaleY2 - 1) * 100 - 12) * 28.48 + 369) * scaleY2;
-          // marginTopFrontend.set(auxValueFront);
-        } else {
-          scaleY2 = frontendSize / 1540;
-          yFrontendSize.set(scaleY2);
-          auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 6;
-          marginTopFrontend.set(auxValueFront * 4.64);
+      // if ((frontendSize / 15 / frontendLine <= 1.09) {
+      //   scaleY = (line + height / 1.2) / 15 / lineVerticalLine;
+      //   extraTopPadding = (scaleY - 1) * 60;
+      //   console.log(scaleY);
+      //   console.log(line);
+      //   console.log(lineVerticalLine);
+      //   console.log(height / 2);
+      // } else if ((line + height / 2) / 15 / lineVerticalLine <= 1.11) {
+      //   scaleY = (line + height / 1.65) / 15 / lineVerticalLine;
+      //   extraTopPadding = (scaleY - 1) * 65;
+      //   console.log(scaleY);
+      //   console.log(line);
+      //   console.log(lineVerticalLine);
+      //   console.log(height / 2);
+      // } else {
+      //   // scaleY = (line + height / 2) / 15 / lineVerticalLine;
+      //   scaleY = (line + height / 2) / 15 / lineVerticalLine;
+      //   extraTopPadding = (scaleY - 1) * 80;
+      //   console.log(scaleY);
+      //   console.log(line);
+      //   console.log(lineVerticalLine);
+      //   console.log(height / 2);
+      // }
 
-          // console.log("prev " + auxValueFront * 5);
-          // console.log((((scaleY2 - 1) * 100 - 12) * 17.48 + 369) * scaleY2);
-          // console.log((scaleY2 - 1) * 100);
-        }
-      } else {
-        scaleY2 = frontendSize / (frontendLine + 285);
-        yFrontendSize.set(scaleY2);
-        auxValueFront = ((50 * (yFrontendSize.get() - 1)) / 0.5) * 6;
-        marginTopFrontend.set(auxValueFront);
-      }
+      scaleY2 = frontendSize / 15 / frontendLine;
+      yFrontendSize.set(scaleY2);
+      auxValueFront = scaleY2 * 20;
+      marginTopFrontend.set(auxValueFront * 1.35);
+      console.log("Frontend: " + frontendSize / 15);
+      console.log("Line: " + frontendLine);
+      console.log("Scale" + scaleY2);
+      console.log("Fronten Original: " + frontendSize);
       frontendY.set(auxValueFront);
     }
   };
@@ -666,7 +711,8 @@ const BackgroundLine: React.FC = () => {
         // width="100"
         //   height="5412.5"
         // viewBox="0 0 1550 5412.5"
-        viewBox={`0 0 100 ${viewBoxY.get()}`}
+        // viewBox={`0 0 102 ${viewBoxY.get()}`}
+        viewBox={`0 0 102 500`}
         fill="none"
         // version="1.1"
         id="svg7431"
@@ -722,9 +768,9 @@ const BackgroundLine: React.FC = () => {
             scaleY: yPrototypeSize,
             // scaleY: 1.2,
             // y: 4.907,
-            y: 10,
+            // y: 10,
             height: 89.603,
-            // y: prototypeY,
+            y: prototypeY,
             // height: 1400,
             // height: 00,
           }}
@@ -740,8 +786,8 @@ const BackgroundLine: React.FC = () => {
           style={{
             // pathLength: prototypeBottomCurve,
             pathLength: 1,
-            // y: marginTopPrototype,
-            y: 4.8,
+            y: marginTopPrototype,
+            // y: 4.8,
             x: STROKE,
           }}
         />
@@ -754,14 +800,13 @@ const BackgroundLine: React.FC = () => {
           id="id_prototype_bottom"
           style={{
             pathLength: 1,
-            y: 4.8,
-
-            // y: marginTopPrototype,
+            // y: 4.8,
+            y: marginTopPrototype,
             x: STROKE,
           }}
         />
         <motion.path
-          // d="m 1470.52,1549.11 c 0,0 74.48,0 74.48,97.21"
+          d="m 94.872288,99.942641 c 0,0 4.80514,0 4.80514,6.271619"
           stroke="#00681d"
           strokeWidth={STROKE}
           id="id_frontend_curve"
@@ -769,27 +814,28 @@ const BackgroundLine: React.FC = () => {
             // pathLength: frontendTopCurve,
             pathLength: 1,
             y: marginTopPrototype,
-            x: -PADDING,
+            x: STROKE,
           }}
         />
-        <motion.g style={{ scaleY: yFrontendSize, y: frontendY }}>
-          <motion.path
-            // d="M 1545,1646.32 V 2739 3724"
-            stroke="#00681d"
-            strokeWidth={STROKE}
-            // height={yFrontendDefault.get()}
-            id="id_frontend_path_vertical"
-            style={{
-              // pathLength: frontendVertical,
-              pathLength: 1,
-              y: marginTopFrontendProto,
-              x: -PADDING,
-              height: 2003,
-            }}
-          />
-        </motion.g>
+        {/* <motion.g style={{ }}> */}
         <motion.path
-          // d="m 1545,3724 c 0,85.5 -105.5,82.5 -105.5,82.5"
+          d="m 99.677428,106.21426 v 70.49562 63.54833"
+          stroke="#00681d"
+          strokeWidth={STROKE}
+          // height={yFrontendDefault.get()}
+          id="id_frontend_path_vertical"
+          style={{
+            pathLength: 1,
+            // y: marginTopFrontendProto,
+            y: frontendY,
+            scaleY: yFrontendSize,
+            x: STROKE,
+            height: 134.044,
+          }}
+        />
+        {/* </motion.g> */}
+        <motion.path
+          d="m 99.677428,240.25821 c 0,5.51621 -6.80645,5.32264 -6.80645,5.32264"
           stroke="#00681d"
           strokeWidth={STROKE}
           id="id_frontend_bottom_curve"
@@ -797,11 +843,11 @@ const BackgroundLine: React.FC = () => {
             // pathLength: frontendBottomCurve,
             pathLength: 1,
             y: marginTopFrontend,
-            x: -PADDING,
+            x: STROKE,
           }}
         />
         <motion.path
-          // d="M 1439.5,3806.5 H 76.7268"
+          d="M 92.870978,245.58085 H 4.9501184"
           stroke="#00681d"
           strokeWidth={STROKE}
           id="id_frontend_bottom"
@@ -809,11 +855,11 @@ const BackgroundLine: React.FC = () => {
             // pathLength: frontendBottomLine,
             pathLength: 1,
             y: marginTopFrontend,
-            x: PADDING,
+            x: STROKE,
           }}
         />
         <motion.path
-          // d="m 76.7268,3806.5 c -54.415406,0 -67.5486582,51.7993 -70.7183909,76.803 -1.0083977,7.9545 -1.0083994,13.197 -1.0083994,13.197"
+          d="m 4.9501184,245.58085 c -4.62753996,0 -4.62753996,5.80645 -4.62753996,5.80645"
           stroke="#00681d"
           strokeWidth={STROKE}
           id="id_backend_curve_top"
@@ -821,11 +867,11 @@ const BackgroundLine: React.FC = () => {
             // pathLength: backendTopCurve,
             pathLength: 1,
             y: marginTopFrontend,
-            x: PADDING,
+            x: STROKE,
           }}
         />
         <motion.path
-          // d="M 5.0000097,3896.5 V 5320"
+          d="m 0.32257844,251.3873 v 91.83869"
           stroke="#00681d"
           strokeWidth={STROKE}
           id="id_backend_vertical_line"
@@ -833,11 +879,11 @@ const BackgroundLine: React.FC = () => {
             // pathLength: backendVerticalLine,
             pathLength: 1,
             y: marginTopFrontend,
-            x: PADDING,
+            x: STROKE,
           }}
         />
         <motion.path
-          // d="m 5.0000097,5320 c 0,87.5 71.7267903,87.5 71.7267903,87.5"
+          d="m 0.32257844,343.22599 c 0,5.64513 4.62753996,5.64513 4.62753996,5.64513"
           stroke="#00681d"
           strokeWidth={STROKE}
           id="id_others_bottom_curve"
@@ -845,20 +891,23 @@ const BackgroundLine: React.FC = () => {
             // pathLength: othersBottomCurve,
             pathLength: 1,
             y: marginTopFrontend,
-            x: PADDING,
+            x: STROKE,
           }}
         />
         <motion.path
-          // d="M 76.7268,5407.5 H 507.5"
+          d="M 4.9501184,348.87112 H 32.741948"
           stroke="#00681d"
           strokeWidth={STROKE}
           id="id_others_line"
-          style={{ pathLength: othersLine, y: marginTopFrontend }}
+          // style={{ pathLength: othersLine, y: marginTopFrontend, x: STROKE }}
+          style={{ pathLength: 1, y: marginTopFrontend, x: STROKE }}
         />
-        <motion.g style={{ y: 5 }}>
+
+        <motion.g>
+          {/* <motion.g style={{ y: 5 }}> */}
           <motion.path
             id="id_cloud_iot"
-            d="M923.135 5365.21a61.85 61.85 0 00-24.115 4.87c.169-1.6.261-3.22.261-4.87 0-25.46-20.64-46.11-46.105-46.11-8.61 0-16.64 2.4-23.536 6.51-3.813-35.75-34.061-63.61-70.827-63.61-38.316 0-69.477 30.27-71.097 68.19a81.885 81.885 0 00-30.398-5.83c-45.462 0-82.318 36.86-82.318 82.32 0 45.46 36.856 82.32 82.318 82.32h265.817c34.183 0 61.896-27.71 61.896-61.9 0-34.18-27.713-61.89-61.896-61.89z"
+            // d="M923.135 5365.21a61.85 61.85 0 00-24.115 4.87c.169-1.6.261-3.22.261-4.87 0-25.46-20.64-46.11-46.105-46.11-8.61 0-16.64 2.4-23.536 6.51-3.813-35.75-34.061-63.61-70.827-63.61-38.316 0-69.477 30.27-71.097 68.19a81.885 81.885 0 00-30.398-5.83c-45.462 0-82.318 36.86-82.318 82.32 0 45.46 36.856 82.32 82.318 82.32h265.817c34.183 0 61.896-27.71 61.896-61.9 0-34.18-27.713-61.89-61.896-61.89z"
             fill="url(#prefix__paint0_linear_273_13)"
             style={{
               pathLength: 1,
@@ -867,16 +916,59 @@ const BackgroundLine: React.FC = () => {
               opacity: cloud,
             }}
           />
+        </motion.g>
+
+        <motion.g
+          transform={"matrix(0.08677601,0,0,0.08677601,32.391985,347.18318)"}
+        >
           <motion.path
-            d="M575 5403.5c.5 11.5.5 13 1.5 18.5-3.369.5-6.863.5-11.5.5-17.673 0-32-1.83-32-19.5s14.327-20 32-20c5.346 0 9.836.21 13.5 1-1.5 5.5-3 9-3.5 19.5z"
+            d="M 74,20.5 C 74.5,32 74.5,33.5 75.5,39 72.1312,39.5049 68.6374,39.5 64,39.5 46.3269,39.5 32,37.6731 32,20 32,2.32689 46.3269,0 64,0 69.3457,0 73.8363,0.212892 77.5,0.998975 76,6.5 74.5,10 74,20.5 Z"
             fill="#00681D"
-            style={{ pathLength: 1, y: marginTopFrontend, opacity: cloud }}
+            style={{ pathLength: 1, y: marginTopFrontend, opacity: 1 }}
+            // style={{ pathLength: 1, y: marginTopFrontend, opacity: cloud }}
           />
           <motion.path
-            d="M536 5391.66l-35 5.84v10l35 6.5v-11.17-11.17z"
+            d="M 35,8.66265 0,14.5 v 10 L 35,31 c 0,0 0,-6.807 0,-11.1687 0,-4.3616 0,-11.16865 0,-11.16865 z"
             fill="#00681D"
-            style={{ pathLength: 1, y: marginTopFrontend, opacity: cloud }}
+            style={{ pathLength: 1, y: marginTopFrontend, opacity: 1 }}
+            // style={{ pathLength: 1, y: marginTopFrontend, opacity: cloud }}
           />
+        </motion.g>
+        <motion.g
+          transform={"matrix(0.22510941,0,0,0.22510941,38.229766,336.90616)"}
+        >
+          <defs>
+            <linearGradient
+              gradientTransform="matrix(171.365 35.8245 -35.8245 171.365 -54.1059 20.461)"
+              gradientUnits="userSpaceOnUse"
+              id="LinearGradient"
+              x1="0"
+              x2="1"
+              y1="0"
+              y2="0"
+            >
+              <stop offset="0" stop-color="#4b76c3" />
+              <stop offset="1" stop-color="#8ad9ec" />
+            </linearGradient>
+          </defs>
+          <g id="g8">
+            <g opacity="1">
+              <g opacity="1">
+                <clipPath id="ClipPath">
+                  <path d="M125.766 38.3316C122.718 38.3316 119.814 38.9516 117.173 40.0689C117.233 39.4983 117.266 38.9196 117.266 38.3316C117.266 29.2583 109.911 21.9023 100.837 21.9023C97.7688 21.9023 94.9074 22.7583 92.4501 24.2223C91.0914 11.4809 80.3128 1.55428 67.2114 1.55428C53.5581 1.55428 42.4541 12.3396 41.8768 25.8516C38.5248 24.5169 34.8728 23.7769 31.0448 23.7769C14.8448 23.7769 1.71145 36.9089 1.71145 53.1103C1.71145 69.3103 14.8448 82.4436 31.0448 82.4436L125.766 82.4436C137.947 82.4436 147.822 72.5689 147.822 60.3876C147.822 48.2063 137.947 38.3316 125.766 38.3316Z" />
+                </clipPath>
+                <g clip-path="url(#ClipPath)">
+                  <path
+                    d="M125.766 38.3316C122.718 38.3316 119.814 38.9516 117.173 40.0689C117.233 39.4983 117.266 38.9196 117.266 38.3316C117.266 29.2583 109.911 21.9023 100.837 21.9023C97.7688 21.9023 94.9074 22.7583 92.4501 24.2223C91.0914 11.4809 80.3128 1.55428 67.2114 1.55428C53.5581 1.55428 42.4541 12.3396 41.8768 25.8516C38.5248 24.5169 34.8728 23.7769 31.0448 23.7769C14.8448 23.7769 1.71145 36.9089 1.71145 53.1103C1.71145 69.3103 14.8448 82.4436 31.0448 82.4436L125.766 82.4436C137.947 82.4436 147.822 72.5689 147.822 60.3876C147.822 48.2063 137.947 38.3316 125.766 38.3316"
+                    fill="url(#LinearGradient)"
+                    fill-rule="nonzero"
+                    opacity="1"
+                    stroke="none"
+                  />
+                </g>
+              </g>
+            </g>
+          </g>
         </motion.g>
         <defs>
           <linearGradient id="prefix__paint0_linear_273_13">
