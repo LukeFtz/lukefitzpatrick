@@ -50,6 +50,9 @@ const BackgroundLine: React.FC = () => {
   const marginTopFrontend = useMotionValue<number>(1);
   const frontendY = useMotionValue<number>(0);
 
+  const marginTopCloud = useMotionValue<number>(0);
+  const marginTopPlug = useMotionValue<number>(0);
+
   const positionTop = useAppSelector(positionY);
 
   const scaleYPrototype = useAppSelector(scalePrototype);
@@ -388,19 +391,19 @@ const BackgroundLine: React.FC = () => {
     if (aspectRatio < 0.9) {
       viewBoxY.set(15000);
     } else if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
-      viewBoxY.set(8000);
+      viewBoxY.set(430);
       textOthers.set(7775);
     } else if (aspectRatio >= 1.4 && aspectRatio < 1.5) {
-      viewBoxY.set(7500);
+      viewBoxY.set(430);
       textOthers.set(7140);
     } else if (aspectRatio >= 1.5 && aspectRatio < 1.6) {
-      viewBoxY.set(7500);
+      viewBoxY.set(430);
       textOthers.set(6850);
     } else if (aspectRatio >= 1.6 && aspectRatio < 1.7) {
-      viewBoxY.set(7500);
+      viewBoxY.set(430);
       textOthers.set(6850);
     } else {
-      viewBoxY.set(6800);
+      viewBoxY.set(430);
       textOthers.set(6070);
     }
     // } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
@@ -601,7 +604,7 @@ const BackgroundLine: React.FC = () => {
     const frontendSize = $("#id_frontend_div").height();
     const frontendLine = $("#id_frontend_path_vertical").height();
 
-    if (frontendSize && frontendLine) {
+    if (frontendSize && frontendLine && line && lineVerticalLine) {
       let scaleY2: number;
 
       let auxValueFront: number;
@@ -651,39 +654,42 @@ const BackgroundLine: React.FC = () => {
       //   marginTopFrontend.set(auxValueFront);
       // }
 
-      // if ((frontendSize / 15 / frontendLine <= 1.09) {
-      //   scaleY = (line + height / 1.2) / 15 / lineVerticalLine;
-      //   extraTopPadding = (scaleY - 1) * 60;
-      //   console.log(scaleY);
-      //   console.log(line);
-      //   console.log(lineVerticalLine);
-      //   console.log(height / 2);
-      // } else if ((line + height / 2) / 15 / lineVerticalLine <= 1.11) {
-      //   scaleY = (line + height / 1.65) / 15 / lineVerticalLine;
-      //   extraTopPadding = (scaleY - 1) * 65;
-      //   console.log(scaleY);
-      //   console.log(line);
-      //   console.log(lineVerticalLine);
-      //   console.log(height / 2);
-      // } else {
-      //   // scaleY = (line + height / 2) / 15 / lineVerticalLine;
-      //   scaleY = (line + height / 2) / 15 / lineVerticalLine;
-      //   extraTopPadding = (scaleY - 1) * 80;
-      //   console.log(scaleY);
-      //   console.log(line);
-      //   console.log(lineVerticalLine);
-      //   console.log(height / 2);
-      // }
+      if ((line + height / 2) / 15 / lineVerticalLine <= 1.09) {
+        scaleY2 = frontendSize / 15 / frontendLine;
+        yFrontendSize.set(scaleY2 * 1.14);
+        auxValueFront = scaleY2 * 20;
+        marginTopFrontend.set(auxValueFront * 2.65);
+        auxValueFront = scaleY2 * 37;
+        marginTopCloud.set(395.90616);
+        marginTopPlug.set(401.3);
+      } else if ((line + height / 2) / 15 / lineVerticalLine <= 1.12) {
+        scaleY2 = frontendSize / 15 / frontendLine;
+        yFrontendSize.set(scaleY2 - 0.11);
+        auxValueFront = scaleY2 * 20;
+        marginTopFrontend.set(auxValueFront * 0.67);
+        auxValueFront = scaleY2 * 13;
+        marginTopCloud.set(351);
+        marginTopPlug.set(360.9);
+      } else {
+        // scaleY = (line + height / 2) / 15 / lineVerticalLine;
+        scaleY2 = frontendSize / 15 / frontendLine;
+        yFrontendSize.set(scaleY2 + 0.12);
+        auxValueFront = scaleY2 * 25;
+        marginTopFrontend.set(auxValueFront * 1.65);
+        auxValueFront = scaleY2 * 27.3;
+        marginTopCloud.set(382.90616);
+        marginTopPlug.set(389.3);
+      }
 
-      scaleY2 = frontendSize / 15 / frontendLine;
-      yFrontendSize.set(scaleY2);
-      auxValueFront = scaleY2 * 20;
-      marginTopFrontend.set(auxValueFront * 1.35);
+      // scaleY2 = frontendSize / 15 / frontendLine;
+      // yFrontendSize.set(scaleY2);
+      // auxValueFront = scaleY2 * 20;
+      // marginTopFrontend.set(auxValueFront * 1.35);
+      frontendY.set(auxValueFront);
       console.log("Frontend: " + frontendSize / 15);
       console.log("Line: " + frontendLine);
-      console.log("Scale" + scaleY2);
+      console.log("Scale: " + scaleY2);
       console.log("Fronten Original: " + frontendSize);
-      frontendY.set(auxValueFront);
     }
   };
 
@@ -711,15 +717,15 @@ const BackgroundLine: React.FC = () => {
         // width="100"
         //   height="5412.5"
         // viewBox="0 0 1550 5412.5"
-        // viewBox={`0 0 102 ${viewBoxY.get()}`}
-        viewBox={`0 0 102 500`}
+        viewBox={`0 0 102 ${viewBoxY.get()}`}
+        // viewBox={`0 0 102 500`}
         fill="none"
         // version="1.1"
         id="svg7431"
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="none"
         style={{ y }}
-        className="mt-5 pt-3"
+        className=" mt-5 pt-3"
       >
         {/* <motion.path
           d="M 296.5,5.0000217 H 148.453 90.978384"
@@ -734,8 +740,8 @@ const BackgroundLine: React.FC = () => {
           stroke="#00681d"
           strokeWidth={STROKE}
           id="id_first_line_background"
-          // style={{ pathLength: firstLine, y: PADDING }}
-          style={{ pathLength: 1, y: PADDING }}
+          style={{ pathLength: firstLine, y: PADDING }}
+          // style={{ pathLength: 1, y: PADDING }}
         />
 
         <motion.path
@@ -745,8 +751,8 @@ const BackgroundLine: React.FC = () => {
           strokeWidth={STROKE}
           id="id_curve_top_prototype"
           style={{
-            pathLength: 1,
-            // pathLength: firstCurveLine,
+            // pathLength: 1,
+            pathLength: firstCurveLine,
             y: PADDING,
             x: STROKE,
             height: 50,
@@ -761,8 +767,8 @@ const BackgroundLine: React.FC = () => {
           // transform={`matrix(1 0 0 ${scaleYPrototype} 0 -${prototypeY.get()})`}
           // transform={`matrix(1 0 0 ${yPrototypeSize.get()} 0 -${prototypeY.get()})`}
           style={{
-            // pathLength: prototypeLine,
-            pathLength: 1,
+            pathLength: prototypeLine,
+            // pathLength: 1,
             display: "inline",
             x: STROKE,
             scaleY: yPrototypeSize,
@@ -784,14 +790,13 @@ const BackgroundLine: React.FC = () => {
           height={5.756}
           id="id_curve_prototype_bottom"
           style={{
-            // pathLength: prototypeBottomCurve,
-            pathLength: 1,
+            pathLength: prototypeBottomCurve,
+            // pathLength: 1,
             y: marginTopPrototype,
             // y: 4.8,
             x: STROKE,
           }}
         />
-
         <motion.path
           // d="M 76.7268,1549.11 H 1470.52"
           d="M 4.9501184,99.942641 H 94.872288"
@@ -799,7 +804,8 @@ const BackgroundLine: React.FC = () => {
           strokeWidth={STROKE}
           id="id_prototype_bottom"
           style={{
-            pathLength: 1,
+            pathLength: prototypeBottomLine,
+            // pathLength: 1,
             // y: 4.8,
             y: marginTopPrototype,
             x: STROKE,
@@ -811,8 +817,8 @@ const BackgroundLine: React.FC = () => {
           strokeWidth={STROKE}
           id="id_frontend_curve"
           style={{
-            // pathLength: frontendTopCurve,
-            pathLength: 1,
+            pathLength: frontendTopCurve,
+            // pathLength: 1,
             y: marginTopPrototype,
             x: STROKE,
           }}
@@ -825,8 +831,9 @@ const BackgroundLine: React.FC = () => {
           // height={yFrontendDefault.get()}
           id="id_frontend_path_vertical"
           style={{
-            pathLength: 1,
             // y: marginTopFrontendProto,
+            pathLength: frontendVertical,
+            // pathLength: 1,
             y: frontendY,
             scaleY: yFrontendSize,
             x: STROKE,
@@ -840,8 +847,8 @@ const BackgroundLine: React.FC = () => {
           strokeWidth={STROKE}
           id="id_frontend_bottom_curve"
           style={{
-            // pathLength: frontendBottomCurve,
-            pathLength: 1,
+            pathLength: frontendBottomCurve,
+            // pathLength: 1,
             y: marginTopFrontend,
             x: STROKE,
           }}
@@ -852,8 +859,8 @@ const BackgroundLine: React.FC = () => {
           strokeWidth={STROKE}
           id="id_frontend_bottom"
           style={{
-            // pathLength: frontendBottomLine,
-            pathLength: 1,
+            pathLength: frontendBottomLine,
+            // pathLength: 1,
             y: marginTopFrontend,
             x: STROKE,
           }}
@@ -864,8 +871,8 @@ const BackgroundLine: React.FC = () => {
           strokeWidth={STROKE}
           id="id_backend_curve_top"
           style={{
-            // pathLength: backendTopCurve,
-            pathLength: 1,
+            pathLength: backendTopCurve,
+            // pathLength: 1,
             y: marginTopFrontend,
             x: STROKE,
           }}
@@ -876,8 +883,8 @@ const BackgroundLine: React.FC = () => {
           strokeWidth={STROKE}
           id="id_backend_vertical_line"
           style={{
-            // pathLength: backendVerticalLine,
-            pathLength: 1,
+            pathLength: backendVerticalLine,
+            // pathLength: 1,
             y: marginTopFrontend,
             x: STROKE,
           }}
@@ -888,8 +895,8 @@ const BackgroundLine: React.FC = () => {
           strokeWidth={STROKE}
           id="id_others_bottom_curve"
           style={{
-            // pathLength: othersBottomCurve,
-            pathLength: 1,
+            pathLength: othersBottomCurve,
+            // pathLength: 1,
             y: marginTopFrontend,
             x: STROKE,
           }}
@@ -899,43 +906,30 @@ const BackgroundLine: React.FC = () => {
           stroke="#00681d"
           strokeWidth={STROKE}
           id="id_others_line"
-          // style={{ pathLength: othersLine, y: marginTopFrontend, x: STROKE }}
-          style={{ pathLength: 1, y: marginTopFrontend, x: STROKE }}
+          style={{ pathLength: othersLine, y: marginTopFrontend, x: STROKE }}
+          // style={{ pathLength: 1, y: marginTopFrontend, x: STROKE }}
         />
 
-        <motion.g>
-          {/* <motion.g style={{ y: 5 }}> */}
-          <motion.path
-            id="id_cloud_iot"
-            // d="M923.135 5365.21a61.85 61.85 0 00-24.115 4.87c.169-1.6.261-3.22.261-4.87 0-25.46-20.64-46.11-46.105-46.11-8.61 0-16.64 2.4-23.536 6.51-3.813-35.75-34.061-63.61-70.827-63.61-38.316 0-69.477 30.27-71.097 68.19a81.885 81.885 0 00-30.398-5.83c-45.462 0-82.318 36.86-82.318 82.32 0 45.46 36.856 82.32 82.318 82.32h265.817c34.183 0 61.896-27.71 61.896-61.9 0-34.18-27.713-61.89-61.896-61.89z"
-            fill="url(#prefix__paint0_linear_273_13)"
-            style={{
-              pathLength: 1,
-              y: marginTopFrontend,
-              height: 227,
-              opacity: cloud,
-            }}
-          />
-        </motion.g>
-
         <motion.g
-          transform={"matrix(0.08677601,0,0,0.08677601,32.391985,347.18318)"}
+          transform={`matrix(0.08677601,0,0,0.08677601,32.391985,${marginTopPlug.get()})`}
         >
           <motion.path
             d="M 74,20.5 C 74.5,32 74.5,33.5 75.5,39 72.1312,39.5049 68.6374,39.5 64,39.5 46.3269,39.5 32,37.6731 32,20 32,2.32689 46.3269,0 64,0 69.3457,0 73.8363,0.212892 77.5,0.998975 76,6.5 74.5,10 74,20.5 Z"
             fill="#00681D"
-            style={{ pathLength: 1, y: marginTopFrontend, opacity: 1 }}
-            // style={{ pathLength: 1, y: marginTopFrontend, opacity: cloud }}
+            // style={{ pathLength: 1, y: marginTopFrontend, opacity: 1 }}
+            style={{ pathLength: 1, y: marginTopFrontend, opacity: cloud }}
           />
           <motion.path
             d="M 35,8.66265 0,14.5 v 10 L 35,31 c 0,0 0,-6.807 0,-11.1687 0,-4.3616 0,-11.16865 0,-11.16865 z"
             fill="#00681D"
-            style={{ pathLength: 1, y: marginTopFrontend, opacity: 1 }}
-            // style={{ pathLength: 1, y: marginTopFrontend, opacity: cloud }}
+            // style={{ pathLength: 1, y: marginTopFrontend, opacity: 1 }}
+            style={{ pathLength: 1, y: marginTopFrontend, opacity: cloud }}
           />
         </motion.g>
         <motion.g
-          transform={"matrix(0.22510941,0,0,0.22510941,38.229766,336.90616)"}
+          transform={`matrix(0.22510941,0,0,0.22510941,37.229766,${marginTopCloud.get()})`}
+          id="id_cloud_iot"
+          style={{ opacity: cloud }}
         >
           <defs>
             <linearGradient
@@ -947,8 +941,8 @@ const BackgroundLine: React.FC = () => {
               y1="0"
               y2="0"
             >
-              <stop offset="0" stop-color="#4b76c3" />
-              <stop offset="1" stop-color="#8ad9ec" />
+              <stop offset="0" stopColor="#4b76c3" />
+              <stop offset="1" stopColor="#8ad9ec" />
             </linearGradient>
           </defs>
           <g id="g8">
@@ -957,11 +951,11 @@ const BackgroundLine: React.FC = () => {
                 <clipPath id="ClipPath">
                   <path d="M125.766 38.3316C122.718 38.3316 119.814 38.9516 117.173 40.0689C117.233 39.4983 117.266 38.9196 117.266 38.3316C117.266 29.2583 109.911 21.9023 100.837 21.9023C97.7688 21.9023 94.9074 22.7583 92.4501 24.2223C91.0914 11.4809 80.3128 1.55428 67.2114 1.55428C53.5581 1.55428 42.4541 12.3396 41.8768 25.8516C38.5248 24.5169 34.8728 23.7769 31.0448 23.7769C14.8448 23.7769 1.71145 36.9089 1.71145 53.1103C1.71145 69.3103 14.8448 82.4436 31.0448 82.4436L125.766 82.4436C137.947 82.4436 147.822 72.5689 147.822 60.3876C147.822 48.2063 137.947 38.3316 125.766 38.3316Z" />
                 </clipPath>
-                <g clip-path="url(#ClipPath)">
-                  <path
+                <g clipPath="url(#ClipPath)">
+                  <motion.path
                     d="M125.766 38.3316C122.718 38.3316 119.814 38.9516 117.173 40.0689C117.233 39.4983 117.266 38.9196 117.266 38.3316C117.266 29.2583 109.911 21.9023 100.837 21.9023C97.7688 21.9023 94.9074 22.7583 92.4501 24.2223C91.0914 11.4809 80.3128 1.55428 67.2114 1.55428C53.5581 1.55428 42.4541 12.3396 41.8768 25.8516C38.5248 24.5169 34.8728 23.7769 31.0448 23.7769C14.8448 23.7769 1.71145 36.9089 1.71145 53.1103C1.71145 69.3103 14.8448 82.4436 31.0448 82.4436L125.766 82.4436C137.947 82.4436 147.822 72.5689 147.822 60.3876C147.822 48.2063 137.947 38.3316 125.766 38.3316"
                     fill="url(#LinearGradient)"
-                    fill-rule="nonzero"
+                    fillRule="nonzero"
                     opacity="1"
                     stroke="none"
                   />

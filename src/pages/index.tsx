@@ -44,7 +44,7 @@ export default function Home() {
           <Backend />
         </div>
         <div>
-          <div id="id_aux_top_iot"></div>
+          <div id="id_aux_top_iot">&nbsp;</div>
           <Iot />
         </div>
         <div>
