@@ -226,7 +226,7 @@ const MenuIcon = ({ backend, frontend, other, prototype }: menuContent) => {
         const backgroundLineTop =
           contentDiv.position().top +
           // svgHeight * 1.4 +
-          svgHeight * 1.2 +
+          svgHeight * 1.3 +
           renderedTitle.getBoundingClientRect().height -
           windowSize;
         dispatch(setTopPosition(backgroundLineTop));
