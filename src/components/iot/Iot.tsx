@@ -565,7 +565,8 @@ const Iot: React.FC = () => {
       >
         IoT
       </h2>
-      <div className="row justify-content-center maxHeight col-11">
+
+      <div className="row justify-content-center col-11">
         <motion.svg
           viewBox="0 0 1585 973"
           fill="none"

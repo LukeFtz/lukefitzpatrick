@@ -14,6 +14,7 @@ import ProfileImage from "./ProfileImage";
 import { isLineStaterd } from "@/store/redures/headerReducer";
 import { useAppSelector } from "@/store/hooks";
 import { animate, motion, useMotionValue, useTransform } from "framer-motion";
+import AnimatedBlackTagMobile from "./Animated_black_tag_mobile";
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
   weight: "200",
@@ -70,20 +71,30 @@ const Header: React.FC = () => {
   return (
     <div>
       <div className="col-12">
-        <div className="col-12 col-md-5 col-xl-5 position-absolute row justify-content-center align-items-end h-80">
+        <div className="col-12 col-md-5 col-xl-5 position-absolute row justify-content-center align-items-end">
           <div className="col-10 col-md-10 col-xxl-8">
             <ProfileImage />
           </div>
         </div>
-        <div className="row justify-content-end squaresHeight">
+        <div className="showElementOnMob">
+          <div className="row justify-content-end squaresHeight">
+            <div className="col-12 col-md-8">
+              <AnimatedSquares />
+            </div>
+          </div>
+        </div>
+        <div className="row justify-content-end hiddeElementOnMob squaresHeight">
           <div className="col-12 col-md-8">
             <AnimatedSquares />
           </div>
         </div>
       </div>
-      <div className="blackTagHeader">
+      <div className="blackTagHeader d-none d-md-block">
         {data && <TextHeader {...data} />}
         <BlackTagHeader />
+      </div>
+      <div className="blackTagHeader d-block d-md-none">
+        <AnimatedBlackTagMobile />
       </div>
       <motion.div className="mt-3 text-center" style={{ y, opacity }}>
         <div className={plus_jakarta_sans.className}>{data?.language}</div>

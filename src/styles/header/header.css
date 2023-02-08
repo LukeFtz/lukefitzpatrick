@@ -27,3 +27,27 @@
 .headerdiv {
   height: 100vh;
 }
+
+.backgroundHeaderDiv {
+  background-color: black;
+  height: 30vh;
+  width: 100vw;
+}
+
+@media (max-width: 768px) {
+  .hiddeElementOnMob {
+    visibility: hidden;
+  }
+  .showElementOnMob {
+    visibility: visible;
+  }
+}
+
+@media (min-width: 768px) {
+  .hiddeElementOnMob {
+    visibility: visible;
+  }
+  .showElementOnMob {
+    display: none;
+  }
+}

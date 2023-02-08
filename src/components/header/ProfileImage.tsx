@@ -16,13 +16,19 @@ const ProfileImage: React.FC = () => {
 
   const defineTop = () => {
     const bottomLine = $("#id_black_line_path").position().top;
+    const blackTagMobile = $("#id_back_tag_mobile").position().top;
     const divImgLuke = $("#id_div_img_Luke").height();
     const defDivImgLuke = $("#id_div_img_Luke");
 
-    if (divImgLuke && bottomLine) {
+    if (divImgLuke && bottomLine !== 0) {
       const margin = bottomLine - divImgLuke;
       defDivImgLuke.css({ "margin-top": margin + "px" });
+    } else if (divImgLuke && blackTagMobile) {
+      const margin = blackTagMobile - divImgLuke;
+      console.log(margin);
+      defDivImgLuke.css({ "margin-top": margin + "px" });
     }
+    // console.log()
     // const aspectRatio =
     //   Math.round((window.screen.width / window.screen.height) * 100) / 100;
 

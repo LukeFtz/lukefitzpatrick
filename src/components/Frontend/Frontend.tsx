@@ -63,11 +63,13 @@ const Frontend: React.FC = () => {
 
     let newTop;
     newTop = Math.abs(topLine - id_aux_top_frontend) / 2.5;
+    // ************
     // newTop = 75;
-    console.log(topLine);
-    console.log(id_aux_top_frontend);
-    console.log("default: " + Math.abs(topLine - id_aux_top_frontend));
-    console.log("margin: " + newTop);
+    // console.log(topLine);
+    // console.log(id_aux_top_frontend);
+    // console.log("default: " + Math.abs(topLine - id_aux_top_frontend));
+    // console.log("margin: " + newTop);
+
     // if (aspectRatio < 0.9) {
     //   newTop = Math.abs(id_aux_top_frontend.position().top - topLine) - 50;
     // } else if (aspectRatio >= 1.3 && aspectRatio < 1.4) {

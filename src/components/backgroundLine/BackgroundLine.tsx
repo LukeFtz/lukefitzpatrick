@@ -387,7 +387,7 @@ const BackgroundLine: React.FC = () => {
 
   const defineValues = () => {
     const aspectRatio = Math.round((width / height) * 100) / 100;
-    console.log(aspectRatio);
+    // console.log(aspectRatio);
     if (aspectRatio < 0.9) {
       viewBoxY.set(15000);
     } else if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
@@ -514,7 +514,9 @@ const BackgroundLine: React.FC = () => {
       //   console.log(lineVerticalLine);
       //   console.log(height / 2);
       // }
-      console.log(":" + (line + height / 2) / 15 / lineVerticalLine);
+
+      // *****************
+      // console.log(":" + (line + height / 2) / 15 / lineVerticalLine);
       if ((line + height / 2) / 15 / lineVerticalLine <= 1.09) {
         scaleY = (line + height / 1.2) / 15 / lineVerticalLine;
         extraTopPadding = (scaleY - 1) * 60;
@@ -686,10 +688,10 @@ const BackgroundLine: React.FC = () => {
       // auxValueFront = scaleY2 * 20;
       // marginTopFrontend.set(auxValueFront * 1.35);
       frontendY.set(auxValueFront);
-      console.log("Frontend: " + frontendSize / 15);
-      console.log("Line: " + frontendLine);
-      console.log("Scale: " + scaleY2);
-      console.log("Fronten Original: " + frontendSize);
+      // console.log("Frontend: " + frontendSize / 15);
+      // console.log("Line: " + frontendLine);
+      // console.log("Scale: " + scaleY2);
+      // console.log("Fronten Original: " + frontendSize);
     }
   };
 
