@@ -99,7 +99,7 @@ const Header: React.FC = () => {
 
         <AnimatedBlackTagMobile />
       </div>
-      <motion.div className="mt-3 text-center" style={{ y, opacity }}>
+      <motion.div className="mt-3 mb-5 text-center" style={{ y, opacity }}>
         <div className={plus_jakarta_sans.className}>{data?.language}</div>
         <div className="display-5 fs-2">
           <button

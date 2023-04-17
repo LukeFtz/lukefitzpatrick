@@ -1,6 +1,6 @@
 import { Plus_Jakarta_Sans } from "@next/font/google";
 import Image from "next/image";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import django from "../../../public/media/backend/django.svg";
 import django_rest from "../../../public/media/backend/django_rest.png";
 import { C, Java, Python } from "./icons";
@@ -12,6 +12,8 @@ import {
   useMotionValue,
   useTransform,
 } from "framer-motion";
+import { backendContent } from "@/utilitities/datatypes";
+import { getDataBackend } from "@/utilitities/data/getData";
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
   weight: "200",
@@ -30,6 +32,20 @@ const Backend: React.FC = () => {
   const isInView = useInView(scrollRef);
   const scrollTextRef = useRef(null);
   const isTextInView = useInView(scrollTextRef);
+
+  const [data, setData] = useState<backendContent | null>(null);
+
+  useEffect(() => {
+    const dataLang: string | null = localStorage.getItem("language");
+    if ((dataLang && dataLang === "en") || dataLang === "pt") {
+      const auxData = getDataBackend(dataLang);
+      setData(auxData);
+    } else {
+      localStorage.setItem("language", "pt");
+      const auxData = getDataBackend("pt");
+      setData(auxData);
+    }
+  }, []);
 
   const showItemsLang = () => {
     animate(opacityItems, 1, {
@@ -81,7 +97,7 @@ const Backend: React.FC = () => {
               className={`${plus_jakarta_sans.className} fs-1 mb-5 `}
               style={{ x: xBackend }}
             >
-              Back-end
+              {data?.title}
             </motion.h2>
           </div>
         </div>
@@ -93,7 +109,7 @@ const Backend: React.FC = () => {
             className={`${plus_jakarta_sans.className} fs-3 mb-5 text-center`}
             style={{ opacity }}
           >
-            Criação de APIs com
+            {data?.firstSubtitle}
           </motion.h2>
         </div>
         <motion.div
@@ -137,7 +153,7 @@ const Backend: React.FC = () => {
           <h2
             className={`${plus_jakarta_sans.className} fs-3 mb-5 text-center`}
           >
-            Linguagens de Programação
+            {data?.secondSubtitle}
           </h2>
           <div className="row pt-5 mt-5 align-items-center justify-content-center">
             <div className="col-4 row justify-content-center">

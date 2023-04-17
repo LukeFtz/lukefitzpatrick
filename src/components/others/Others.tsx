@@ -2,6 +2,8 @@ import { Plus_Jakarta_Sans } from "@next/font/google";
 import React, { useEffect, useState } from "react";
 import { Ansible, Arduino, Docker, GitHub } from "./Icons";
 import { motion } from "framer-motion";
+import { footerContent } from "@/utilitities/datatypes";
+import { getDataFooter } from "@/utilitities/data/getData";
 // import bootstrap from "bootstrap";
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
@@ -17,32 +19,46 @@ const variants = {
 const Others: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const [data, setData] = useState<footerContent | null>(null);
+
+  useEffect(() => {
+    const dataLang: string | null = localStorage.getItem("language");
+    if ((dataLang && dataLang === "en") || dataLang === "pt") {
+      const auxData = getDataFooter(dataLang);
+      setData(auxData);
+    } else {
+      localStorage.setItem("language", "pt");
+      const auxData = getDataFooter("pt");
+      setData(auxData);
+    }
+  }, []);
+
   return (
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="row col-12 col-md-7 col-xl-6 align-items-center justify-content-center mb-5 pb-5">
           <hr />
           <div className="row justify-content-center col-3">
-            <div className="col-7">
+            <div className="col-11 col-md-7">
               <Ansible />
             </div>
           </div>
           <div className="row justify-content-center col-3">
-            <div className="col-7">
+            <div className="col-11 col-md-7">
               <Docker />
             </div>
           </div>
           <div className="row justify-content-center col-3">
-            <div className="col-7">
+            <div className="col-11 col-md-7">
               <GitHub />
             </div>
           </div>
           <div className="row justify-content-center col-3">
-            <div className="col-7">
+            <div className="col-11 col-md-7">
               <Arduino />
             </div>
           </div>
-
+          <div className="w-100" />
           <div className="row justify-content-center col-3 mt-3">
             <p className={`${plus_jakarta_sans.className} fs-6 text-center `}>
               Ansible
@@ -134,7 +150,7 @@ const Others: React.FC = () => {
             onClick={() => setIsOpen((isOpen) => !isOpen)}
             className={`${plus_jakarta_sans.className} fs-6 text-center cursorDefinition`}
           >
-            Clique aqui para ver os icones usados
+            {data?.link}
           </a>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { Plus_Jakarta_Sans } from "@next/font/google";
 import Image from "next/image";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import devices from "../../../public/media/prototype/devices.svg";
 import adobe from "../../../public/media/prototype/adobe.svg";
 import figma from "../../../public/media/prototype/figma.svg";
@@ -13,6 +13,8 @@ import {
   useMotionValue,
   useTransform,
 } from "framer-motion";
+import { prototypeContent } from "@/utilitities/datatypes";
+import { getDataPrototype } from "@/utilitities/data/getData";
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
   weight: "200",
@@ -29,6 +31,20 @@ const Prototype: React.FC = () => {
   const isInView = useInView(scrollRef);
   const scrollTextRef = useRef(null);
   const isTextInView = useInView(scrollTextRef);
+
+  const [data, setData] = useState<prototypeContent | null>(null);
+
+  useEffect(() => {
+    const dataLang: string | null = localStorage.getItem("language");
+    if ((dataLang && dataLang === "en") || dataLang === "pt") {
+      const auxData = getDataPrototype(dataLang);
+      setData(auxData);
+    } else {
+      localStorage.setItem("language", "pt");
+      const auxData = getDataPrototype("pt");
+      setData(auxData);
+    }
+  }, []);
 
   const showText = () => {
     animate(opacityText, 1, {
@@ -69,13 +85,13 @@ const Prototype: React.FC = () => {
               className={`${plus_jakarta_sans.className} fs-1 mb-5 d-none d-md-block`}
               style={{ x: xPrototype }}
             >
-              Prototipação
+              {data?.title}
             </motion.h2>
             <motion.h2
               className={`${plus_jakarta_sans.className} fs-1 d-block d-md-none`}
               style={{ x: xPrototype }}
             >
-              Prototipação
+              {data?.title}
             </motion.h2>
           </div>
         </div>
@@ -155,15 +171,12 @@ const Prototype: React.FC = () => {
         >
           <div className="col-12 col-xl-10 mt-5" ref={scrollTextRef}>
             <p className={`${plus_jakarta_sans.className} fs-6 text-center`}>
-              Essas ferramentas apresentadas são as principais que eu domino e
-              utilizo para realizar prototipagem de layout dos sistemas para os
-              dispositivos mobile e desktop
+              {data?.firstParagraph}
             </p>
           </div>
           <div className="col-12 col-xl-10 mt-5">
             <p className={`${plus_jakarta_sans.className} fs-6 text-center`}>
-              Além dessas já realizei alguns trabalhos com ferramentas como
-              Corel Draw e Adobe Ilustrator.
+              {data?.secondParagraph}
             </p>
           </div>
         </motion.div>

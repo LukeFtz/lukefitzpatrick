@@ -11,6 +11,7 @@ import { M_PLUS_1, Plus_Jakarta_Sans } from "@next/font/google";
 import { menuContent } from "@/utilitities/datatypes";
 import { setTopPosition } from "@/store/redures/backgroundLineReducer";
 import { useAppDispatch } from "@/store/hooks";
+import Link from "next/link";
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
   weight: "200",
@@ -58,26 +59,6 @@ const MenuIcon = ({ backend, frontend, other, prototype }: menuContent) => {
     const textFrontend = $("#id_text_frontend");
     const textBackend = $("#id_text_backend");
     const textOthers = $("#id_text_other");
-
-    // if (scrollYProgress.get() <= 0) {
-    //   position.set("relative");
-    //   contentDiv.removeClass("align-items-end");
-    //   left.set(0);
-    // } else if (scrollYProgress.get() > 0 && scrollYProgress.get() < 1) {
-    //   position.set("fixed");
-    //   left.set(svgLeft);
-    // } else {
-
-    // ######################## add Opacity ###########################
-
-    // const aspectRatio =
-    //   Math.round((window.screen.width / window.screen.height) * 100) / 100;
-
-    // if (aspectRatio < 0.9) {
-    //   opacityMobile.set(0);
-    // } else {
-    //   bottom.set(windowSize * 0.05);
-    // }
 
     if (scrollYProgress.get() <= 0) {
       position.set("relative");
@@ -307,52 +288,57 @@ const MenuIcon = ({ backend, frontend, other, prototype }: menuContent) => {
           />
 
           {/* ********************* Prototype ************** */}
-
-          <motion.path
-            id="id_prototype_circle"
-            d="M1 487.195C1 426.192 50.453 376.74 111.455 376.74c61.003 0 110.455 49.452 110.455 110.455 0 61.002-49.452 110.455-110.455 110.455C50.453 597.65 1 548.197 1 487.195z"
-            stroke="#006918"
-            fill="#fff"
-            className="transition"
-            strokeMiterlimit={10}
-            style={{ pathLength: scrollYProgress }}
-          />
+          <Link href={"/#id_prototype_div"} scroll={false}>
+            <motion.path
+              id="id_prototype_circle"
+              d="M1 487.195C1 426.192 50.453 376.74 111.455 376.74c61.003 0 110.455 49.452 110.455 110.455 0 61.002-49.452 110.455-110.455 110.455C50.453 597.65 1 548.197 1 487.195z"
+              stroke="#006918"
+              fill="#fff"
+              className="transition"
+              strokeMiterlimit={10}
+              style={{ pathLength: scrollYProgress }}
+            />
+          </Link>
 
           {/* ********************* Frontend ************** */}
 
-          <motion.path
-            id="id_frontend_circle"
-            d="M597.757 110.447c.686 60.999-48.207 111.005-109.205 111.692-61 .686-111.005-48.207-111.692-109.206-.686-60.996 48.206-111.003 109.206-111.69C547.064.557 597.07 49.451 597.757 110.447z"
-            stroke="#006918"
-            fill="#fff"
-            className="transition"
-            strokeMiterlimit={10}
-            style={{ pathLength: scrollYProgress }}
-          />
+          <Link href={"/#id_frontend_div"} scroll={false}>
+            <motion.path
+              id="id_frontend_circle"
+              d="M597.757 110.447c.686 60.999-48.207 111.005-109.205 111.692-61 .686-111.005-48.207-111.692-109.206-.686-60.996 48.206-111.003 109.206-111.69C547.064.557 597.07 49.451 597.757 110.447z"
+              stroke="#006918"
+              fill="#fff"
+              className="transition"
+              strokeMiterlimit={10}
+              style={{ pathLength: scrollYProgress }}
+            />
+          </Link>
 
           {/* ********************* Backend ************** */}
-
-          <motion.path
-            id="id_backend_circle"
-            d="M754.093 486.891c0-61.003 49.452-110.456 110.455-110.456 61.007 0 110.452 49.453 110.452 110.456 0 61.002-49.445 110.455-110.452 110.455-61.003 0-110.455-49.453-110.455-110.455z"
-            stroke="#006918"
-            fill="#fff"
-            className="transition"
-            strokeMiterlimit={10}
-            style={{ pathLength: scrollYProgress }}
-          />
+          <Link href={"/#id_Backend_div"} scroll={false}>
+            <motion.path
+              id="id_backend_circle"
+              d="M754.093 486.891c0-61.003 49.452-110.456 110.455-110.456 61.007 0 110.452 49.453 110.452 110.456 0 61.002-49.445 110.455-110.452 110.455-61.003 0-110.455-49.453-110.455-110.455z"
+              stroke="#006918"
+              fill="#fff"
+              className="transition"
+              strokeMiterlimit={10}
+              style={{ pathLength: scrollYProgress }}
+            />
+          </Link>
 
           {/* ********************* Others ************** */}
-
-          <motion.path
-            id="id_others_circle"
-            d="M377.5 865.235c0-61.002 49.453-110.455 110.455-110.455 61.004 0 110.456 49.453 110.456 110.455 0 61.001-49.452 110.455-110.456 110.455-61.002 0-110.455-49.454-110.455-110.455z"
-            stroke="#006918"
-            fill="#fff"
-            className="transition"
-            strokeMiterlimit={10}
-            style={{ pathLength: scrollYProgress }}
-          />
+          <Link href={"/#id_main_iot_div"} scroll={false}>
+            <motion.path
+              id="id_others_circle"
+              d="M377.5 865.235c0-61.002 49.453-110.455 110.455-110.455 61.004 0 110.456 49.453 110.456 110.455 0 61.001-49.452 110.455-110.456 110.455-61.002 0-110.455-49.454-110.455-110.455z"
+              stroke="#006918"
+              fill="#fff"
+              className="transition"
+              strokeMiterlimit={10}
+              style={{ pathLength: scrollYProgress }}
+            />
+          </Link>
 
           <motion.path
             d="M468.196 447.547l.009-40.692s.576-7.905-4.371-12.853c-4.948-4.947-12.87-4.68-12.87-4.68l-26.216.033m-7.878.092a4.316 4.316 0 118.631 0 4.316 4.316 0 01-8.631 0z"
@@ -513,46 +499,57 @@ const MenuIcon = ({ backend, frontend, other, prototype }: menuContent) => {
             style={{ pathLength: scrollYProgress }}
           />
 
-          <motion.text xmlSpace="preserve" id="id_text_prototype" fill="#000">
-            <motion.tspan
-              x={10}
-              y={500}
-              style={{ opacity }}
-              className={`${plus_jakarta_sans.className} fs-2 ms-2 transition`}
-            >
-              {prototype}
-            </motion.tspan>
-          </motion.text>
-          <motion.text id="id_text_frontend" xmlSpace="preserve" fill="#000">
-            <motion.tspan
-              x={410}
-              y={120}
-              style={{ opacity: opacity2 }}
-              className={`${plus_jakarta_sans.className} fs-2 ms-2 transition`}
-            >
-              {frontend}
-            </motion.tspan>
-          </motion.text>
-          <motion.text xmlSpace="preserve" id="id_text_backend" fill="#000">
-            <motion.tspan
-              x={790}
-              y={500}
-              style={{ opacity: opacity3 }}
-              className={`${plus_jakarta_sans.className} fs-2 ms-2 transition`}
-            >
-              {backend}
-            </motion.tspan>
-          </motion.text>
-          <motion.text id="id_text_other" xmlSpace="preserve" fill="#000">
-            <motion.tspan
-              x={433}
-              y={880}
-              style={{ opacity: opacity4 }}
-              className={`${plus_jakarta_sans.className} fs-2 ms-2 transition`}
-            >
-              {other}
-            </motion.tspan>
-          </motion.text>
+          <Link href={"/#id_prototype_div"} scroll={false}>
+            <motion.text xmlSpace="preserve" id="id_text_prototype" fill="#000">
+              <motion.tspan
+                x={10}
+                y={500}
+                style={{ opacity }}
+                className={`${plus_jakarta_sans.className} fs-2 ms-2 transition`}
+              >
+                {prototype}
+              </motion.tspan>
+            </motion.text>
+          </Link>
+
+          <Link href={"/#id_frontend_div"} scroll={false}>
+            <motion.text id="id_text_frontend" xmlSpace="preserve" fill="#000">
+              <motion.tspan
+                x={410}
+                y={120}
+                style={{ opacity: opacity2 }}
+                className={`${plus_jakarta_sans.className} fs-2 ms-2 transition`}
+              >
+                {frontend}
+              </motion.tspan>
+            </motion.text>
+          </Link>
+
+          <Link href={"/#id_Backend_div"} scroll={false}>
+            <motion.text xmlSpace="preserve" id="id_text_backend" fill="#000">
+              <motion.tspan
+                x={790}
+                y={500}
+                style={{ opacity: opacity3 }}
+                className={`${plus_jakarta_sans.className} fs-2 ms-2 transition`}
+              >
+                {backend}
+              </motion.tspan>
+            </motion.text>
+          </Link>
+
+          <Link href={"/#id_main_iot_div"} scroll={false}>
+            <motion.text id="id_text_other" xmlSpace="preserve" fill="#000">
+              <motion.tspan
+                x={433}
+                y={880}
+                style={{ opacity: opacity4 }}
+                className={`${plus_jakarta_sans.className} fs-2 ms-2 transition`}
+              >
+                {other}
+              </motion.tspan>
+            </motion.text>
+          </Link>
         </motion.svg>
       </div>
     </motion.div>

@@ -22,6 +22,9 @@ import {
   useMotionValue,
 } from "framer-motion";
 import { mobileDevice } from "@/utilitities/types";
+import Cloud from "./cloud";
+import { othersContent } from "@/utilitities/datatypes";
+import { getDataOthers } from "@/utilitities/data/getData";
 
 // import { Container } from './styles';
 
@@ -78,6 +81,20 @@ const Iot: React.FC = () => {
   const line_car = useMotionValue<number>(0);
   const line_fridge = useMotionValue<number>(0);
   const line_washermachine = useMotionValue<number>(0);
+
+  const [data, setData] = useState<othersContent | null>(null);
+
+  useEffect(() => {
+    const dataLang: string | null = localStorage.getItem("language");
+    if ((dataLang && dataLang === "en") || dataLang === "pt") {
+      const auxData = getDataOthers(dataLang);
+      setData(auxData);
+    } else {
+      localStorage.setItem("language", "pt");
+      const auxData = getDataOthers("pt");
+      setData(auxData);
+    }
+  }, []);
 
   // #################### DISHWASHER #############################
   const hiddeDishwasherLine = () => {
@@ -502,15 +519,18 @@ const Iot: React.FC = () => {
 
   return (
     <div id="id_main_iot_div" className="row justify-content-center">
-      <h2
-        className={`${plus_jakarta_sans.className} display-3 text-center mb-5`}
-      >
-        Outros
-      </h2>
+      <div className="col-9 col-md-3 row justify-content-center align-items-center">
+        <Cloud />
+        <h2
+          className={`${plus_jakarta_sans.className} display-3 text-center position-absolute text-light mt-5`}
+        >
+          {data?.title}
+        </h2>
+      </div>
       <h2
         className={`${plus_jakarta_sans.className} fs-1 text-secondary mt-5 text-center`}
       >
-        IoT
+        {data?.firstSubtitle}
       </h2>
 
       <div className="row justify-content-center col-11">
@@ -979,6 +999,8 @@ const Iot: React.FC = () => {
                 )}
               </AnimatePresence>
             </motion.g>
+
+            {/* ############################################ text ########################################### */}
             <text
               xmlSpace="preserve"
               fill="#000"
@@ -997,7 +1019,7 @@ const Iot: React.FC = () => {
                   strokeWidth: 1,
                 }}
               >
-                Connected
+                {data?.device.txt1}
               </tspan>
               <tspan
                 x="1010"
@@ -1009,7 +1031,7 @@ const Iot: React.FC = () => {
                   strokeWidth: 1,
                 }}
               >
-                to
+                {data?.device.txt2}
               </tspan>
             </text>
           </g>

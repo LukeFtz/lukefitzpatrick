@@ -25,6 +25,8 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
+import { frontendContent } from "@/utilitities/datatypes";
+import { getDataFrontend } from "@/utilitities/data/getData";
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
   weight: "200",
@@ -52,6 +54,20 @@ const Frontend: React.FC = () => {
   const webMob = useMotionValue(0);
   const webMob2 = useMotionValue(0);
   const webMob3 = useMotionValue(0);
+
+  const [data, setData] = useState<frontendContent | null>(null);
+
+  useEffect(() => {
+    const dataLang: string | null = localStorage.getItem("language");
+    if ((dataLang && dataLang === "en") || dataLang === "pt") {
+      const auxData = getDataFrontend(dataLang);
+      setData(auxData);
+    } else {
+      localStorage.setItem("language", "pt");
+      const auxData = getDataFrontend("pt");
+      setData(auxData);
+    }
+  }, []);
 
   const showText = () => {
     animate(opacityText, 1, {
@@ -139,28 +155,24 @@ const Frontend: React.FC = () => {
   }, [isTextInView]);
 
   return (
-    <div
-      id="id_frontend_div"
-      className="container mainFrontendDiv pt-5"
-      ref={scrollRef}
-    >
+    <div id="id_frontend_div" className="container pt-5" ref={scrollRef}>
       <div className="row justify-content-center">
-        <div className="col-9 col-md-10 col-xl-12">
+        <div className="col-11 col-md-10 col-xl-12">
           <div className="row justify-content-end text-end">
             <div className="col-12 col-xl-6 overflowXHidden">
               <motion.h2
                 className={`${plus_jakarta_sans.className} fs-1 mb-5 `}
                 style={{ x: xFrontend }}
               >
-                Front-end
+                {data?.title}
               </motion.h2>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="row justify-content-center">
-        <div className="container row ">
+      <div className="container">
+        <div className="justify-content-center row">
           <div className="row col-3 mt-5 pt-5 justify-content-center">
             <motion.div
               className="col-12 col-md-9"
@@ -224,15 +236,13 @@ const Frontend: React.FC = () => {
         <div className="container mt-5">
           <div className="row justify-content-center ">
             <motion.div
-              className="col-10 col-md-9"
+              className="col-12 col-md-9"
               style={{ opacity: opacityText }}
             >
               <p
                 className={`${plus_jakarta_sans.className} fs-6 mt-5 text-center`}
               >
-                Os frameworks acima são usados em projetos que visão aplicações
-                web e mobile, a combinação delas permitem a criação de
-                interfaces ponderosas com boa performance e qualidade de código
+                {data?.firstParagraph}
               </p>
             </motion.div>
           </div>
@@ -254,12 +264,11 @@ const Frontend: React.FC = () => {
         </motion.div>
         <div className="container mt-5 mb-5">
           <div className="row justify-content-center mb-5">
-            <div className="col-10 col-md-8">
+            <div className="col-12 col-md-8">
               <p
                 className={`${plus_jakarta_sans.className} fs-6 mt-5 text-center`}
               >
-                As ferramentas abaixo servem de complemento para as tecnologias
-                apresentadas, dispostas de acordo com a sua categoria
+                {data?.secondParagraph}
               </p>
             </div>
           </div>
@@ -335,7 +344,7 @@ const Frontend: React.FC = () => {
                   className="row col-12 align-items-center mb-5 mt-5"
                   style={{ y: webMob }}
                 >
-                  <div className="col-9 col-md-10">
+                  <div className="col-8 col-md-10">
                     <p
                       className={`${plus_jakarta_sans.className} fontSmall fs-md-5 text-end`}
                     >
@@ -350,7 +359,7 @@ const Frontend: React.FC = () => {
                   className="row col-12 align-items-center mb-5 mt-5"
                   style={{ y: webMob2 }}
                 >
-                  <div className="col-9 col-md-10">
+                  <div className="col-8 col-md-10">
                     <p
                       className={`${plus_jakarta_sans.className} fontSmall fs-md-5 text-end`}
                     >
@@ -365,7 +374,7 @@ const Frontend: React.FC = () => {
                   className="row col-12 align-items-center mt-5"
                   style={{ y: webMob3 }}
                 >
-                  <div className="col-9 col-md-10">
+                  <div className="col-8 col-md-10">
                     <div
                       className={`${plus_jakarta_sans.className} fontSmall fs-md-5 text-end`}
                     >
