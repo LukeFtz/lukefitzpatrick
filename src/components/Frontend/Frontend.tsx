@@ -53,41 +53,6 @@ const Frontend: React.FC = () => {
   const webMob2 = useMotionValue(0);
   const webMob3 = useMotionValue(0);
 
-  const [text, setText] = useState<string | number>("");
-
-  const defineTop = () => {
-    const topLine = $("#id_frontend_curve").position().top;
-    const id_aux_top_frontend = $("#id_aux_top_frontend").position().top;
-    const topFrontend = $("#id_frontend_div");
-    const aspectRatio = Math.round((width / height) * 100) / 100;
-
-    let newTop;
-    newTop = Math.abs(topLine - id_aux_top_frontend) / 2.5;
-    // ************
-    // newTop = 75;
-    // console.log(topLine);
-    // console.log(id_aux_top_frontend);
-    // console.log("default: " + Math.abs(topLine - id_aux_top_frontend));
-    // console.log("margin: " + newTop);
-
-    // if (aspectRatio < 0.9) {
-    //   newTop = Math.abs(id_aux_top_frontend.position().top - topLine) - 50;
-    // } else if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
-    //   newTop = Math.abs(id_aux_top_frontend.position().top + 100 - topLine);
-    // } else if (aspectRatio >= 1.4 && aspectRatio < 1.6) {
-    //   newTop = 100;
-    //   setText(topLine);
-    // } else if (aspectRatio >= 1.6 && aspectRatio < 1.7) {
-    //   newTop = Math.abs(topLine - id_aux_top_frontend.position().top);
-    // } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
-    //   // newTop = Math.abs(topLine - id_aux_top_frontend.position().top) - 150;
-    //   newTop = Math.abs(topLine - id_aux_top_frontend.position().top) - 150;
-    // } else {
-    //   newTop = Math.abs(topLine - id_aux_top_frontend.position().top) + 150;
-    // }
-    topFrontend.css({ "margin-top": newTop + "px" });
-  };
-
   const showText = () => {
     animate(opacityText, 1, {
       duration: 1,
@@ -173,19 +138,12 @@ const Frontend: React.FC = () => {
     }
   }, [isTextInView]);
 
-  useEffect(() => {
-    const auxWidth = $(window).width();
-    const auxHeight = $(window).height();
-
-    if (auxWidth && auxHeight) {
-      width = auxWidth;
-      height = auxHeight;
-      defineTop();
-    }
-  }, []);
-
   return (
-    <div id="id_frontend_div" className="container mainFrontendDiv pt-5">
+    <div
+      id="id_frontend_div"
+      className="container mainFrontendDiv pt-5"
+      ref={scrollRef}
+    >
       <div className="row justify-content-center">
         <div className="col-9 col-md-10 col-xl-12">
           <div className="row justify-content-end text-end">
@@ -233,7 +191,6 @@ const Frontend: React.FC = () => {
               style={{ opacity: opacityText }}
             >
               <h2
-                ref={scrollRef}
                 className={`${plus_jakarta_sans.className} fontSmallReactNative  mt-md-5`}
               >
                 React & React Native

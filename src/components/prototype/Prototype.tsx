@@ -60,12 +60,8 @@ const Prototype: React.FC = () => {
     }
   }, [isTextInView]);
 
-  // useEffect(() => {
-  //   defineValues();
-  // }, []);
-
   return (
-    <div id="id_prototype_div" className="container mt-5 ">
+    <div id="id_prototype_div" className="container mt-5 " ref={scrollRef}>
       <div className="row justify-content-center">
         <div className="col-10 col-md-11 col-xl-12">
           <div className="col-12 col-xl-6 overflowXHidden">
@@ -85,7 +81,7 @@ const Prototype: React.FC = () => {
         </div>
       </div>
 
-      <div className="row justify-content-center mt-5" ref={scrollRef}>
+      <div className="row justify-content-center mt-5">
         <motion.div
           className="row col-9 col-md-6 mt-5 pt-5 text-center"
           style={{ x: yPrototypeDevices, opacity }}

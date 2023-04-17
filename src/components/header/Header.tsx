@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AnimatedSquares from "./AnimatedSquares";
+import AnimatedSquaresMobile from "./AnimatedSquaresMobile";
 import BlackTagHeader from "./animated_black_tag";
 import Image from "next/image";
 import { Staatliches, Plus_Jakarta_Sans, Alegreya } from "@next/font/google";
@@ -79,7 +80,7 @@ const Header: React.FC = () => {
         <div className="showElementOnMob">
           <div className="row justify-content-end squaresHeight">
             <div className="col-12 col-md-8">
-              <AnimatedSquares />
+              <AnimatedSquaresMobile />
             </div>
           </div>
         </div>
@@ -94,6 +95,8 @@ const Header: React.FC = () => {
         <BlackTagHeader />
       </div>
       <div className="blackTagHeader d-block d-md-none">
+        {data && <TextHeader {...data} />}
+
         <AnimatedBlackTagMobile />
       </div>
       <motion.div className="mt-3 text-center" style={{ y, opacity }}>

@@ -79,59 +79,6 @@ const Iot: React.FC = () => {
   const line_fridge = useMotionValue<number>(0);
   const line_washermachine = useMotionValue<number>(0);
 
-  const defineTop = () => {
-    const aspectRatio = Math.round((width / height) * 100) / 100;
-
-    const topCloud = $("#id_cloud_iot");
-    const topIoTR = $("#id_main_iot_div");
-    const auxTopIot = $("#id_aux_top_iot");
-
-    // if (topCloud && auxTopIot) {
-    //   let newTop: number;
-    //   if (aspectRatio >= 1.3 && aspectRatio < 1.4) {
-    //   } else if (aspectRatio >= 1.4 && aspectRatio < 1.5) {
-    //     newTop = Math.abs(
-    //       topCloud.position().top - auxTopIot.position().top * 0.8
-    //       // topCloud.height()
-    //     );
-    //     topIoTR.css({ "margin-top": newTop + "px" });
-    //   } else if (aspectRatio >= 1.5 && aspectRatio < 1.6) {
-    //     newTop = Math.abs(
-    //       auxTopIot.position().top - topCloud.position().top + 50
-    //       // topCloud.height()
-    //     );
-    //     topIoTR.css({ "margin-top": newTop + "px" });
-    //   } else if (aspectRatio >= 1.6 && aspectRatio < 1.7) {
-    //     newTop =
-    //       Math.abs(
-    //         topCloud.position().top - auxTopIot.position().top + 277
-    //         // topCloud.height()
-    //       ) * 1.5;
-    //     topIoTR.css({ "margin-top": newTop + "px" });
-    //   } else if (aspectRatio >= 1.7 && aspectRatio < 1.8) {
-    //     newTop =
-    //       (Math.abs(topCloud.position().top - auxTopIot.position().top) + 200) *
-    //       1.5;
-    //     topIoTR.css({ "margin-top": newTop + "px" });
-    //   } else {
-    //     newTop =
-    //       Math.abs(
-    //         topCloud.position().top - auxTopIot.position().top + 277
-    //         // topCloud.height()
-    //       ) * 1.2;
-    //     topIoTR.css({ "margin-top": newTop + "px" });
-    //   }
-    // }
-
-    let newTop: number;
-
-    newTop = Math.abs(topCloud.position().top - auxTopIot.position().top) / 2;
-    topIoTR.css({ "margin-top": height + "px" });
-    // console.log("Iot: " + newTop);
-    // console.log("Iot2: " + topCloud.position().top);
-    // console.log("Iot2: " + auxTopIot.position().top);
-  };
-
   // #################### DISHWASHER #############################
   const hiddeDishwasherLine = () => {
     animate(line_dishwasher, 0, {
@@ -548,7 +495,7 @@ const Iot: React.FC = () => {
     if (auxWidth && auxHeight) {
       width = auxWidth;
       height = auxHeight;
-      defineTop();
+      // defineTop();
     }
     showSoundSystemLine();
   }, []);

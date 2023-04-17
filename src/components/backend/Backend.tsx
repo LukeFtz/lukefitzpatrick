@@ -73,7 +73,7 @@ const Backend: React.FC = () => {
   // }, []);
 
   return (
-    <div id="id_Backend_div" className="container mt-5 pt-5">
+    <div id="id_Backend_div" className="container mt-5 pt-5" ref={scrollRef}>
       <div className="row justify-content-center">
         <div className="col-12 col-md-11 col-xl-12">
           <div className="col-12 col-xl-6 overflowXHidden">
@@ -87,7 +87,7 @@ const Backend: React.FC = () => {
         </div>
       </div>
 
-      <div className="row justify-content-center mt-5 mb-5 " ref={scrollRef}>
+      <div className="row justify-content-center mt-5 mb-5 ">
         <div>
           <motion.h2
             className={`${plus_jakarta_sans.className} fs-3 mb-5 text-center`}

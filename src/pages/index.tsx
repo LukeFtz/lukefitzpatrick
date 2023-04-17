@@ -25,11 +25,6 @@ export default function Home() {
           <Header />
         </div>
 
-        <div className="row container-fluid position-absolute justify-content-center d-none d-md-block">
-          <div className="col-12 col-md-11">
-            <BackgroundLine />
-          </div>
-        </div>
         <div>
           <Menu />
         </div>

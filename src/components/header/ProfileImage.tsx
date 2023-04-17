@@ -25,7 +25,7 @@ const ProfileImage: React.FC = () => {
       defDivImgLuke.css({ "margin-top": margin + "px" });
     } else if (divImgLuke && blackTagMobile) {
       const margin = blackTagMobile - divImgLuke;
-      console.log(margin);
+      // console.log(margin);
       defDivImgLuke.css({ "margin-top": margin + "px" });
     }
     // console.log()
