@@ -15,6 +15,7 @@ import {
 } from "framer-motion";
 import { prototypeContent } from "@/utilitities/datatypes";
 import { getDataPrototype } from "@/utilitities/data/getData";
+import Devices from "./Devices";
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
   weight: "200",
@@ -98,12 +99,7 @@ const Prototype: React.FC = () => {
       </div>
 
       <div className="row justify-content-center mt-5">
-        <motion.div
-          className="row col-9 col-md-6 mt-5 pt-5 text-center"
-          style={{ x: yPrototypeDevices, opacity }}
-        >
-          <Image src={devices} alt="devices icons" className="img-fluid" />
-        </motion.div>
+        <Devices />
         <div className="w-100" />
         <motion.div
           className="row justify-content-center"
@@ -174,6 +170,12 @@ const Prototype: React.FC = () => {
               {data?.firstParagraph}
             </p>
           </div>
+          <motion.div
+            className="row col-9 col-md-6 mt-5 pt-5 text-center"
+            style={{ x: yPrototypeDevices, opacity }}
+          >
+            <Image src={devices} alt="devices icons" className="img-fluid" />
+          </motion.div>
           <div className="col-12 col-xl-10 mt-5">
             <p className={`${plus_jakarta_sans.className} fs-6 text-center`}>
               {data?.secondParagraph}

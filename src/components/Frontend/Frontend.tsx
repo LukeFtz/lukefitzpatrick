@@ -27,6 +27,7 @@ import {
 } from "framer-motion";
 import { frontendContent } from "@/utilitities/datatypes";
 import { getDataFrontend } from "@/utilitities/data/getData";
+import Desktop from "./Desktop";
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
   weight: "200",
@@ -231,6 +232,10 @@ const Frontend: React.FC = () => {
               </h2>
             </motion.div>
           </div>
+        </div>
+
+        <div>
+          <Desktop />
         </div>
 
         <div className="container mt-5">
