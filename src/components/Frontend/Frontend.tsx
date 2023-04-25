@@ -234,7 +234,7 @@ const Frontend: React.FC = () => {
           </div>
         </div>
 
-        <div>
+        <div className="mt-5">
           <Desktop />
         </div>
 
