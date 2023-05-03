@@ -45,6 +45,7 @@ const MenuIcon = ({ backend, frontend, other, prototype }: menuContent) => {
   const top = useMotionValue<number>(0);
   const bottom = useMotionValue<number>(0);
   const left = useMotionValue<number>(0);
+  const windowHeight = useMotionValue<number>(0);
 
   const dispatch = useAppDispatch();
 
@@ -172,7 +173,8 @@ const MenuIcon = ({ backend, frontend, other, prototype }: menuContent) => {
       // const svgWidth = renderedSvg.getBoundingClientRect().width;
       const svgleft = renderedSvg.getBoundingClientRect().left;
       svgLeft = svgleft;
-      contentDiv.height(svgHeight * 2);
+      // contentDiv.height(svgHeight * 2);
+      windowHeight.set(height * 2);
       const windowSize = height;
 
       const aspectRatio = Math.round((width / height) * 100) / 100;
@@ -239,7 +241,11 @@ const MenuIcon = ({ backend, frontend, other, prototype }: menuContent) => {
       id="id_menu"
       className="row justify-content-center"
       ref={wrapDiv}
-      style={{ paddingBottom: bottom, opacity: opacityMobile }}
+      style={{
+        paddingBottom: bottom,
+        opacity: opacityMobile,
+        height: windowHeight,
+      }}
     >
       <div className="col svgSizeFull">
         <motion.svg

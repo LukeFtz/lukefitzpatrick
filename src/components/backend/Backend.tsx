@@ -14,6 +14,7 @@ import {
 } from "framer-motion";
 import { backendContent } from "@/utilitities/datatypes";
 import { getDataBackend } from "@/utilitities/data/getData";
+import Engine from "./Engine";
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
   weight: "200",
@@ -101,6 +102,10 @@ const Backend: React.FC = () => {
             </motion.h2>
           </div>
         </div>
+      </div>
+
+      <div>
+        <Engine />
       </div>
 
       <div className="row justify-content-center mt-5 mb-5 ">

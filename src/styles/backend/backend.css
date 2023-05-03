@@ -1,0 +1,98 @@
+.graphics_engine .blue_graph_engine {
+  animation: blueAnimation 10s ease infinite;
+}
+.graphics_engine .green_graph_engine {
+  animation: greenAnimation 10s ease infinite;
+}
+
+.fire_engine path {
+  animation: fire 10s ease infinite;
+}
+
+@keyframes blueAnimation {
+  0% {
+    d: path("M1.5 175.5l66-115 64 69.5 72-126L292 175.5 359 42");
+    transition: d 0.18s linear;
+  }
+  25% {
+    d: path("M1.5 175.5l66-115 64 69.5 72-126L292 175.5 359 42");
+    transition: d 0.18s linear;
+  }
+  50% {
+    d: path("M1.5 110.5l66 55 39-94.5 68 69L274 2l86 30");
+    transition: d 0.18s linear;
+  }
+  75% {
+    d: path("M1.5 110.5l66 55 39-94.5 68 69L274 2l86 30");
+    transition: d 0.18s linear;
+  }
+  100% {
+    d: path("M1.5 175.5l66-115 64 69.5 72-126L292 175.5 359 42");
+    transition: d 0.18s linear;
+  }
+}
+
+@keyframes greenAnimation {
+  0% {
+    d: path(
+      "M2 70l74.5 82.5L137 59l40 31.5L233.5 3 298 121l17-18 27 49.5 29-39.5"
+    );
+    transition: d 0.18s linear;
+  }
+  25% {
+    d: path(
+      "M2 70l74.5 82.5L137 59l40 31.5L233.5 3 298 121l17-18 27 49.5 29-39.5"
+    );
+    transition: d 0.18s linear;
+  }
+  50% {
+    d: path(
+      "M1.5 17L28 2l55 59 83-28.5 68.5 87.5L275 61l39 41 29.5 37 26.5-27"
+    );
+    transition: d 0.18s linear;
+  }
+  75% {
+    d: path(
+      "M1.5 17L28 2l55 59 83-28.5 68.5 87.5L275 61l39 41 29.5 37 26.5-27"
+    );
+    transition: d 0.18s linear;
+  }
+  100% {
+    d: path(
+      "M2 70l74.5 82.5L137 59l40 31.5L233.5 3 298 121l17-18 27 49.5 29-39.5"
+    );
+    transition: d 0.18s linear;
+  }
+}
+
+@keyframes fire {
+  0% {
+    opacity: 0;
+    transition: opacity linear;
+  }
+  25% {
+    opacity: 0;
+    transition: opacity linear;
+  }
+
+  35% {
+    opacity: 1;
+    transition: opacity linear;
+  }
+  51% {
+    opacity: 0;
+    transition: opacity linear;
+  }
+  75% {
+    opacity: 0;
+    transition: opacity linear;
+  }
+  85% {
+    opacity: 1;
+    transition: opacity linear;
+  }
+  100% {
+    opacity: 0;
+    transition: opacity 0.18s linear;
+  }
+}
