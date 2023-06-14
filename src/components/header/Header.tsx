@@ -16,6 +16,7 @@ import { isLineStaterd } from "@/store/redures/headerReducer";
 import { useAppSelector } from "@/store/hooks";
 import { animate, motion, useMotionValue, useTransform } from "framer-motion";
 import AnimatedBlackTagMobile from "./Animated_black_tag_mobile";
+import SquaresBackground from "./SquaresBackground";
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
   weight: "200",
@@ -31,12 +32,12 @@ const Header: React.FC = () => {
   const opacity = useTransform(y, [100, 0], [0, 1]);
 
   useEffect(() => {
-    if (startAnimation) {
-      animate(y, 0, {
-        duration: 1,
-      });
-    }
-  }, [startAnimation]);
+    // if (startAnimation) {
+    animate(y, 0, {
+      duration: 1,
+    });
+    // }
+  }, []);
 
   useEffect(() => {
     const dataLang: string | null = localStorage.getItem("language");
@@ -71,7 +72,7 @@ const Header: React.FC = () => {
 
   return (
     <div>
-      <div className="col-12">
+      {/* <div className="col-12">
         <div className="col-12 col-md-5 col-xl-5 position-absolute row justify-content-center align-items-end">
           <div className="col-10 col-md-10 col-xxl-8">
             <ProfileImage />
@@ -98,10 +99,12 @@ const Header: React.FC = () => {
         {data && <TextHeader {...data} />}
 
         <AnimatedBlackTagMobile />
-      </div>
-      <motion.div className="mt-3 mb-5 text-center" style={{ y, opacity }}>
+      </div> */}
+
+      <div>{data && <SquaresBackground {...data} />}</div>
+      <motion.div className="mb-5 text-center" style={{ y, opacity }}>
         <div className={plus_jakarta_sans.className}>{data?.language}</div>
-        <div className="display-5 fs-2">
+        <div className="display-5 fs-2 mt-3">
           <button
             id="id_btn_pt"
             className="btn btn-success rounded-pill btnSize me-1"
