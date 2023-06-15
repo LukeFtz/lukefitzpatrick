@@ -102,7 +102,7 @@ const Header: React.FC = () => {
       </div> */}
 
       <div>{data && <SquaresBackground {...data} />}</div>
-      <motion.div className="mb-5 text-center" style={{ y, opacity }}>
+      <motion.div className="mt-5 pt-5 text-center" style={{ y, opacity }}>
         <div className={plus_jakarta_sans.className}>{data?.language}</div>
         <div className="display-5 fs-2 mt-3">
           <button
