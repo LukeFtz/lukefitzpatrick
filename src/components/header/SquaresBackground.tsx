@@ -14,23 +14,33 @@ const plus_jakarta_sans = Plus_Jakarta_Sans({
 const SquaresBackground: React.FC<headerContent> = ({
   title,
 }: headerContent) => {
-  const xThirdTop = useMotionValue(0);
-  const yThirdTop = useMotionValue(0);
+  const xThirdTop = useMotionValue(30);
+  const yThirdTop = useMotionValue(30);
+  const oThirdTop = useMotionValue(0);
 
-  const xThirdBottom = useMotionValue(0);
-  const yThirdBottom = useMotionValue(0);
+  const xThirdBottom = useMotionValue(30);
+  const yThirdBottom = useMotionValue(-30);
+  const oThirdBottom = useMotionValue(0);
 
-  const xThirdRightTop = useMotionValue(0);
-  const yThirdRightTop = useMotionValue(0);
+  const xThirdRightTop = useMotionValue(-30);
+  const yThirdRightTop = useMotionValue(30);
+  const oThirdRightTop = useMotionValue(0);
 
-  const xThirdRightBottom = useMotionValue(0);
-  const yThirdRightBottom = useMotionValue(0);
+  const xThirdRightBottom = useMotionValue(-30);
+  const yThirdRightBottom = useMotionValue(-30);
+  const oThirdRightBottom = useMotionValue(0);
 
-  const xLeft = useMotionValue(0);
+  const xLeft = useMotionValue(20);
   const yLeft = useMotionValue(0);
+  const oLeft = useMotionValue(0);
 
-  const xRight = useMotionValue(0);
+  const xRight = useMotionValue(-20);
   const yRight = useMotionValue(0);
+  const oRight = useMotionValue(0);
+
+  const oMain = useMotionValue(0);
+
+  let releaseAnimation = false;
 
   let elemRectThirdSquareLeftTop: HTMLElement | null;
   let rectThirdSquareLeftTop: DOMRect;
@@ -95,7 +105,7 @@ const SquaresBackground: React.FC<headerContent> = ({
   }, []);
 
   const getMousePosition = (e: PointerEvent<HTMLDivElement>) => {
-    if (e.movementX !== 0) {
+    if (releaseAnimation) {
       const xThirdSquareTop = e.clientX <= rectThirdSquareLeftTop.x;
       const yThirdSquareTop = e.clientY <= rectThirdSquareLeftTop.y;
 
@@ -289,16 +299,81 @@ const SquaresBackground: React.FC<headerContent> = ({
         yRight.set(moveToDo);
       }
     }
-
-    // } else {
-    //   //   xThirdTop.set(0);
-    //   //   yThirdTop.set(0);
-    // }
   };
 
-  //   const checkForMouseStop = (e: PointerEvent<HTMLDivElement>) => {
-  //     console.log("mouse: " + e.movementX);
-  //   };
+  const animateThirds = () => {
+    animate(oThirdTop, 1, {
+      duration: 0.5,
+    });
+    animate(xThirdTop, 0, {
+      duration: 0.5,
+    });
+    animate(yThirdTop, 0, {
+      duration: 0.5,
+    });
+
+    animate(oThirdBottom, 1, {
+      duration: 0.5,
+    });
+    animate(xThirdBottom, 0, {
+      duration: 0.5,
+    });
+    animate(yThirdBottom, 0, {
+      duration: 0.5,
+    });
+
+    animate(oThirdRightTop, 1, {
+      duration: 0.5,
+    });
+    animate(xThirdRightTop, 0, {
+      duration: 0.5,
+    });
+    animate(yThirdRightTop, 0, {
+      duration: 0.5,
+    });
+
+    animate(oThirdRightBottom, 1, {
+      duration: 0.5,
+      onComplete: () => (releaseAnimation = true),
+    });
+    animate(xThirdRightBottom, 0, {
+      duration: 0.5,
+    });
+    animate(yThirdRightBottom, 0, {
+      duration: 0.5,
+    });
+  };
+
+  const animateSeconds = () => {
+    animate(oLeft, 1, {
+      duration: 0.5,
+    });
+
+    animate(oRight, 1, {
+      duration: 0.5,
+      onComplete: animateThirds,
+    });
+
+    animate(xLeft, 0, {
+      duration: 0.5,
+    });
+
+    animate(xRight, 0, {
+      duration: 0.5,
+    });
+  };
+
+  const animateMain = () => {
+    animate(oMain, 1, {
+      duration: 0.5,
+      bounce: 0.25,
+      onComplete: animateSeconds,
+    });
+  };
+
+  useEffect(() => {
+    animateMain();
+  }, []);
 
   return (
     <div className="">
@@ -312,17 +387,32 @@ const SquaresBackground: React.FC<headerContent> = ({
         >
           <motion.div
             id="id_thirdSquareLeftTop"
-            style={{ x: xThirdTop, y: yThirdTop, rotateZ: "45deg" }}
+            style={{
+              x: xThirdTop,
+              y: yThirdTop,
+              rotateZ: "45deg",
+              opacity: oThirdTop,
+            }}
             className={`${styles.thirdSquareLeftTop} position-absolute`}
           />
           <motion.div
             id="id_thirdSquareLeftBottom"
-            style={{ x: xThirdBottom, y: yThirdBottom, rotateZ: "45deg" }}
+            style={{
+              x: xThirdBottom,
+              y: yThirdBottom,
+              rotateZ: "45deg",
+              opacity: oThirdBottom,
+            }}
             className={`${styles.thirdSquareLeftBottom} position-absolute`}
           />
           <motion.div
             id="id_thirdSquareRightTop"
-            style={{ x: xThirdRightTop, y: yThirdRightTop, rotateZ: "45deg" }}
+            style={{
+              x: xThirdRightTop,
+              y: yThirdRightTop,
+              rotateZ: "45deg",
+              opacity: oThirdRightTop,
+            }}
             className={`${styles.thirdSquareRightTop} position-absolute`}
           />
           <motion.div
@@ -331,26 +421,30 @@ const SquaresBackground: React.FC<headerContent> = ({
               x: xThirdRightBottom,
               y: yThirdRightBottom,
               rotateZ: "45deg",
+              opacity: oThirdRightBottom,
             }}
             className={`${styles.thirdSquareRightBottom} position-absolute`}
           />
           <motion.div
             id="id_leftSquare"
-            style={{ x: xLeft, y: yLeft, rotateZ: "45deg" }}
+            style={{ x: xLeft, y: yLeft, rotateZ: "45deg", opacity: oLeft }}
             className={`${styles.secondSquareLeft} position-absolute`}
           />
           <motion.div
             id="id_rightSquare"
-            style={{ x: xRight, y: yRight, rotateZ: "45deg" }}
+            style={{ x: xRight, y: yRight, rotateZ: "45deg", opacity: oRight }}
             className={`${styles.secondSquareRight} position-absolute`}
           />
-          <div className={`${styles.mainSquare} row justify-content-center`}>
+          <motion.div
+            style={{ opacity: oMain }}
+            className={`${styles.mainSquare} row justify-content-center`}
+          >
             <Image
               src={picture}
               alt="Photo Luke"
               className={`${styles.profileimage}`}
             />
-          </div>
+          </motion.div>
         </div>
         <div>
           <h1

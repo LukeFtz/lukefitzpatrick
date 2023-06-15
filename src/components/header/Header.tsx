@@ -17,6 +17,7 @@ import { useAppSelector } from "@/store/hooks";
 import { animate, motion, useMotionValue, useTransform } from "framer-motion";
 import AnimatedBlackTagMobile from "./Animated_black_tag_mobile";
 import SquaresBackground from "./SquaresBackground";
+import SquaresBackgroundMobile from "./SquaresBackgroundMobile";
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
   weight: "200",
@@ -72,36 +73,13 @@ const Header: React.FC = () => {
 
   return (
     <div>
-      {/* <div className="col-12">
-        <div className="col-12 col-md-5 col-xl-5 position-absolute row justify-content-center align-items-end">
-          <div className="col-10 col-md-10 col-xxl-8">
-            <ProfileImage />
-          </div>
-        </div>
-        <div className="showElementOnMob">
-          <div className="row justify-content-end squaresHeight">
-            <div className="col-12 col-md-8">
-              <AnimatedSquaresMobile />
-            </div>
-          </div>
-        </div>
-        <div className="row justify-content-end hiddeElementOnMob squaresHeight">
-          <div className="col-12 col-md-8">
-            <AnimatedSquares />
-          </div>
-        </div>
+      <div className="d-none d-md-block">
+        {data && <SquaresBackground {...data} />}
       </div>
-      <div className="blackTagHeader d-none d-md-block">
-        {data && <TextHeader {...data} />}
-        <BlackTagHeader />
+      <div className="d-block d-md-none">
+        {data && <SquaresBackgroundMobile {...data} />}
       </div>
-      <div className="blackTagHeader d-block d-md-none">
-        {data && <TextHeader {...data} />}
-
-        <AnimatedBlackTagMobile />
-      </div> */}
-
-      <div>{data && <SquaresBackground {...data} />}</div>
+      <div className="d-block d-md-none pt-3 mt-3" />
       <motion.div className="mt-5 pt-5 text-center" style={{ y, opacity }}>
         <div className={plus_jakarta_sans.className}>{data?.language}</div>
         <div className="display-5 fs-2 mt-3">
