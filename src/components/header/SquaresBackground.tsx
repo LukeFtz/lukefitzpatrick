@@ -26,6 +26,12 @@ const SquaresBackground: React.FC<headerContent> = ({
   const xThirdRightBottom = useMotionValue(0);
   const yThirdRightBottom = useMotionValue(0);
 
+  const xLeft = useMotionValue(0);
+  const yLeft = useMotionValue(0);
+
+  const xRight = useMotionValue(0);
+  const yRight = useMotionValue(0);
+
   let elemRectThirdSquareLeftTop: HTMLElement | null;
   let rectThirdSquareLeftTop: DOMRect;
 
@@ -37,6 +43,12 @@ const SquaresBackground: React.FC<headerContent> = ({
 
   let elemRectThirdSquareRightBottom: HTMLElement | null;
   let rectThirdSquareRightBottom: DOMRect;
+
+  let elemRectLeft: HTMLElement | null;
+  let rectLeft: DOMRect;
+
+  let elemRectRight: HTMLElement | null;
+  let rectRight: DOMRect;
 
   useEffect(() => {
     elemRectThirdSquareLeftTop = document.getElementById(
@@ -70,6 +82,16 @@ const SquaresBackground: React.FC<headerContent> = ({
       rectThirdSquareRightBottom =
         elemRectThirdSquareRightBottom.getBoundingClientRect();
     }
+
+    elemRectLeft = document.getElementById("id_leftSquare");
+    if (elemRectLeft) {
+      rectLeft = elemRectLeft.getBoundingClientRect();
+    }
+
+    elemRectRight = document.getElementById("id_leftSquare");
+    if (elemRectRight) {
+      rectRight = elemRectRight.getBoundingClientRect();
+    }
   }, []);
 
   const getMousePosition = (e: PointerEvent<HTMLDivElement>) => {
@@ -85,6 +107,12 @@ const SquaresBackground: React.FC<headerContent> = ({
 
       const xThirdSquareRightBottom = e.clientX <= rectThirdSquareRightBottom.x;
       const yThirdSquareRightBottom = e.clientY <= rectThirdSquareRightBottom.y;
+
+      const xLeftSquare = e.clientX <= rectLeft.x;
+      const yLeftSquare = e.clientY <= rectLeft.y;
+
+      const xRightSquare = e.clientX <= rectRight.x;
+      const yRightSquare = e.clientY <= rectRight.y;
 
       // *************************** left TOP *****************************
       if (xThirdSquareTop) {
@@ -102,7 +130,7 @@ const SquaresBackground: React.FC<headerContent> = ({
       }
       if (yThirdSquareTop) {
         const moveToDo =
-          -Math.abs(-rectThirdSquareLeftTop.y + e.clientY) * 0.05 > -50
+          -Math.abs(-rectThirdSquareLeftTop.y + e.clientY) * 0.25 > -50
             ? -Math.abs(-rectThirdSquareLeftTop.y + e.clientY) * 0.05
             : -50;
         yThirdTop.set(moveToDo);
@@ -161,7 +189,7 @@ const SquaresBackground: React.FC<headerContent> = ({
 
       if (yThirdSquareRightTop) {
         const moveToDo =
-          -Math.abs(-rectThirdSquareRightTop.y + e.clientY) * 0.05 > -50
+          -Math.abs(-rectThirdSquareRightTop.y + e.clientY) * 0.25 > -50
             ? -Math.abs(-rectThirdSquareRightTop.y + e.clientY) * 0.05
             : -50;
         yThirdRightTop.set(moveToDo);
@@ -200,6 +228,65 @@ const SquaresBackground: React.FC<headerContent> = ({
             ? Math.abs(-rectThirdSquareRightBottom.y + e.clientY) * 0.05
             : 50;
         yThirdRightBottom.set(moveToDo);
+      }
+
+      // *************************** left *****************************
+
+      if (xLeftSquare) {
+        const moveToDo =
+          -Math.abs(-rectLeft.x + e.clientX) * 0.05 > -30
+            ? -Math.abs(-rectLeft.x + e.clientX) * 0.05
+            : -30;
+        xLeft.set(moveToDo);
+      } else {
+        const moveToDo =
+          Math.abs(e.clientX - rectLeft.x) * 0.05 <= 10
+            ? Math.abs(-rectLeft.x + e.clientX) * 0.05
+            : 10;
+        xLeft.set(moveToDo);
+      }
+
+      if (yLeftSquare) {
+        const moveToDo =
+          -Math.abs(-rectLeft.y + e.clientY) * 0.25 > -45
+            ? -Math.abs(-rectLeft.y + e.clientY) * 0.15
+            : -45;
+        yLeft.set(moveToDo);
+      } else {
+        const moveToDo =
+          Math.abs(e.clientY - rectLeft.y) * 0.05 <= 45
+            ? Math.abs(-rectLeft.y + e.clientY) * 0.05
+            : 45;
+        yLeft.set(moveToDo);
+      }
+      // *************************** right *****************************
+
+      if (xRightSquare) {
+        const moveToDo =
+          -Math.abs(-rectRight.x + e.clientX) * 0.05 > -10
+            ? -Math.abs(-rectRight.x + e.clientX) * 0.05
+            : -10;
+        xRight.set(moveToDo);
+      } else {
+        const moveToDo =
+          Math.abs(e.clientX - rectRight.x) * 0.05 <= 30
+            ? Math.abs(-rectRight.x + e.clientX) * 0.05
+            : 30;
+        xRight.set(moveToDo);
+      }
+
+      if (yRightSquare) {
+        const moveToDo =
+          -Math.abs(-rectRight.y + e.clientY) * 0.25 > -45
+            ? -Math.abs(-rectRight.y + e.clientY) * 0.15
+            : -45;
+        yRight.set(moveToDo);
+      } else {
+        const moveToDo =
+          Math.abs(e.clientY - rectRight.y) * 0.05 <= 45
+            ? Math.abs(-rectRight.y + e.clientY) * 0.05
+            : 45;
+        yRight.set(moveToDo);
       }
     }
 
@@ -247,8 +334,16 @@ const SquaresBackground: React.FC<headerContent> = ({
             }}
             className={`${styles.thirdSquareRightBottom} position-absolute`}
           />
-          <div className={`${styles.secondSquareLeft} position-absolute`} />
-          <div className={`${styles.secondSquareRight} position-absolute`} />
+          <motion.div
+            id="id_leftSquare"
+            style={{ x: xLeft, y: yLeft, rotateZ: "45deg" }}
+            className={`${styles.secondSquareLeft} position-absolute`}
+          />
+          <motion.div
+            id="id_rightSquare"
+            style={{ x: xRight, y: yRight, rotateZ: "45deg" }}
+            className={`${styles.secondSquareRight} position-absolute`}
+          />
           <div className={`${styles.mainSquare} row justify-content-center`}>
             <Image
               src={picture}
