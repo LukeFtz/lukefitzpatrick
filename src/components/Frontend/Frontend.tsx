@@ -1,4 +1,3 @@
-import { Plus_Jakarta_Sans } from "@next/font/google";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import redux from "../../../public/media/frontend/redux.svg";
@@ -27,11 +26,8 @@ import {
 import { frontendContent } from "@/utilitities/datatypes";
 import { getDataFrontend } from "@/utilitities/data/getData";
 import Desktop from "./Desktop";
+import { plus_jakarta_sans_semibold as plus_jakarta_sans } from "@/utilitities/fonts";
 
-const plus_jakarta_sans = Plus_Jakarta_Sans({
-  weight: ["200", "600"],
-  subsets: ["latin"],
-});
 
 let scrollPrev = 0;
 

@@ -1,4 +1,3 @@
-import { Plus_Jakarta_Sans } from "@next/font/google";
 import React, { useEffect, useState } from "react";
 import { getViewportSize } from "@/utilitities/functions";
 import {
@@ -25,13 +24,10 @@ import { mobileDevice } from "@/utilitities/types";
 import Cloud from "./cloud";
 import { othersContent } from "@/utilitities/datatypes";
 import { getDataOthers } from "@/utilitities/data/getData";
+import { plus_jakarta_sans } from "@/utilitities/fonts";
 
 // import { Container } from './styles';
 
-const plus_jakarta_sans = Plus_Jakarta_Sans({
-  weight: "200",
-  subsets: ["latin"],
-});
 
 const DELAY = 3;
 

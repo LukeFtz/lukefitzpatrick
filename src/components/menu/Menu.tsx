@@ -1,14 +1,10 @@
 import { getDataMenu } from "@/utilitities/data/getData";
 import { menuContent } from "@/utilitities/datatypes";
-import { Plus_Jakarta_Sans } from "@next/font/google";
 import React, { useEffect, useState } from "react";
 import MenuIcon from "./MenuIcon";
+import { plus_jakarta_sans } from "@/utilitities/fonts";
 
 // import { Container } from './styles';
-const plus_jakarta_sans = Plus_Jakarta_Sans({
-  weight: "200",
-  subsets: ["latin"],
-});
 const Menu: React.FC = () => {
   const [data, setData] = useState<menuContent | null>(null);
 

@@ -3,7 +3,6 @@ import AnimatedSquares from "./AnimatedSquares";
 import AnimatedSquaresMobile from "./AnimatedSquaresMobile";
 import BlackTagHeader from "./animated_black_tag";
 import Image from "next/image";
-import { Staatliches, Plus_Jakarta_Sans, Alegreya } from "@next/font/google";
 import { getDataHeader } from "@/utilitities/data/getData";
 import { headerContent } from "@/utilitities/datatypes";
 import TextHeader from "./TextHeader";
@@ -17,11 +16,8 @@ import { animate, motion, useMotionValue, useTransform } from "framer-motion";
 import AnimatedBlackTagMobile from "./Animated_black_tag_mobile";
 import SquaresBackground from "./SquaresBackground";
 import SquaresBackgroundMobile from "./SquaresBackgroundMobile";
+import { plus_jakarta_sans } from "@/utilitities/fonts";
 
-const plus_jakarta_sans = Plus_Jakarta_Sans({
-  weight: "200",
-  subsets: ["latin"],
-});
 
 const langButton =
   "inline-block rounded-full border px-3 py-1.5 text-base font-normal leading-normal text-white transition-colors btnSize";

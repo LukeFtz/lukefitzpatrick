@@ -6,13 +6,11 @@ import {
   useInView,
   useReducedMotion,
 } from "framer-motion";
-import { JetBrains_Mono, Orbitron } from "@next/font/google";
 import { getDataPortfolio } from "@/utilitities/data/getData";
 import { portfolioCategory, portfolioContent } from "@/utilitities/datatypes";
 import ProjectCard from "./ProjectCard";
+import { orbitron, jetbrains_mono } from "@/utilitities/fonts";
 
-const orbitron = Orbitron({ weight: ["500", "700"], subsets: ["latin"] });
-const jetbrains_mono = JetBrains_Mono({ weight: "400", subsets: ["latin"] });
 
 type Filter = portfolioCategory | "all";
 

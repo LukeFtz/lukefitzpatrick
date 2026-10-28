@@ -12,14 +12,10 @@ import {
   positionY,
   scalePrototype,
 } from "@/store/redures/backgroundLineReducer";
-import { Plus_Jakarta_Sans } from "@next/font/google";
 import { pageScrollLine } from "@/utilitities/types";
 import { defineAreaValue } from "@/utilitities/functions";
+import { plus_jakarta_sans } from "@/utilitities/fonts";
 
-const plus_jakarta_sans = Plus_Jakarta_Sans({
-  weight: "200",
-  subsets: ["latin"],
-});
 
 let width = 0;
 let height = 0;

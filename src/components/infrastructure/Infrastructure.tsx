@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { JetBrains_Mono, Orbitron } from "@next/font/google";
 import {
   SimpleIcon,
   siAmazonwebservices,
@@ -13,9 +12,8 @@ import {
 } from "simple-icons";
 import { getDataInfra } from "@/utilitities/data/getData";
 import { infraContent, infraTool } from "@/utilitities/datatypes";
+import { orbitron, jetbrains_mono } from "@/utilitities/fonts";
 
-const orbitron = Orbitron({ weight: ["500", "700"], subsets: ["latin"] });
-const jetbrains_mono = JetBrains_Mono({ weight: "400", subsets: ["latin"] });
 
 interface Tool {
   id: infraTool;

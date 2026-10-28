@@ -2,14 +2,10 @@ import Image from "next/image";
 import React, { useEffect, PointerEvent } from "react";
 import picture from "../../../public/media/geral/my_picture.png";
 import styles from "@/styles/header/header.module.css";
-import { Plus_Jakarta_Sans } from "@next/font/google";
 import { headerContent } from "@/utilitities/datatypes";
 import { animate, motion, useMotionValue, useVelocity } from "framer-motion";
+import { plus_jakarta_sans } from "@/utilitities/fonts";
 
-const plus_jakarta_sans = Plus_Jakarta_Sans({
-  weight: "200",
-  subsets: ["latin"],
-});
 
 const SquaresBackgroundMobile: React.FC<headerContent> = ({
   title,

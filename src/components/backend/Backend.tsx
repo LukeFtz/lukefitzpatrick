@@ -1,4 +1,3 @@
-import { Plus_Jakarta_Sans } from "@next/font/google";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import django from "../../../public/media/backend/django.svg";
@@ -15,11 +14,8 @@ import {
 import { backendContent } from "@/utilitities/datatypes";
 import { getDataBackend } from "@/utilitities/data/getData";
 import Engine from "./Engine";
+import { plus_jakarta_sans_semibold as plus_jakarta_sans } from "@/utilitities/fonts";
 
-const plus_jakarta_sans = Plus_Jakarta_Sans({
-  weight: ["200", "600"],
-  subsets: ["latin"],
-});
 
 const Backend: React.FC = () => {
   const xBackend = useMotionValue<number>(-500);

@@ -1,4 +1,3 @@
-import { Plus_Jakarta_Sans } from "@next/font/google";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import devices from "../../../public/media/prototype/devices.svg";
@@ -16,11 +15,8 @@ import {
 import { prototypeContent } from "@/utilitities/datatypes";
 import { getDataPrototype } from "@/utilitities/data/getData";
 import Devices from "./Devices";
+import { plus_jakarta_sans } from "@/utilitities/fonts";
 
-const plus_jakarta_sans = Plus_Jakarta_Sans({
-  weight: "200",
-  subsets: ["latin"],
-});
 
 const Prototype: React.FC = () => {
   const xPrototype = useMotionValue<number>(-500);

@@ -8,16 +8,12 @@ import {
   useTransform,
 } from "framer-motion";
 import { getElementPosition, getViewportSize } from "@/utilitities/functions";
-import { M_PLUS_1, Plus_Jakarta_Sans } from "@next/font/google";
 import { menuContent } from "@/utilitities/datatypes";
 import { setTopPosition } from "@/store/redures/backgroundLineReducer";
 import { useAppDispatch } from "@/store/hooks";
 import Link from "next/link";
+import { plus_jakarta_sans } from "@/utilitities/fonts";
 
-const plus_jakarta_sans = Plus_Jakarta_Sans({
-  weight: "200",
-  subsets: ["latin"],
-});
 
 let svgLeft: number;
 

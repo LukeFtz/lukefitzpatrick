@@ -1,17 +1,12 @@
 import React, { useEffect } from "react";
-import { Staatliches, Plus_Jakarta_Sans, Alegreya } from "@next/font/google";
 import { headerContent } from "@/utilitities/datatypes";
 import { animate, motion, useMotionValue, useTransform } from "framer-motion";
 import { useAppSelector } from "@/store/hooks";
 import { isLineStaterd } from "@/store/redures/headerReducer";
 import { getElementPosition, getViewportSize } from "@/utilitities/functions";
+import { staatliches, plus_jakarta_sans } from "@/utilitities/fonts";
 
 // import { Container } from './styles';
-const staatliches = Staatliches({ weight: "400", subsets: ["latin"] });
-const plus_jakarta_sans = Plus_Jakarta_Sans({
-  weight: "200",
-  subsets: ["latin"],
-});
 
 const TextHeader: React.FC<headerContent> = ({
   about,
