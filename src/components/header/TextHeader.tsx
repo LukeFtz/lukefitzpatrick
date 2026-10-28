@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { Staatliches, Plus_Jakarta_Sans, Alegreya } from "@next/font/google";
-import $ from "jquery";
 import { headerContent } from "@/utilitities/datatypes";
 import { animate, motion, useMotionValue, useTransform } from "framer-motion";
 import { useAppSelector } from "@/store/hooks";
 import { isLineStaterd } from "@/store/redures/headerReducer";
+import { getElementPosition, getViewportSize } from "@/utilitities/functions";
 
 // import { Container } from './styles';
 const staatliches = Staatliches({ weight: "400", subsets: ["latin"] });
@@ -20,6 +20,9 @@ const TextHeader: React.FC<headerContent> = ({
   const startAnimation = useAppSelector(isLineStaterd);
   const x = useMotionValue(200);
   const opacity = useTransform(x, [200, 0], [0, 1]);
+  const left = useMotionValue<number | undefined>(undefined);
+  const width = useMotionValue<number | undefined>(undefined);
+  const height = useMotionValue<number | undefined>(undefined);
 
   useEffect(() => {
     if (startAnimation) {
@@ -30,58 +33,69 @@ const TextHeader: React.FC<headerContent> = ({
   }, [startAnimation]);
 
   useEffect(() => {
-    const width = $(window).width();
+    const viewportWidth = getViewportSize().width;
 
-    if (width) {
-      if (width > 768) {
-        const p = $("#id_main_black_tag");
-        const contentDiv = $("#id_black_tag_content");
+    if (viewportWidth) {
+      if (viewportWidth > 768) {
         const path = document.getElementById("id_main_black_tag");
-        contentDiv.css("left", p.position().left);
+        left.set(getElementPosition("id_main_black_tag").left);
         if (path) {
-          contentDiv.width(path.getBoundingClientRect().width * 0.98);
-          contentDiv.height(path.getBoundingClientRect().height * 0.8);
+          width.set(path.getBoundingClientRect().width * 0.98);
+          height.set(path.getBoundingClientRect().height * 0.8);
         }
       }
     }
   }, []);
   return (
-    <div
+    <motion.div
       id="id_black_tag_content"
-      className="position-absolute text-light text-center maxWidth overflow-x-hidden backgroundBlack"
+      style={{ left, width, height }}
+      className="absolute text-light text-center maxWidth overflow-x-hidden backgroundBlack"
     >
       <motion.div
-        className="row justify-content-center d-flex align-content-around flex-wrap h-100"
+        className="flex flex-wrap -mx-3 justify-center content-around h-full"
         style={{ x, opacity }}
       >
-        <div className="d-none d-md-block">
+        <div className="shrink-0 max-w-full px-3 w-full hidden md:block">
           <div>
-            <h1 className={`col-12 ${staatliches.className} display-5`}>
+            <h1
+              className={`shrink-0 w-full ${staatliches.className} text-display-5 font-light leading-tight`}
+            >
               LUKE GERALD PEREIRA FITZPATRICK
             </h1>
-            <div className={`col-12 ${plus_jakarta_sans.className} fs-3 mt-3`}>
+            <div
+              className={`shrink-0 w-full ${plus_jakarta_sans.className} text-h3 mt-4`}
+            >
               {title}
             </div>
           </div>
-          <div className={`col-12 ${plus_jakarta_sans.className} ps-5 pe-5`}>
+          <div
+            className={`shrink-0 w-full ${plus_jakarta_sans.className} pl-12 pr-12`}
+          >
             {about}
           </div>
         </div>
-        <div className="d-block d-md-none">
+        <div className="shrink-0 max-w-full px-3 w-full block md:hidden">
           <div>
-            <h1 className={`col-12 ${staatliches.className} display-5`}>
+            <h1
+              className={`shrink-0 w-full ${staatliches.className} text-display-5 font-light leading-tight`}
+            >
               LUKE GERALD PEREIRA FITZPATRICK
             </h1>
-            <div className={`col-12 ${plus_jakarta_sans.className} fs-2 mt-3`}>
+            <div
+              className={`shrink-0 w-full ${plus_jakarta_sans.className} text-h2 mt-4`}
+            >
               {title}
             </div>
           </div>
-          <div className={`col-12 ${plus_jakarta_sans.className} pt-5 pb-5`}>
+          <div
+            className={`shrink-0 w-full ${plus_jakarta_sans.className} pt-12 pb-12`}
+          >
             {about}
           </div>
         </div>
       </motion.div>
-    </div>
+    </motion.div>
   );
 };
 

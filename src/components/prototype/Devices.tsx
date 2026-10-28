@@ -9,7 +9,7 @@ import {
 } from "framer-motion";
 // import { Container } from './styles';
 
-const Devices: React.FC = () => {
+const Devices: React.FC<{ className?: string }> = ({ className }) => {
   const scrollRef = useRef(null);
   const isInView = useInView(scrollRef);
 
@@ -81,6 +81,7 @@ const Devices: React.FC = () => {
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       ref={scrollRef}
+      className={className}
     >
       <motion.g
         id="id_final_device"

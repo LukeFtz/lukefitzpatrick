@@ -54,8 +54,8 @@ const Desktop: React.FC = () => {
 
   return (
     <div className="container">
-      <div className="row justify-content-center">
-        <div className="col-12 col-md-6" ref={scrollRef}>
+      <div className="flex flex-wrap -mx-3 justify-center">
+        <div className="shrink-0 max-w-full px-3 w-full md:w-1/2" ref={scrollRef}>
           <motion.svg
             viewBox="0 0 625 840"
             fill="none"

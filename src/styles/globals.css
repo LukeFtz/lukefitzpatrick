@@ -1,3 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+      "Noto Sans", "Liberation Sans", Arial, sans-serif;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+  h1 { @apply text-h1; }
+  h2 { @apply text-h2; }
+  h3 { @apply text-h3; }
+  h4 { @apply text-h4; }
+  h5 { @apply text-h5; }
+  h6 { @apply text-h6; }
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  img,
+  svg,
+  video,
+  canvas {
+    display: inline;
+    vertical-align: middle;
+    max-width: none;
+  }
+}
+
 html,
 body {
   width: 100vw;

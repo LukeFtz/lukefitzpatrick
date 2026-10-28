@@ -9,7 +9,9 @@ import Prototype from "@/components/prototype/Prototype";
 import Frontend from "@/components/Frontend/Frontend";
 import Backend from "@/components/backend/Backend";
 import Iot from "@/components/iot/Iot";
-import Others from "@/components/others/Others";
+import Infrastructure from "@/components/infrastructure/Infrastructure";
+import SectionCard from "@/components/sectionCard/SectionCard";
+import Portfolio from "@/components/portfolio/Portfolio";
 
 export default function Home() {
   return (
@@ -25,26 +27,30 @@ export default function Home() {
           <Header />
         </div>
 
-        <div>
+        <Portfolio />
+
+        <div className="pt-16">
           <Menu />
         </div>
-        <div className="position-relative">
-          <Prototype />
-        </div>
-        <div>
+        <div className="bg-slate-50 bg-[radial-gradient(#cbd5e1_1px,transparent_1px)] bg-[length:24px_24px] py-8">
+          <div className="relative">
+            <SectionCard accent="rose">
+              <Prototype />
+            </SectionCard>
+          </div>
           <div id="id_aux_top_frontend">&nbsp;</div>
-          <Frontend />
-        </div>
-        <div className="mt-5">
-          <Backend />
-        </div>
-        <div>
+          <SectionCard accent="emerald">
+            <Frontend />
+          </SectionCard>
+          <SectionCard accent="sky">
+            <Backend />
+          </SectionCard>
           <div id="id_aux_top_iot">&nbsp;</div>
-          <Iot />
+          <SectionCard accent="violet">
+            <Iot />
+          </SectionCard>
         </div>
-        <div>
-          <Others />
-        </div>
+        <Infrastructure />
       </main>
     </>
   );

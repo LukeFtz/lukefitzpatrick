@@ -4,7 +4,7 @@ import React from "react";
 
 const AnimatedBlackTagMobile: React.FC = () => {
   return (
-    <div id="id_back_tag_mobile" className=" backgroundHeaderDiv">
+    <div id="id_back_tag_mobile" className="backgroundHeaderDiv">
       &nbsp;
     </div>
   );

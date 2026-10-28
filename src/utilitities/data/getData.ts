@@ -1,16 +1,18 @@
 import {
   backendDataEN,
   backendDataPT,
-  footerDataEN,
-  footerDataPT,
   frontendDataEN,
   frontendDataPT,
   headerDataEN,
   headerDataPT,
+  infraDataEN,
+  infraDataPT,
   menuDataEN,
   menuDataPT,
   othersDataEN,
   othersDataPT,
+  portfolioDataEN,
+  portfolioDataPT,
   prototypeDataEN,
   prototypeDataPT,
 } from "./dataContent";
@@ -63,10 +65,18 @@ export const getDataOthers = (lang: "en" | "pt") => {
   }
 };
 
-export const getDataFooter = (lang: "en" | "pt") => {
+export const getDataPortfolio = (lang: "en" | "pt") => {
   if (lang === "en") {
-    return footerDataEN;
+    return portfolioDataEN;
   } else {
-    return footerDataPT;
+    return portfolioDataPT;
+  }
+};
+
+export const getDataInfra = (lang: "en" | "pt") => {
+  if (lang === "en") {
+    return infraDataEN;
+  } else {
+    return infraDataPT;
   }
 };

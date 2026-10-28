@@ -26,13 +26,13 @@ const Menu: React.FC = () => {
 
   return (
     <div className="text-center">
-      <h2 id="id_title_menu" className={`${plus_jakarta_sans.className} mb-5`}>
+      <h2 id="id_title_menu" className={`${plus_jakarta_sans.className} mb-12`}>
         {data?.title}
       </h2>
-      <div className="row justify-content-center align-items-end pt-5 ">
-        <div className="col-12 col-md-8 col-xl-7">
-          {data && <MenuIcon {...data} />}
-        </div>
+      <div className="flex flex-wrap justify-center items-end pt-12 ">
+
+        {data && <MenuIcon {...data} />}
+
       </div>
     </div>
   );

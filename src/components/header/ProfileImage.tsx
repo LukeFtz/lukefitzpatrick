@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { isLineStaterd } from "@/store/redures/headerReducer";
 import { useAppSelector } from "@/store/hooks";
 import { animate, motion, useMotionValue, useTransform } from "framer-motion";
-import $ from "jquery";
+import { getElementHeight, getElementPosition } from "@/utilitities/functions";
 
 // import { Container } from './styles';
 
@@ -13,20 +13,20 @@ const ProfileImage: React.FC = () => {
   const startAnimation = useAppSelector(isLineStaterd);
   const x = useMotionValue(-100);
   const opacity = useTransform(x, [-100, 0], [0, 1]);
+  const marginTop = useMotionValue<number | undefined>(undefined);
 
   const defineTop = () => {
-    const bottomLine = $("#id_black_line_path").position().top;
-    const blackTagMobile = $("#id_back_tag_mobile").position().top;
-    const divImgLuke = $("#id_div_img_Luke").height();
-    const defDivImgLuke = $("#id_div_img_Luke");
+    const bottomLine = getElementPosition("id_black_line_path").top;
+    const blackTagMobile = getElementPosition("id_back_tag_mobile").top;
+    const divImgLuke = getElementHeight("id_div_img_Luke");
 
     if (divImgLuke && bottomLine !== 0) {
       const margin = bottomLine - divImgLuke;
-      defDivImgLuke.css({ "margin-top": margin + "px" });
+      marginTop.set(margin);
     } else if (divImgLuke && blackTagMobile) {
       const margin = blackTagMobile - divImgLuke;
       // console.log(margin);
-      defDivImgLuke.css({ "margin-top": margin + "px" });
+      marginTop.set(margin);
     }
     // console.log()
     // const aspectRatio =
@@ -59,10 +59,14 @@ const ProfileImage: React.FC = () => {
   return (
     <motion.div
       id="id_div_img_Luke"
-      style={{ x, opacity }}
+      style={{ x, opacity, marginTop }}
       className="imgPersonDiv"
     >
-      <Image src={picture} alt="Photo Luke" className="img-fluid w-100" />
+      <Image
+        src={picture}
+        alt="Photo Luke"
+        className="max-w-full h-auto w-full"
+      />
     </motion.div>
   );
 };

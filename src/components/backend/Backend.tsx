@@ -17,7 +17,7 @@ import { getDataBackend } from "@/utilitities/data/getData";
 import Engine from "./Engine";
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
-  weight: "200",
+  weight: ["200", "600"],
   subsets: ["latin"],
 });
 
@@ -90,12 +90,12 @@ const Backend: React.FC = () => {
   // }, []);
 
   return (
-    <div id="id_Backend_div" className="container mt-5 pt-5" ref={scrollRef}>
-      <div className="row justify-content-center">
-        <div className="col-12 col-md-11 col-xl-12">
-          <div className="col-12 col-xl-6 overflowXHidden">
+    <div id="id_Backend_div" className="container mt-12 pt-12" ref={scrollRef}>
+      <div className="flex flex-wrap -mx-3 justify-center">
+        <div className="shrink-0 max-w-full px-3 w-full md:w-11/12 xl:w-full">
+          <div className="shrink-0 w-full xl:w-1/2 overflowXHidden">
             <motion.h2
-              className={`${plus_jakarta_sans.className} fs-1 mb-5 `}
+              className={`${plus_jakarta_sans.className} text-h1 mb-12 `}
               style={{ x: xBackend }}
             >
               {data?.title}
@@ -108,71 +108,64 @@ const Backend: React.FC = () => {
         <Engine />
       </div>
 
-      <div className="row justify-content-center mt-5 mb-5 ">
-        <div>
+      <div className="flex flex-wrap -mx-3 justify-center mt-12 mb-12">
+        <div className="shrink-0 max-w-full px-3 w-full">
           <motion.h2
-            className={`${plus_jakarta_sans.className} fs-3 mb-5 text-center`}
+            className={`${plus_jakarta_sans.className} text-h3 mb-12 text-center`}
             style={{ opacity }}
           >
             {data?.firstSubtitle}
           </motion.h2>
         </div>
         <motion.div
-          className="row col-12 col-md-6 mt-5 justify-content-center"
+          className="grid sm:grid-cols-3 mx-3 shrink-0 max-w-full px-3 w-full md:w-1/2 mt-12 gap-x-2 justify-center text-center"
           style={{ x: xBackendDjango, opacity }}
         >
-          <div className="col-12 col-md-7 col-xl-8">
-            <Image
-              src={django}
-              alt="devices icons"
-              className="img-fluid w-100"
-            />
-          </div>
-        </motion.div>
-        <motion.div
-          className="row col-12 col-md-6 mt-5 justify-content-center"
-          style={{ x: xBackendDjangoRest, opacity }}
-        >
-          <div className="col-12 col-md-7 col-xl-8">
-            <Image
-              src={django_rest}
-              alt="devices icons"
-              className="img-fluid w-100"
-            />
-          </div>
+          <p className={`${plus_jakarta_sans.className} text-base font-semibold mb-12 `}>
+            Django REST Framework
+          </p>
+          <p className={`${plus_jakarta_sans.className} text-base font-semibold mb-12 `}>
+            FastAPI
+          </p>
+          <p className={`${plus_jakarta_sans.className} text-base font-semibold mb-12 `}>
+            Flask
+          </p>
         </motion.div>
         {/* <div className="w-100" /> */}
 
         <motion.div
-          className="col-12 row justify-content-center mt-5"
+          className="flex flex-wrap -mx-3 shrink-0 max-w-full px-3 w-full justify-center mt-12"
           style={{ opacity: opacityText }}
         >
-          <div className="col-12 col-md-7 mt-5" ref={scrollTextRef}>
+          <div
+            className="shrink-0 max-w-full px-3 w-full md:w-7/12 mt-12"
+            ref={scrollTextRef}
+          >
             <hr />
           </div>
         </motion.div>
         <motion.div
-          className="mt-5 col-12 col-md-7"
+          className="shrink-0 max-w-full px-3 mt-12 w-full md:w-7/12"
           style={{ y: yItems, opacity: opacityItems }}
         >
           <h2
-            className={`${plus_jakarta_sans.className} fs-3 mb-5 text-center`}
+            className={`${plus_jakarta_sans.className} text-h3 mb-12 text-center`}
           >
             {data?.secondSubtitle}
           </h2>
-          <div className="row pt-5 mt-5 align-items-center justify-content-center">
-            <div className="col-4 row justify-content-center">
-              <div className="col-6 col-md-5 col-xl-6">
+          <div className="flex flex-wrap -mx-3 pt-12 mt-12 items-center justify-center">
+            <div className="flex flex-wrap -mx-3 shrink-0 max-w-full px-3 w-1/3 justify-center">
+              <div className="shrink-0 max-w-full px-3 w-1/2 md:w-5/12 xl:w-1/2">
                 <Java />
               </div>
             </div>
-            <div className="col-4 row justify-content-center">
-              <div className="col-6 col-md-5 col-xl-6">
+            <div className="flex flex-wrap -mx-3 shrink-0 max-w-full px-3 w-1/3 justify-center">
+              <div className="shrink-0 max-w-full px-3 w-1/2 md:w-5/12 xl:w-1/2">
                 <Python />
               </div>
             </div>
-            <div className="col-4 row justify-content-center">
-              <div className="col-5 col-md-4 col-xl-6">
+            <div className="flex flex-wrap -mx-3 shrink-0 max-w-full px-3 w-1/3 justify-center">
+              <div className="shrink-0 max-w-full px-3 w-5/12 md:w-1/3 xl:w-1/2">
                 <C />
               </div>
             </div>

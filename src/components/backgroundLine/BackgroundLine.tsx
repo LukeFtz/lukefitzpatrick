@@ -6,7 +6,7 @@ import {
   useMotionValueEvent,
   useScroll,
 } from "framer-motion";
-import $ from "jquery";
+import { getViewportSize, getElementHeight } from "@/utilitities/functions";
 import { useAppSelector } from "@/store/hooks";
 import {
   positionY,
@@ -414,9 +414,9 @@ const BackgroundLine: React.FC = () => {
     //   textOthers.set(6070);
     // }
 
-    const line = $("#id_prototype_div").height();
-    const lineVerticalLine = $("#id_vertical_prototype_line").height();
-    const curvePrototype = $("#id_curve_top_prototype").height();
+    const line = getElementHeight("id_prototype_div");
+    const lineVerticalLine = getElementHeight("id_vertical_prototype_line");
+    const curvePrototype = getElementHeight("id_curve_top_prototype");
 
     let extraTopPadding = 0;
     if (line && lineVerticalLine && curvePrototype) {
@@ -603,8 +603,8 @@ const BackgroundLine: React.FC = () => {
       // }
     }
 
-    const frontendSize = $("#id_frontend_div").height();
-    const frontendLine = $("#id_frontend_path_vertical").height();
+    const frontendSize = getElementHeight("id_frontend_div");
+    const frontendLine = getElementHeight("id_frontend_path_vertical");
 
     if (frontendSize && frontendLine && line && lineVerticalLine) {
       let scaleY2: number;
@@ -696,8 +696,7 @@ const BackgroundLine: React.FC = () => {
   };
 
   useEffect(() => {
-    const auxWidth = $(window).width();
-    const auxHeight = $(window).height();
+    const { width: auxWidth, height: auxHeight } = getViewportSize();
 
     if (auxWidth && auxHeight) {
       width = auxWidth;
@@ -727,7 +726,7 @@ const BackgroundLine: React.FC = () => {
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="none"
         style={{ y }}
-        className=" mt-5 pt-3"
+        className="mt-12 pt-4"
       >
         {/* <motion.path
           d="M 296.5,5.0000217 H 148.453 90.978384"

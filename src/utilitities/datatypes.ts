@@ -39,6 +39,50 @@ export interface othersContent {
   };
 }
 
-export interface footerContent {
-  link: string;
+// export type portfolioCategory = "web" | "mobile" | "backend" | "iot";
+export type portfolioCategory = "web" | "full-stack";
+
+export interface portfolioProject {
+  title: string;
+  description: string;
+  category: portfolioCategory;
+  stack: string[];
+  year: string;
+  status: string;
+  link?: string;
+  repo?: string;
+}
+
+export interface portfolioContent {
+  tag: string;
+  title: string;
+  subtitle: string;
+  all: string;
+  categories: Record<portfolioCategory, string>;
+  stats: {
+    projects: string;
+    technologies: string;
+    areas: string;
+  };
+  viewProject: string;
+  viewCode: string;
+  projects: portfolioProject[];
+}
+
+export type infraTool =
+  | "aws"
+  | "docker"
+  | "nginx"
+  | "vercel"
+  | "postgresql"
+  | "opentelemetry"
+  | "grafana";
+
+export interface infraContent {
+  tag: string;
+  title: string;
+  highlight: string;
+  subtitle: string;
+  core: string;
+  tools: Record<infraTool, { category: string; description: string }>;
 }

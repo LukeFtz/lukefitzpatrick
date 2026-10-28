@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { animate, motion, useMotionValue, useTransform } from "framer-motion";
-import $ from "jquery";
+import { getViewportSize } from "@/utilitities/functions";
 
 let width = 0;
 let height = 0;
@@ -266,8 +266,7 @@ const AnimatedSquares = () => {
   };
 
   useEffect(() => {
-    const auxWidth = $(window).width();
-    const auxHeight = $(window).height();
+    const { width: auxWidth, height: auxHeight } = getViewportSize();
 
     if (auxWidth && auxHeight) {
       width = auxWidth;

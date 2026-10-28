@@ -116,7 +116,7 @@ const SquaresBackgroundMobile: React.FC<headerContent> = ({
       {/* <div className={`${styles.backgroundheight}`}> */}
       <div className={`${styles.backgroundheight}`}>
         <div
-          className={`row align-items-center justify-content-center ${styles.paddingTop}`}
+          className={`flex flex-wrap -mx-3 items-center justify-center ${styles.paddingTop}`}
         >
           <motion.div
             id="id_thirdSquareLeftTop"
@@ -126,7 +126,7 @@ const SquaresBackgroundMobile: React.FC<headerContent> = ({
               rotateZ: "45deg",
               opacity: oThirdTop,
             }}
-            className={`${styles.thirdSquareLeftTop} position-absolute`}
+            className={`shrink-0 max-w-full px-3 w-full ${styles.thirdSquareLeftTop} absolute`}
           />
           <motion.div
             id="id_thirdSquareLeftBottom"
@@ -136,7 +136,7 @@ const SquaresBackgroundMobile: React.FC<headerContent> = ({
               rotateZ: "45deg",
               opacity: oThirdBottom,
             }}
-            className={`${styles.thirdSquareLeftBottom} position-absolute`}
+            className={`shrink-0 max-w-full px-3 w-full ${styles.thirdSquareLeftBottom} absolute`}
           />
           <motion.div
             id="id_thirdSquareRightTop"
@@ -146,7 +146,7 @@ const SquaresBackgroundMobile: React.FC<headerContent> = ({
               rotateZ: "45deg",
               opacity: oThirdRightTop,
             }}
-            className={`${styles.thirdSquareRightTop} position-absolute`}
+            className={`shrink-0 max-w-full px-3 w-full ${styles.thirdSquareRightTop} absolute`}
           />
           <motion.div
             id="id_thirdSquareRightBottom"
@@ -156,26 +156,26 @@ const SquaresBackgroundMobile: React.FC<headerContent> = ({
               rotateZ: "45deg",
               opacity: oThirdRightBottom,
             }}
-            className={`${styles.thirdSquareRightBottom} position-absolute`}
+            className={`shrink-0 max-w-full px-3 w-full ${styles.thirdSquareRightBottom} absolute`}
           />
           <motion.div
             id="id_leftSquare"
             style={{ y: yLeft, rotateZ: "45deg", opacity: oLeft }}
-            className={`${styles.secondSquareLeft} position-absolute`}
+            className={`shrink-0 max-w-full px-3 w-full ${styles.secondSquareLeft} absolute`}
           />
           <motion.div
             id="id_rightSquare"
             style={{ y: yRight, rotateZ: "45deg", opacity: oRight }}
-            className={`${styles.secondSquareRight} position-absolute`}
+            className={`shrink-0 max-w-full px-3 w-full ${styles.secondSquareRight} absolute`}
           />
           <motion.div
             style={{ opacity: oMain }}
-            className={`${styles.mainSquare} row justify-content-center`}
+            className={`flex flex-wrap -mx-3 shrink-0 max-w-full px-3 w-full ${styles.mainSquare} justify-center`}
           >
             <Image
               src={picture}
               alt="Photo Luke"
-              className={`${styles.profileimage}`}
+              className={`shrink-0 max-w-full px-3 w-full ${styles.profileimage}`}
             />
           </motion.div>
         </div>
@@ -186,7 +186,7 @@ const SquaresBackgroundMobile: React.FC<headerContent> = ({
             Luke Fitzpatrick
           </h1>
           <h2
-            className={`${plus_jakarta_sans.className} text-center fs-4 mt-3 text-secondary`}
+            className={`${plus_jakarta_sans.className} text-center text-h4 mt-4 text-secondary`}
           >
             {title}
           </h2>

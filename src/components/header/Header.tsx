@@ -10,7 +10,6 @@ import TextHeader from "./TextHeader";
 import { defineLanguage } from "@/utilitities/functions";
 import { language } from "@/utilitities/types";
 import { useRouter } from "next/router";
-import $ from "jquery";
 import ProfileImage from "./ProfileImage";
 import { isLineStaterd } from "@/store/redures/headerReducer";
 import { useAppSelector } from "@/store/hooks";
@@ -24,8 +23,15 @@ const plus_jakarta_sans = Plus_Jakarta_Sans({
   subsets: ["latin"],
 });
 
+const langButton =
+  "inline-block rounded-full border px-3 py-1.5 text-base font-normal leading-normal text-white transition-colors btnSize";
+const langButtonActive = "bg-success border-success hover:bg-success-hover";
+const langButtonInactive =
+  "bg-secondary border-secondary hover:bg-secondary-hover";
+
 const Header: React.FC = () => {
   const [data, setData] = useState<headerContent | null>(null);
+  const [currentLang, setCurrentLang] = useState<language["language"]>("pt");
   const router = useRouter();
 
   const startAnimation = useAppSelector(isLineStaterd);
@@ -42,22 +48,10 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     const dataLang: string | null = localStorage.getItem("language");
-    const btnLangPt = $("#id_btn_pt");
-    const btnLangEn = $("#id_btn_en");
     if ((dataLang && dataLang === "en") || dataLang === "pt") {
       const auxData = getDataHeader(dataLang);
       setData(auxData);
-      if (dataLang === "en") {
-        btnLangPt.removeClass("btn-success");
-        btnLangPt.addClass("btn-secondary");
-        btnLangEn.removeClass("btn-secondary");
-        btnLangEn.addClass("btn-success");
-      } else {
-        btnLangPt.removeClass("btn-secondary");
-        btnLangPt.addClass("btn-success");
-        btnLangEn.removeClass("btn-success");
-        btnLangEn.addClass("btn-secondary");
-      }
+      setCurrentLang(dataLang);
     } else {
       localStorage.setItem("language", "pt");
       const auxData = getDataHeader("pt");
@@ -73,19 +67,21 @@ const Header: React.FC = () => {
 
   return (
     <div>
-      <div className="d-none d-md-block">
+      <div className="hidden md:block">
         {data && <SquaresBackground {...data} />}
       </div>
-      <div className="d-block d-md-none">
+      <div className="block md:hidden">
         {data && <SquaresBackgroundMobile {...data} />}
       </div>
-      <div className="d-block d-md-none pt-3 mt-3" />
-      <motion.div className="mt-5 pt-5 text-center" style={{ y, opacity }}>
+      <div className="block md:hidden pt-4 mt-4" />
+      <motion.div className="mt-12 pt-12 text-center" style={{ y, opacity }}>
         <div className={plus_jakarta_sans.className}>{data?.language}</div>
-        <div className="display-5 fs-2 mt-3">
+        <div className="text-display-5 font-light leading-tight text-h2 mt-4">
           <button
             id="id_btn_pt"
-            className="btn btn-success rounded-pill btnSize me-1"
+            className={`${langButton} ${
+              currentLang === "pt" ? langButtonActive : langButtonInactive
+            } mr-1`}
             onClick={() => {
               defineLang({ language: "pt" });
             }}
@@ -94,7 +90,9 @@ const Header: React.FC = () => {
           </button>
           <button
             id="id_btn_en"
-            className="btn btn-secondary rounded-pill btnSize ms-1"
+            className={`${langButton} ${
+              currentLang === "en" ? langButtonActive : langButtonInactive
+            } ml-1`}
             onClick={() => {
               defineLang({ language: "en" });
             }}

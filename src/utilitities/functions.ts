@@ -139,3 +139,64 @@ export const defineAreaValue = ({ area }: pageScrollLine) => {
   newArea = { area: "CLOUD", nextArea: "CLOUD", prevArea: "PLUG" };
   return newArea;
 };
+
+// Viewport size without scrollbars
+export const getViewportSize = () => ({
+  width: document.documentElement.clientWidth,
+  height: document.documentElement.clientHeight,
+});
+
+// Content-box height of the element with the given id
+export const getElementHeight = (id: string) => {
+  const el = document.getElementById(id);
+  if (!el) return undefined;
+  const style = getComputedStyle(el);
+  const extra = [
+    "paddingTop",
+    "paddingBottom",
+    "borderTopWidth",
+    "borderBottomWidth",
+  ]
+    .map(
+      (prop) =>
+        parseFloat(style[prop as keyof CSSStyleDeclaration] as string) || 0
+    )
+    .reduce((a, b) => a + b, 0);
+  return el.getBoundingClientRect().height - extra;
+};
+
+// Position of the element relative to its offset parent (document for SVG elements)
+export const getElementPosition = (id: string) => {
+  const el = document.getElementById(id);
+  if (!el) return { top: 0, left: 0 };
+  const rect = el.getBoundingClientRect();
+  const style = getComputedStyle(el);
+
+  let parent = (el as HTMLElement).offsetParent as HTMLElement | null;
+  while (
+    parent &&
+    (parent === document.body || parent === document.documentElement) &&
+    getComputedStyle(parent).position === "static"
+  ) {
+    parent = parent.parentElement;
+  }
+
+  let parentTop = 0;
+  let parentLeft = 0;
+  if (parent) {
+    const parentRect = parent.getBoundingClientRect();
+    const parentStyle = getComputedStyle(parent);
+    parentTop = parentRect.top + (parseFloat(parentStyle.borderTopWidth) || 0);
+    parentLeft =
+      parentRect.left + (parseFloat(parentStyle.borderLeftWidth) || 0);
+  } else {
+    // Relative to the document
+    parentTop = -window.scrollY;
+    parentLeft = -window.scrollX;
+  }
+
+  return {
+    top: rect.top - parentTop - (parseFloat(style.marginTop) || 0),
+    left: rect.left - parentLeft - (parseFloat(style.marginLeft) || 0),
+  };
+};

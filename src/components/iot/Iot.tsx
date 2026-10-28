@@ -1,6 +1,6 @@
 import { Plus_Jakarta_Sans } from "@next/font/google";
 import React, { useEffect, useState } from "react";
-import $ from "jquery";
+import { getViewportSize } from "@/utilitities/functions";
 import {
   AirConditioner,
   Camera,
@@ -506,8 +506,7 @@ const Iot: React.FC = () => {
   };
 
   useEffect(() => {
-    const auxWidth = $(window).width();
-    const auxHeight = $(window).height();
+    const { width: auxWidth, height: auxHeight } = getViewportSize();
 
     if (auxWidth && auxHeight) {
       width = auxWidth;
@@ -518,23 +517,24 @@ const Iot: React.FC = () => {
   }, []);
 
   return (
-    <div id="id_main_iot_div" className="row justify-content-center">
-      <div className="col-9 col-md-3 row justify-content-center align-items-center">
-        <Cloud />
+    <div id="id_main_iot_div" className="flex flex-wrap -mx-3 justify-center">
+      <div className="flex flex-wrap -mx-3 shrink-0 max-w-full px-3 w-3/4 md:w-1/4 justify-center items-center">
+        <Cloud className="shrink-0 max-w-full px-3 w-full" />
         <h2
-          className={`${plus_jakarta_sans.className} display-3 text-center position-absolute text-light mt-5`}
+          className={`shrink-0 max-w-full px-3 w-full ${plus_jakarta_sans.className} text-display-3 font-light leading-tight text-center absolute text-light mt-12`}
         >
           {data?.title}
         </h2>
       </div>
       <h2
-        className={`${plus_jakarta_sans.className} fs-1 text-secondary mt-5 text-center`}
+        className={`shrink-0 max-w-full px-3 w-full ${plus_jakarta_sans.className} text-h1 text-secondary mt-12 text-center`}
       >
         {data?.firstSubtitle}
       </h2>
 
-      <div className="row justify-content-center col-11">
+      <div className="flex flex-wrap -mx-3 shrink-0 max-w-full px-3 justify-center w-11/12">
         <motion.svg
+          className="shrink-0 max-w-full px-3 w-full"
           viewBox="0 0 1585 973"
           fill="none"
           version="1.1"

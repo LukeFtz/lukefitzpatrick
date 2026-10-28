@@ -5,7 +5,6 @@ import redux from "../../../public/media/frontend/redux.svg";
 import react from "../../../public/media/frontend/react.svg";
 import typescript from "../../../public/media/frontend/typescript.svg";
 import mobile from "../../../public/media/frontend/mobile.svg";
-import $ from "jquery";
 
 import {
   Jquery,
@@ -30,7 +29,7 @@ import { getDataFrontend } from "@/utilitities/data/getData";
 import Desktop from "./Desktop";
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
-  weight: "200",
+  weight: ["200", "600"],
   subsets: ["latin"],
 });
 
@@ -50,11 +49,8 @@ const Frontend: React.FC = () => {
   const isInView = useInView(scrollRef);
   const scrollTextRef = useRef(null);
   const isTextInView = useInView(scrollTextRef);
-  const { scrollY } = useScroll();
+
   // const scrollPrev = useMotionValue(0);
-  const webMob = useMotionValue(0);
-  const webMob2 = useMotionValue(0);
-  const webMob3 = useMotionValue(0);
 
   const [data, setData] = useState<frontendContent | null>(null);
 
@@ -83,61 +79,6 @@ const Frontend: React.FC = () => {
     });
   };
 
-  const animateWebMobDefault = () => {
-    animate(webMob, 0, {
-      duration: 1,
-      ease: "easeOut",
-    });
-    animate(webMob2, 0, {
-      duration: 1,
-      ease: "easeOut",
-    });
-    animate(webMob3, 0, {
-      duration: 1,
-      ease: "easeOut",
-    });
-  };
-  const animateWebMobUp = () => {
-    animate(webMob, -50, {
-      duration: 0.1,
-      onComplete: () => animateWebMobDefault(),
-    });
-    animate(webMob2, -90, {
-      duration: 0.1,
-      onComplete: () => animateWebMobDefault(),
-    });
-    animate(webMob3, -120, {
-      duration: 0.1,
-      onComplete: () => animateWebMobDefault(),
-    });
-  };
-  const animateWebMobDown = () => {
-    animate(webMob, 120, {
-      duration: 0.1,
-      onComplete: () => animateWebMobDefault(),
-    });
-    animate(webMob2, 90, {
-      duration: 0.1,
-      onComplete: () => animateWebMobDefault(),
-    });
-    animate(webMob3, 50, {
-      duration: 0.1,
-      onComplete: () => animateWebMobDefault(),
-    });
-  };
-
-  const scrollHandler = () => {
-    if (scrollY.get() - scrollPrev > 0) {
-      scrollPrev = scrollY.get();
-      animateWebMobUp();
-    } else {
-      animateWebMobDown();
-      scrollPrev = scrollY.get();
-    }
-  };
-
-  useMotionValueEvent(scrollY, "change", () => scrollHandler());
-
   useEffect(() => {
     // defineValues();
     if (isInView) {
@@ -156,13 +97,13 @@ const Frontend: React.FC = () => {
   }, [isTextInView]);
 
   return (
-    <div id="id_frontend_div" className="container pt-5" ref={scrollRef}>
-      <div className="row justify-content-center">
-        <div className="col-11 col-md-10 col-xl-12">
-          <div className="row justify-content-end text-end">
-            <div className="col-12 col-xl-6 overflowXHidden">
+    <div id="id_frontend_div" className="container pt-12" ref={scrollRef}>
+      <div className="flex flex-wrap -mx-3 justify-center">
+        <div className="shrink-0 max-w-full px-3 w-11/12 md:w-5/6 xl:w-full">
+          <div className="flex flex-wrap -mx-3 justify-end text-right">
+            <div className="shrink-0 max-w-full px-3 w-full xl:w-1/2 overflowXHidden">
               <motion.h2
-                className={`${plus_jakarta_sans.className} fs-1 mb-5 `}
+                className={`${plus_jakarta_sans.className} text-h1 mb-12 `}
                 style={{ x: xFrontend }}
               >
                 {data?.title}
@@ -173,60 +114,62 @@ const Frontend: React.FC = () => {
       </div>
 
       <div className="container">
-        <div className="justify-content-center row">
-          <div className="row col-3 mt-5 pt-5 justify-content-center">
+        <div className="flex flex-wrap justify-center sm:w-9/12 mx-auto">
+          <div className="flex flex-wrap -mx-3 shrink-0 max-w-full px-3 w-1/4 justify-center">
             <motion.div
-              className="col-12 col-md-9"
+              className="shrink-0 max-w-full px-3 w-full md:w-3/4"
               style={{ y: yFrontendItems, opacity }}
             >
-              <Image src={redux} alt="Redux icon" className="img-fluid w-100" />
+              <div className="max-w-full h-auto w-full">
+                <svg className="text-[#000000] dark:text-[#000000] " fill="none" height="100%" viewBox="-48 -88 514 624" width="100%"><path d="M299.613.5h68.094v353.034h-68.094V.5Z" stroke="url(#_S_1_-upright)" strokeWidth="2" vectorEffect="non-scaling-stroke"></path><path d="m68.993 1 395.512 499.213a268 268 0 0 1-45.25 34.753L54.963 74.459l-.893-1.128v274.127H.5V1h68.493Z" stroke="url(#_S_1_-diagonal)" strokeWidth="2" vectorEffect="non-scaling-stroke"></path><defs><linearGradient gradientUnits="userSpaceOnUse" id="_S_1_-upright" x1="367.707" x2="367.707" y1="151.917" y2="353.534"><stop stopColor="currentColor"></stop><stop offset=".3" stopColor="currentColor" stopOpacity="0"></stop></linearGradient><linearGradient gradientUnits="userSpaceOnUse" id="_S_1_-diagonal" x1="281.642" x2="424.017" y1="308.647" y2="486.349"><stop stopColor="currentColor"></stop><stop offset="1" stopColor="currentColor" stopOpacity="0"></stop></linearGradient></defs></svg>
+              </div>
             </motion.div>
             <motion.div
-              className="col-12 text-center mb-5"
+              className="shrink-0 max-w-full px-3 w-full text-center mb-12"
               style={{ opacity: opacityText }}
             >
               <h2
-                className={`${plus_jakarta_sans.className} fontSmall fs-md-5 mb-5`}
+                className={`${plus_jakarta_sans.className} text-base font-semibold  mb-12`}
               >
-                Redux
+                Next.js
               </h2>
             </motion.div>
           </div>
           <motion.div
-            className="row col-6 mt-5 pt-5 justify-content-center"
+            className="flex flex-wrap -mx-3 shrink-0 max-w-full px-3 w-1/2 justify-center"
             style={{ y: yFrontendReact, opacity }}
           >
-            <div className="col-12 col-md-10 reactRotate">
-              <Image src={react} alt="React icon" className="img-fluid w-100" />
+            <div className="shrink-0 max-w-full px-3 w-full md:w-5/6 reactRotate">
+              <Image src={react} alt="React icon" className="max-w-full h-auto w-full" />
             </div>
             <motion.div
-              className="col-12 text-center mt-5"
+              className="shrink-0 max-w-full px-3 w-full text-center mt-12"
               style={{ opacity: opacityText }}
             >
               <h2
-                className={`${plus_jakarta_sans.className} fontSmallReactNative  mt-md-5`}
+                className={`${plus_jakarta_sans.className} text-base font-semibold ReactNative md:mt-12`}
               >
                 React & React Native
               </h2>
             </motion.div>
           </motion.div>
-          <div className="row col-3 mt-5 pt-5 justify-content-center">
+          <div className="flex flex-wrap -mx-3 shrink-0 max-w-full px-3 w-1/4 justify-center">
             <motion.div
-              className="col-12 col-md-9"
+              className="shrink-0 max-w-full px-3 w-full md:w-3/4"
               style={{ y: yFrontendItems, opacity }}
             >
               <Image
                 src={typescript}
                 alt="Typescript icon"
-                className="img-fluid w-100"
+                className="max-w-full h-auto w-full"
               />
             </motion.div>
             <motion.div
-              className="col-12 text-center mb-5"
+              className="shrink-0 max-w-full px-3 w-full text-center mb-12"
               style={{ opacity: opacityText }}
             >
               <h2
-                className={`${plus_jakarta_sans.className} fontSmall fs-md-5 mb-5`}
+                className={`${plus_jakarta_sans.className} text-base font-semibold  mb-12`}
               >
                 Typescript
               </h2>
@@ -234,173 +177,109 @@ const Frontend: React.FC = () => {
           </div>
         </div>
 
-        <div className="mt-5">
+        <div className="mt-12">
           <Desktop />
         </div>
 
-        <div className="container mt-5">
-          <div className="row justify-content-center ">
+        <div className="container mt-12">
+          <div className="flex flex-wrap -mx-3 justify-center">
             <motion.div
-              className="col-12 col-md-9"
+              className="shrink-0 max-w-full px-3 w-full md:w-3/4"
               style={{ opacity: opacityText }}
             >
               <p
-                className={`${plus_jakarta_sans.className} fs-6 mt-5 text-center`}
+                className={`${plus_jakarta_sans.className} text-h6 mt-12 text-center`}
               >
                 {data?.firstParagraph}
               </p>
             </motion.div>
           </div>
         </div>
-        <div className="w-100" />
+        <div className="w-full" />
         <motion.div
-          className="row justify-content-center"
+          className="flex flex-wrap -mx-3 justify-center"
           style={{ opacity: opacityText }}
         >
-          <div className="row justify-content-center col-12 col-md-6 mt-5 pt-5">
-            <div className="col-12 col-md-12 text-center">
+          <div className="flex flex-wrap -mx-3 shrink-0 max-w-full px-3 justify-center w-full md:w-1/2">
+            <div className="shrink-0 max-w-full px-3 w-full text-center">
               <Image
                 src={mobile}
                 alt="Mobile icon"
-                className="img-fluid w-100"
+                className="max-w-full h-auto w-full"
               />
             </div>
           </div>
         </motion.div>
-        <div className="container mt-5 mb-5">
-          <div className="row justify-content-center mb-5">
-            <div className="col-12 col-md-8">
+        <div className="container mt-12 mb-12">
+          <div className="flex flex-wrap -mx-3 justify-center mb-12">
+            <div className="shrink-0 max-w-full px-3 w-full md:w-2/3">
               <p
-                className={`${plus_jakarta_sans.className} fs-6 mt-5 text-center`}
+                className={`${plus_jakarta_sans.className} text-h6 mt-12 text-center`}
               >
                 {data?.secondParagraph}
               </p>
             </div>
           </div>
-          <div className="row justify-content-center mt-5 mb-5">
-            <div className="col-6 col-md-6 row ">
-              <div className="mb-5">
-                <h3
-                  className={`${plus_jakarta_sans.className} fs-5 fs-md-3 mt-5 text-center`}
+          <div className="flex flex-wrap -mx-3 justify-center mt-12 mb-12">
+            <div className="flex flex-wrap mx-auto shrink-0 max-w-full px-3">
+              <div className="grid grid-cols-1 sm:grid-cols-4 gap-x-2">
+                <p
+                  className={`${plus_jakarta_sans.className} text-base font-semibold  text-left`}
                 >
-                  Web
-                </h3>
-              </div>
+                  Server Side Rendering
+                </p>
 
-              <div className="border-end row">
-                <motion.div
-                  className="row col-12 align-items-center mb-5 mt-5"
-                  style={{ y: webMob }}
+                <p
+                  className={`${plus_jakarta_sans.className} text-base font-semibold  text-left`}
                 >
-                  <div className="col-6 col-md-2">
-                    <NextJs />
-                  </div>
-                  <div className="col-6 col-md-10">
-                    <p
-                      className={`${plus_jakarta_sans.className} fontSmall fs-md-5 text-start`}
-                    >
-                      Next.js
-                    </p>
-                  </div>
-                </motion.div>
-                <motion.div
-                  className="row col-12 align-items-center mb-5 mt-5"
-                  style={{ y: webMob2 }}
+                  Tailwind CSS
+                </p>
+                <p
+                  className={`${plus_jakarta_sans.className} text-base font-semibold  text-left`}
                 >
-                  <div className="col-6 col-md-2">
-                    <ReactRouter />
-                  </div>
-                  <div className="col-6 col-md-10">
-                    <p
-                      className={`${plus_jakarta_sans.className} fontSmall fs-md-5 text-start`}
-                    >
-                      React Router Dom
-                    </p>
-                  </div>
-                </motion.div>
-                <motion.div
-                  className="row col-12 align-items-center mt-5"
-                  style={{ y: webMob3 }}
+                  React Router Dom
+                </p>
+                <p
+                  className={`${plus_jakarta_sans.className} text-base font-semibold  text-left`}
                 >
-                  <div className="col-6 col-md-2">
-                    <Jquery />
-                  </div>
-                  <div className="col-6 col-md-10">
-                    <p
-                      className={`${plus_jakarta_sans.className} fontSmall fs-md-5 text-start`}
-                    >
-                      Jquery
-                    </p>
-                  </div>
-                </motion.div>
-              </div>
-            </div>
-            <div className="col-6 col-md-6 row">
-              <div className="mb-5">
-                <h3
-                  className={`${plus_jakarta_sans.className} fs-5 fs-md-3 mt-5 text-center`}
+                  Framer Motion
+                </p>
+                <p
+                  className={`${plus_jakarta_sans.className} text-base font-semibold  text-left`}
                 >
-                  Mobile
-                </h3>
-              </div>
-
-              <div className="row">
-                <motion.div
-                  className="row col-12 align-items-center mb-5 mt-5"
-                  style={{ y: webMob }}
+                  Redux
+                </p>
+                <p
+                  className={`${plus_jakarta_sans.className} text-base font-semibold  text-left`}
                 >
-                  <div className="col-8 col-md-10">
-                    <p
-                      className={`${plus_jakarta_sans.className} fontSmall fs-md-5 text-end`}
-                    >
-                      React Navigation
-                    </p>
-                  </div>
-                  <div className="col-3 col-md-2 ">
-                    <ReactNavigation />
-                  </div>
-                </motion.div>
-                <motion.div
-                  className="row col-12 align-items-center mb-5 mt-5"
-                  style={{ y: webMob2 }}
+                  TanStack
+                </p>
+                <p
+                  className={`${plus_jakarta_sans.className} text-base font-semibold  text-left`}
                 >
-                  <div className="col-8 col-md-10">
-                    <p
-                      className={`${plus_jakarta_sans.className} fontSmall fs-md-5 text-end`}
-                    >
-                      Expo
-                    </p>
-                  </div>
-                  <div className="col-3 col-md-2">
-                    <Expo />
-                  </div>
-                </motion.div>
-                <motion.div
-                  className="row col-12 align-items-center mt-5"
-                  style={{ y: webMob3 }}
+                  TipTap
+                </p>
+                <p
+                  className={`${plus_jakarta_sans.className} text-base font-semibold  text-left`}
                 >
-                  <div className="col-8 col-md-10">
-                    <div
-                      className={`${plus_jakarta_sans.className} fontSmall fs-md-5 text-end`}
-                    >
-                      React Native Reanimated
-                    </div>
-                    <div
-                      className={`${plus_jakarta_sans.className} fontSmall fs-md-5 text-end`}
-                    >
-                      React Native Gesture Handler
-                    </div>
-                  </div>
-                  <div className="col-3 col-md-2">
-                    <SoftwareMansion />
-                  </div>
-                </motion.div>
+                  React Navigation
+                </p>
+                <p
+                  className={`${plus_jakarta_sans.className} text-base font-semibold  text-left`}
+                >
+                  Expo
+                </p>
+                <p
+                  className={`${plus_jakarta_sans.className} text-base font-semibold  text-left`}
+                >
+                  React Native Reanimated
+                </p>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 };
 
