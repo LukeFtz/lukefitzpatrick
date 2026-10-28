@@ -15,7 +15,7 @@ import {
 import { prototypeContent } from "@/utilitities/datatypes";
 import { getDataPrototype } from "@/utilitities/data/getData";
 import Devices from "./Devices";
-import { plus_jakarta_sans } from "@/utilitities/fonts";
+import { orbitron, plus_jakarta_sans } from "@/utilitities/fonts";
 
 
 const Prototype: React.FC = () => {
@@ -79,7 +79,7 @@ const Prototype: React.FC = () => {
         <div className="shrink-0 max-w-full px-3 w-5/6 md:w-11/12 xl:w-full">
           <div className="shrink-0 w-full xl:w-1/2 overflowXHidden">
             <motion.h2
-              className={`${plus_jakarta_sans.className} text-h1 mb-12 hidden md:block`}
+              className={`${orbitron.className} bg-black bg-clip-text text-2xl font-bold uppercase tracking-wider text-transparent pt-2  md:text-4xl`}
               style={{ x: xPrototype }}
             >
               {data?.title}

@@ -206,20 +206,15 @@ const Infrastructure: React.FC = () => {
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          {/* <p
-            className={`${jetbrains_mono.className} mb-4 text-sm uppercase tracking-[0.3em] text-cyan-600`}
-          >
-            {data?.tag}
-          </p> */}
           <h2
-            className={`${orbitron.className} text-3xl font-bold uppercase tracking-wide text-slate-900 md:text-5xl`}
+            className={`${orbitron.className} text-2xl md:text-4xl font-bold uppercase tracking-wide text-slate-900`}
           >
             {data?.title}{" "}
             <span className="bg-slate-900 bg-clip-text text-transparent">
               {data?.highlight}
             </span>
           </h2>
-          <p className="mx-auto mt-6 max-w-2xl text-base text-slate-500 md:text-lg">
+          <p className="mx-auto mt-6 max-w-2xl text-base text-slate-600 md:text-lg">
             {data?.subtitle}
           </p>
         </motion.div>
@@ -289,7 +284,7 @@ const Infrastructure: React.FC = () => {
                           >
                             {content.category}
                           </p>
-                          <p className="mb-0 text-sm leading-relaxed text-slate-500">
+                          <p className="mb-0 text-sm leading-relaxed text-slate-600">
                             {content.description}
                           </p>
                         </div>

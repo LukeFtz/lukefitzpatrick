@@ -14,7 +14,7 @@ import {
 import { backendContent } from "@/utilitities/datatypes";
 import { getDataBackend } from "@/utilitities/data/getData";
 import Engine from "./Engine";
-import { plus_jakarta_sans_semibold as plus_jakarta_sans } from "@/utilitities/fonts";
+import { orbitron, plus_jakarta_sans_semibold as plus_jakarta_sans } from "@/utilitities/fonts";
 
 
 const Backend: React.FC = () => {
@@ -91,7 +91,7 @@ const Backend: React.FC = () => {
         <div className="shrink-0 max-w-full px-3 w-full md:w-11/12 xl:w-full">
           <div className="shrink-0 w-full xl:w-1/2 overflowXHidden">
             <motion.h2
-              className={`${plus_jakarta_sans.className} text-h1 mb-12 `}
+              className={`${orbitron.className} bg-black bg-clip-text text-2xl font-bold uppercase tracking-wider text-transparent pt-2  md:text-4xl`}
               style={{ x: xBackend }}
             >
               {data?.title}

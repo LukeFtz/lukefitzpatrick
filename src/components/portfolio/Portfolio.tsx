@@ -75,7 +75,6 @@ const Portfolio: React.FC = () => {
     <section
       id="id_portfolio_div"
       ref={sectionRef}
-      // className="relative overflow-hidden bg-slate-200 py-24 text-slate-100 md:py-32"
       className="relative overflow-hidden bg-linear-to-b from-white via-slate-900 to-white py-24 text-slate-100 md:py-32"
     >
 

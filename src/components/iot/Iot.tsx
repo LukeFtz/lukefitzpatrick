@@ -24,7 +24,7 @@ import { mobileDevice } from "@/utilitities/types";
 import Cloud from "./cloud";
 import { othersContent } from "@/utilitities/datatypes";
 import { getDataOthers } from "@/utilitities/data/getData";
-import { plus_jakarta_sans } from "@/utilitities/fonts";
+import { orbitron, plus_jakarta_sans } from "@/utilitities/fonts";
 
 // import { Container } from './styles';
 
@@ -523,7 +523,7 @@ const Iot: React.FC = () => {
         </h2>
       </div>
       <h2
-        className={`shrink-0 max-w-full px-3 w-full ${plus_jakarta_sans.className} text-h1 text-secondary mt-12 text-center`}
+        className={`shrink-0 max-w-full px-3 w-full ${orbitron.className} text-2xl md:text-4xl text-black mt-12 text-center`}
       >
         {data?.firstSubtitle}
       </h2>

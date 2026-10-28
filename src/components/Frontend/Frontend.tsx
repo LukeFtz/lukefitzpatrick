@@ -26,7 +26,7 @@ import {
 import { frontendContent } from "@/utilitities/datatypes";
 import { getDataFrontend } from "@/utilitities/data/getData";
 import Desktop from "./Desktop";
-import { plus_jakarta_sans_semibold as plus_jakarta_sans } from "@/utilitities/fonts";
+import { orbitron, plus_jakarta_sans_semibold as plus_jakarta_sans } from "@/utilitities/fonts";
 
 
 let scrollPrev = 0;
@@ -99,7 +99,7 @@ const Frontend: React.FC = () => {
           <div className="flex flex-wrap -mx-3 justify-end text-right">
             <div className="shrink-0 max-w-full px-3 w-full xl:w-1/2 overflowXHidden">
               <motion.h2
-                className={`${plus_jakarta_sans.className} text-h1 mb-12 `}
+                className={`${orbitron.className} bg-black bg-clip-text text-2xl font-bold uppercase tracking-wider text-transparent pt-2  md:text-4xl`}
                 style={{ x: xFrontend }}
               >
                 {data?.title}
@@ -111,7 +111,7 @@ const Frontend: React.FC = () => {
 
       <div className="container">
         <div className="flex flex-wrap justify-center sm:w-9/12 mx-auto">
-          <div className="flex flex-wrap -mx-3 shrink-0 max-w-full px-3 w-1/4 justify-center">
+          <div className="flex flex-wrap sm:mx-3 shrink-0 max-w-full sm:px-3 w-1/3 sm:w-1/4 justify-center">
             <motion.div
               className="shrink-0 max-w-full px-3 w-full md:w-3/4"
               style={{ y: yFrontendItems, opacity }}
@@ -132,7 +132,7 @@ const Frontend: React.FC = () => {
             </motion.div>
           </div>
           <motion.div
-            className="flex flex-wrap -mx-3 shrink-0 max-w-full px-3 w-1/2 justify-center"
+            className="flex flex-wrap -mx-3 shrink-0 max-w-full px-3 w-1/3 sm:w-1/2 justify-center"
             style={{ y: yFrontendReact, opacity }}
           >
             <div className="shrink-0 max-w-full px-3 w-full md:w-5/6 reactRotate">
@@ -149,7 +149,7 @@ const Frontend: React.FC = () => {
               </h2>
             </motion.div>
           </motion.div>
-          <div className="flex flex-wrap -mx-3 shrink-0 max-w-full px-3 w-1/4 justify-center">
+          <div className="flex flex-wrap -mx-3 shrink-0 max-w-full px-3 w-1/3 sm:w-1/4 justify-center">
             <motion.div
               className="shrink-0 max-w-full px-3 w-full md:w-3/4"
               style={{ y: yFrontendItems, opacity }}

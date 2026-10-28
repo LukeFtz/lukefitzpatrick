@@ -28,7 +28,7 @@ export default function Home() {
 
         <Portfolio />
 
-        <div className="pt-16">
+        <div className="">
           <Menu />
         </div>
         <div className="bg-slate-50 bg-[radial-gradient(#cbd5e1_1px,transparent_1px)] bg-[length:24px_24px] py-8">
